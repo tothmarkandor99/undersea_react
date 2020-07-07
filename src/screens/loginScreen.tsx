@@ -9,6 +9,7 @@ import {
 import {useFonts} from '@use-expo/font'
 import React from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
+import {Margins} from '../constants/margins'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>

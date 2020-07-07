@@ -1,9 +1,7 @@
 export interface User {
-  userId: number,
-  userName: string,
-  cityName: string,
-  accessToken: string,
-  refreshToken: string,
-  round: number,
-  place: number,
+  userId: number
+  name: string
+  city: string
+  round: number
+  place: number
 }

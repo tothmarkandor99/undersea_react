@@ -4,7 +4,9 @@ import {
   Text,
   TouchableWithoutFeedback,
   TextInput,
+  StyleSheet,
 } from 'react-native'
+import {useFonts} from '@use-expo/font'
 import React from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
 
@@ -14,9 +16,11 @@ interface LoginScreenProps {
 
 export default LoginScreen
 function LoginScreen({navigation}: LoginScreenProps) {
+  useFonts({Baloo: require('../../assets/fonts/Baloo-Regular.ttf')})
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Undersea</Text>
+      <Text style={styles.loginBigText}>Undersea</Text>
       <View>
         <Text>Belépés</Text>
         <TextInput placeholder="Felhasználónév" />
@@ -35,3 +39,12 @@ function LoginScreen({navigation}: LoginScreenProps) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  loginBigText: {
+    fontFamily: 'Baloo',
+    textTransform: 'capitalize',
+    color: '#9FFFF0',
+    fontSize: 37,
+  },
+})

@@ -12,6 +12,7 @@ import LoginButton from '../components/loginButton'
 import {Spaces} from '../constants/spaces'
 import {useDispatch} from 'react-redux'
 import {BypassLogin} from '../store/user/user.actions'
+import {Margins} from '../constants/margins'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -24,7 +25,7 @@ function LoginScreen({navigation}: LoginScreenProps) {
   return (
     <ImageBackground
       source={require('../../assets/img/signin_bg.png')}
-      style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      style={styles.backgroundContainer}>
       <Text style={styles.loginBigText}>Undersea</Text>
       <View style={styles.whiteArea}>
         <Text style={styles.loginMediumText}>Belépés</Text>
@@ -66,19 +67,26 @@ function LoginScreen({navigation}: LoginScreenProps) {
 }
 
 const styles = StyleSheet.create({
+  backgroundContainer: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
   loginBigText: {
     fontFamily: 'Baloo',
     textTransform: 'uppercase',
     color: '#9FFFF0',
-    fontSize: Spaces.extraLarge,
+    fontSize: 45, // TODO: relatív méret
+    textAlign: 'center',
   },
   loginMediumText: {
     color: '#1C3E76',
     fontFamily: 'Baloo',
-    fontSize: Spaces.big,
+    fontSize: 30,
     textAlign: 'center',
+    marginTop: Spaces.medium,
+    marginBottom: Spaces.medium,
   },
-  inputContainer: {},
   loginField: {
     backgroundColor: 'white',
     color: '#1C3E76',
@@ -93,12 +101,16 @@ const styles = StyleSheet.create({
     borderRadius: Spaces.medium,
     padding: Spaces.medium,
     alignItems: 'stretch',
+    marginHorizontal: Spaces.large,
   },
+  inputContainer: {},
   loginButton: {
     flex: 0.7,
+    marginBottom: Spaces.medium,
   },
   bottomTextRow: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   bottomText: {
     fontFamily: 'Baloo',

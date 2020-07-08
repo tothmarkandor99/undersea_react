@@ -43,46 +43,46 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
           start={[0.5, 0]}
           end={[0.5, 1]}>
-          <View style={styles.footerButton}>
+          <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
               resizeMode="center"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
-          </View>
-          <View style={styles.footerButton}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
               resizeMode="center"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
-          </View>
-          <View style={styles.footerButton}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
               resizeMode="center"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
-          </View>
-          <View style={styles.footerButton}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
               resizeMode="center"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
-          </View>
-          <View style={styles.footerButton}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
               resizeMode="center"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
-          </View>
+          </TouchableOpacity>
         </LinearGradient>
       </View>
     </SafeAreaView>

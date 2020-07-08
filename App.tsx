@@ -2,9 +2,8 @@
 import 'react-native-gesture-handler'
 // Keep this top ^
 
-import {StatusBar} from 'expo-status-bar'
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import * as Font from 'expo-font'
@@ -13,6 +12,7 @@ import {AppLoading} from 'expo'
 // Screen imports
 import LoginScreen from './src/screens/loginScreen'
 import RegisterScreen from './src/screens/registerScreen'
+import GameScreen from './src/screens/gameScreen'
 
 // Resources
 let customFonts = {
@@ -29,6 +29,8 @@ export default function App() {
     })
   }
 
+  const [loggedIn, setLoggedIn] = useState(false)
+
   useEffect(() => {
     loadFonts()
     return () => {}
@@ -38,8 +40,16 @@ export default function App() {
     return (
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
+          {loggedIn ? (
+            <>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Register" component={RegisterScreen} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Game" component={GameScreen} />
+            </>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     )
@@ -48,11 +58,4 @@ export default function App() {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
+const styles = StyleSheet.create({})

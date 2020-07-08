@@ -7,10 +7,12 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 import {useDispatch} from 'react-redux'
 import {BypassLogout} from '../store/user/user.actions'
+import {Spaces} from '../constants/spaces'
 
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
@@ -30,14 +32,80 @@ const GameScreen = ({navigation}: GameScreenProps) => {
             }}>
             <Image
               style={styles.avatar}
-              resizeMode="center"
+              resizeMode="contain"
               source={require('../../assets/img/avatar.png')}
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.main}>
-          <Text>Main</Text>
-        </View>
+        <ImageBackground
+          style={styles.main}
+          source={require('../../assets/img/game_bg.png')}>
+          <View style={styles.mainTopArea}>
+            <Text>Top bar</Text>
+          </View>
+          <View style={styles.mainInfoOverlay}>
+            <View style={styles.infoOverlayRow}>
+              <View style={styles.infoOverlayItem}>
+                <Image
+                  style={styles.infoOverlayImage}
+                  resizeMode="contain"
+                  source={require('../../assets/img/avatar.png')}
+                />
+                <Text style={styles.infoOverlayText}>Épületek</Text>
+              </View>
+              <View style={styles.infoOverlayItem}>
+                <Image
+                  style={styles.infoOverlayImage}
+                  resizeMode="contain"
+                  source={require('../../assets/img/avatar.png')}
+                />
+                <Text style={styles.infoOverlayText}>Épületek</Text>
+              </View>
+              <View style={styles.infoOverlayItem}>
+                <Image
+                  style={styles.infoOverlayImage}
+                  resizeMode="contain"
+                  source={require('../../assets/img/avatar.png')}
+                />
+                <Text style={styles.infoOverlayText}>Épületek</Text>
+              </View>
+            </View>
+            <View style={styles.infoOverlayRow}>
+              <View style={styles.infoOverlayItem}>
+                <Image
+                  style={styles.infoOverlayImage}
+                  resizeMode="contain"
+                  source={require('../../assets/img/avatar.png')}
+                />
+                <Text style={styles.infoOverlayText}>Épületek</Text>
+              </View>
+              <View style={styles.infoOverlayItem}>
+                <Image
+                  style={styles.infoOverlayImage}
+                  resizeMode="contain"
+                  source={require('../../assets/img/avatar.png')}
+                />
+                <Text style={styles.infoOverlayText}>Épületek</Text>
+              </View>
+              <View style={styles.infoOverlayItem}>
+                <Image
+                  style={styles.infoOverlayImage}
+                  resizeMode="contain"
+                  source={require('../../assets/img/avatar.png')}
+                />
+                <Text style={styles.infoOverlayText}>Épületek</Text>
+              </View>
+              <View style={styles.infoOverlayItem}>
+                <Image
+                  style={styles.infoOverlayImage}
+                  resizeMode="contain"
+                  source={require('../../assets/img/avatar.png')}
+                />
+                <Text style={styles.infoOverlayText}>Épületek</Text>
+              </View>
+            </View>
+          </View>
+        </ImageBackground>
         <LinearGradient
           style={styles.footer}
           colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
@@ -46,7 +114,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
-              resizeMode="center"
+              resizeMode="contain"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
@@ -54,7 +122,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
-              resizeMode="center"
+              resizeMode="contain"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
@@ -62,7 +130,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
-              resizeMode="center"
+              resizeMode="contain"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
@@ -70,7 +138,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
-              resizeMode="center"
+              resizeMode="contain"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
@@ -78,7 +146,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           <TouchableOpacity style={styles.footerButton}>
             <Image
               style={styles.footerButtonImage}
-              resizeMode="center"
+              resizeMode="contain"
               source={require('../../assets/img/avatar.png')}
             />
             <Text style={styles.footerButtonText}>Épületek</Text>
@@ -112,6 +180,28 @@ const styles = StyleSheet.create({
   main: {
     backgroundColor: 'red',
     flexGrow: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  mainTopArea: {},
+  mainInfoOverlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    flexDirection: 'column',
+  },
+  infoOverlayRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: Spaces.medium,
+  },
+  infoOverlayItem: {
+    flex: 0.2,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  infoOverlayImage: {},
+  infoOverlayText: {
+    fontFamily: 'Baloo',
+    color: '#1C3E76',
   },
   footer: {
     backgroundColor: 'yellow',

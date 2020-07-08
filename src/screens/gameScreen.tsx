@@ -1,23 +1,39 @@
 import React from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {View, StyleSheet, Text, SafeAreaView, Image} from 'react-native'
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+} from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
+import {useDispatch} from 'react-redux'
+import {BypassLogout} from '../store/user/user.actions'
 
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
 }
 
 const GameScreen = ({navigation}: GameScreenProps) => {
+  const dispatch = useDispatch()
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Undersea</Text>
-          <Image
-            style={styles.avatar}
-            resizeMode="center"
-            source={require('../../assets/img/avatar.png')}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(BypassLogout())
+            }}>
+            <Image
+              style={styles.avatar}
+              resizeMode="center"
+              source={require('../../assets/img/avatar.png')}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.main}>
           <Text>Main</Text>

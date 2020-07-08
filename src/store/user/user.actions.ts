@@ -25,6 +25,6 @@ export const BypassLogin = (): BypassLoginAction => ({
   type: BYPASS_LOGIN,
 })
 
-export const BypassLogout = (): BypassLoginAction => ({
-  type: BYPASS_LOGIN,
+export const BypassLogout = (): BypassLogoutAction => ({
+  type: BYPASS_LOGOUT,
 })

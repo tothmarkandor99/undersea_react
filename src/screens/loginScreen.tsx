@@ -10,6 +10,8 @@ import {
 } from 'react-native'
 import LoginButton from '../components/loginButton'
 import {Spaces} from '../constants/spaces'
+import {useDispatch} from 'react-redux'
+import {BypassLogin} from '../store/user/user.actions'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -17,6 +19,8 @@ interface LoginScreenProps {
 
 export default LoginScreen
 function LoginScreen({navigation}: LoginScreenProps) {
+  const dispatch = useDispatch()
+
   return (
     <ImageBackground
       source={require('../../assets/img/signin_bg.png')}
@@ -38,7 +42,9 @@ function LoginScreen({navigation}: LoginScreenProps) {
         </View>
         <View style={styles.row}>
           <LoginButton
-            onPress={() => {}}
+            onPress={() => {
+              dispatch(BypassLogin())
+            }}
             title="Belépés"
             style={styles.loginButton}
           />
@@ -62,7 +68,7 @@ function LoginScreen({navigation}: LoginScreenProps) {
 const styles = StyleSheet.create({
   loginBigText: {
     fontFamily: 'Baloo',
-    textTransform: 'capitalize',
+    textTransform: 'uppercase',
     color: '#9FFFF0',
     fontSize: Spaces.extraLarge,
   },

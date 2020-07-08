@@ -1,18 +1,15 @@
-import {
-  View,
-  Button,
-  Text,
-  TouchableWithoutFeedback,
-  TextInput,
-  StyleSheet,
-  ImageBackground,
-} from 'react-native'
-import {useFonts} from '@use-expo/font'
 import React from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {Margins} from '../constants/margins'
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import LoginButton from '../components/loginButton'
 import {Spaces} from '../constants/spaces'
-import {LinearGradient} from 'expo-linear-gradient'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -20,8 +17,6 @@ interface LoginScreenProps {
 
 export default LoginScreen
 function LoginScreen({navigation}: LoginScreenProps) {
-  useFonts({Baloo: require('../../assets/fonts/Baloo-Regular.ttf')})
-
   return (
     <ImageBackground
       source={require('../../assets/img/signin_bg.png')}
@@ -29,7 +24,7 @@ function LoginScreen({navigation}: LoginScreenProps) {
       <Text style={styles.loginBigText}>Undersea</Text>
       <View style={styles.whiteArea}>
         <Text style={styles.loginMediumText}>Belépés</Text>
-        <View>
+        <View style={styles.inputContainer}>
           <TextInput
             style={styles.loginField}
             placeholder="Felhasználónév"
@@ -41,24 +36,24 @@ function LoginScreen({navigation}: LoginScreenProps) {
             placeholderTextColor="#1C3E76"
           />
         </View>
-        <TouchableWithoutFeedback onPress={() => {}}>
-          <LinearGradient
-            colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
-            start={[1, 0.3]}
-            end={[0, 0.7]}
-            style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>Belépés</Text>
-          </LinearGradient>
-        </TouchableWithoutFeedback>
-        <Text>
-          Nincs még fiókod?
-          <TouchableWithoutFeedback
+        <View style={styles.row}>
+          <LoginButton
+            onPress={() => {}}
+            title="Belépés"
+            style={styles.loginButton}
+          />
+        </View>
+        <View style={styles.bottomTextRow}>
+          <Text style={styles.bottomText}>Nincs még fiókod?</Text>
+          <TouchableOpacity
             onPress={() => {
               navigation.navigate('Register')
             }}>
-            <Text>Regisztrálj</Text>
-          </TouchableWithoutFeedback>
-        </Text>
+            <Text style={[styles.bottomText, styles.bottomLink]}>
+              Regisztrálj
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ImageBackground>
   )
@@ -75,7 +70,9 @@ const styles = StyleSheet.create({
     color: '#1C3E76',
     fontFamily: 'Baloo',
     fontSize: Spaces.big,
+    textAlign: 'center',
   },
+  inputContainer: {},
   loginField: {
     backgroundColor: 'white',
     color: '#1C3E76',
@@ -83,17 +80,29 @@ const styles = StyleSheet.create({
     paddingVertical: Spaces.normal,
     paddingHorizontal: Spaces.large,
     marginBottom: Spaces.medium,
+    marginHorizontal: Spaces.normal,
   },
   whiteArea: {
     backgroundColor: 'rgba(255, 255, 255, 0.65)',
     borderRadius: Spaces.medium,
     padding: Spaces.medium,
+    alignItems: 'stretch',
   },
   loginButton: {
-    borderRadius: 1000,
-    overflow: 'hidden',
+    flex: 0.7,
   },
-  loginButtonText: {
-    textAlign: 'center',
+  bottomTextRow: {
+    flexDirection: 'row',
+  },
+  bottomText: {
+    fontFamily: 'Baloo',
+    color: '#1C3E76',
+  },
+  bottomLink: {
+    textDecorationLine: 'underline',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 })

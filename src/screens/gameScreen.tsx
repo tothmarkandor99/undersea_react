@@ -9,14 +9,11 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native'
-import {LinearGradient} from 'expo-linear-gradient'
 import {useDispatch} from 'react-redux'
 import {BypassLogout} from '../store/user/user.actions'
 import {Spaces} from '../constants/spaces'
 import StatusBar from '../components/statusBar'
-import EpuletekSvg from '../../assets/img/epuletek_nav'
-import HarcSvg from '../../assets/img/harc_nav'
-import SeregSvg from '../../assets/img/sereg_nav'
+import GameFooter from '../components/gameFooter'
 
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
@@ -111,32 +108,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
             </View>
           </View>
         </ImageBackground>
-        <LinearGradient
-          style={styles.footer}
-          colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
-          start={[0.5, 0]}
-          end={[0.5, 1]}>
-          <TouchableOpacity style={styles.footerButton}>
-            <EpuletekSvg height={50} width={50} fill="#327887" />
-            <Text style={styles.footerButtonText}>Épületek</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerButton}>
-            <HarcSvg height={50} width={50} fill="#327887" />
-            <Text style={styles.footerButtonText}>Támadás</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerButton}>
-            <HarcSvg height={50} width={50} fill="#327887" />
-            <Text style={styles.footerButtonText}>Fejlesztések</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerButton}>
-            <HarcSvg height={50} width={50} fill="#327887" />
-            <Text style={styles.footerButtonText}>Harc</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.footerButton}>
-            <SeregSvg height={50} width={50} fill="#327887" />
-            <Text style={styles.footerButtonText}>Sereg</Text>
-          </TouchableOpacity>
-        </LinearGradient>
+        <GameFooter navigation={navigation} />
       </View>
     </SafeAreaView>
   )
@@ -187,24 +159,6 @@ const styles = StyleSheet.create({
   infoOverlayText: {
     fontFamily: 'Baloo',
     color: '#1C3E76',
-  },
-  footer: {
-    backgroundColor: 'yellow',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  footerButton: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  footerButtonImage: {
-    height: 50, // TODO: flexbox a fix méret helyett
-    width: 50,
-  },
-  footerButtonText: {
-    color: '#367987',
-    fontFamily: 'Baloo',
   },
 })
 

@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   backButton: {
-    flex: 0.2,
-    marginLeft: Spaces.large,
+    flex: 0.1,
+    paddingHorizontal: Spaces.large,
   },
   titleText: {
     textAlign: 'center',

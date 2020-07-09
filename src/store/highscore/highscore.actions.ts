@@ -1,45 +1,47 @@
 import {HighscoreResponse} from '../../model/score/highscore.response'
 import {SearchRequest} from '../../model/search.request'
 
-export const GET_SCORES_REQUEST = 'GET_SCORES_REQUEST'
-export const GET_SCORES_SUCCESS = 'GET_SCORES_SUCCESS'
-export const GET_SCORES_FAILURE = 'GET_SCORES_FAILURE'
+export const GET_HIGHSCORES_REQUEST = 'GET_HIGHSCORES_REQUEST'
+export const GET_HIGHSCORES_SUCCESS = 'GET_HIGHSCORES_SUCCESS'
+export const GET_HIGHSCORES_FAILURE = 'GET_HIGHSCORES_FAILURE'
 
-export interface GetScoresRequestAction {
-  type: typeof GET_SCORES_REQUEST
+export interface GetHighscoresRequestAction {
+  type: typeof GET_HIGHSCORES_REQUEST
   search: SearchRequest
 }
 
-export interface GetScoresSuccessAction {
-  type: typeof GET_SCORES_SUCCESS
-  response: HighscoreResponse[]
+export interface GetHighscoresSuccessAction {
+  type: typeof GET_HIGHSCORES_SUCCESS
+  response: HighscoreResponse
 }
 
-export interface GetScoresFailureAction {
-  type: typeof GET_SCORES_FAILURE
+export interface GetHighscoresFailureAction {
+  type: typeof GET_HIGHSCORES_FAILURE
   reason: string | undefined
 }
 
-export type ScoreActions =
-  | GetScoresRequestAction
-  | GetScoresSuccessAction
-  | GetScoresFailureAction
+export type HighscoreActions =
+  | GetHighscoresRequestAction
+  | GetHighscoresSuccessAction
+  | GetHighscoresFailureAction
 
-export const getScores = (search: SearchRequest): GetScoresRequestAction => ({
-  type: GET_SCORES_REQUEST,
+export const getHighscores = (
+  search: SearchRequest,
+): GetHighscoresRequestAction => ({
+  type: GET_HIGHSCORES_REQUEST,
   search,
 })
 
-export const getArticlesSuccessActionCreator = (
-  scores: HighscoreResponse[],
-): GetScoresSuccessAction => ({
-  type: GET_SCORES_SUCCESS,
+export const getHighscoresSuccessActionCreator = (
+  scores: HighscoreResponse,
+): GetHighscoresSuccessAction => ({
+  type: GET_HIGHSCORES_SUCCESS,
   response: scores,
 })
 
-export const getArticlesFailActionCreator = (
+export const getHighscoresFailureActionCreator = (
   reason: string,
-): GetScoresFailureAction => ({
-  type: GET_SCORES_FAILURE,
+): GetHighscoresFailureAction => ({
+  type: GET_HIGHSCORES_FAILURE,
   reason,
 })

@@ -1,9 +1,12 @@
 import {AnyAction, combineReducers, Reducer} from 'redux'
 import {UserStore} from './src/store/user/user.store'
 import {userReducer} from './src/store/user/user.reducer'
+import {HighscoreStore} from './src/store/highscore/highscore.store'
+import {highscoreReducer} from './src/store/highscore/highscore.reducer'
 
 export interface IAppStore {
   user: UserStore
+  highscore: HighscoreStore
   // TODO: többi store
 }
 
@@ -23,6 +26,7 @@ export const reset = (): ResetAction => ({
 
 export const appReducer = combineReducers<IAppStore>({
   user: userReducer,
+  highscore: highscoreReducer,
   // TODO: többi reducer
 })
 

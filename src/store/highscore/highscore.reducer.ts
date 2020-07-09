@@ -1,39 +1,45 @@
-import {initialScoreStore, ScoreStore} from './highscore.store'
+import {initialHighscoreStore, HighscoreStore} from './highscore.store'
 import {ScoreboardItem} from '../../model/score/scoreboardItem'
 import {
-  ScoreActions,
-  GET_SCORES_REQUEST,
-  GET_SCORES_SUCCESS,
-  GET_SCORES_FAILURE,
+  HighscoreActions,
+  GET_HIGHSCORES_REQUEST,
+  GET_HIGHSCORES_SUCCESS,
+  GET_HIGHSCORES_FAILURE,
 } from './highscore.actions'
-import {Action} from 'redux'
 
-export const scoreReducer = (
-  state = initialScoreStore,
-  action: ScoreActions,
-): ScoreStore => {
+export const highscoreReducer = (
+  state = initialHighscoreStore,
+  action: HighscoreActions,
+): HighscoreStore => {
   switch (action.type) {
-    case GET_SCORES_REQUEST:
+    case GET_HIGHSCORES_REQUEST:
       return {
         ...state,
         error: undefined,
         isLoading: true,
       }
-    case GET_SCORES_SUCCESS:
+    case GET_HIGHSCORES_SUCCESS:
+      console.log('Action response type:', typeof action.response)
       return {
         ...state,
         error: undefined,
         isLoading: false,
         scores: action.response.map(
-          item => <ScoreboardItem>{place: item.place, name: item.userName},
+          item =>
+            <ScoreboardItem>{
+              place: item.place,
+              name: item.userName,
+            },
         ),
       }
-    case GET_SCORES_FAILURE:
+    case GET_HIGHSCORES_FAILURE:
       return {
         ...state,
         error: action.reason,
         isLoading: false,
         scores: [],
       }
+    default:
+      return state
   }
 }

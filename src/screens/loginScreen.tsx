@@ -54,7 +54,7 @@ function LoginScreen({navigation}: LoginScreenProps) {
           <Text style={styles.bottomText}>Nincs még fiókod?</Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Register')
+              navigation.navigate('RegisterScreen')
             }}>
             <Text style={[styles.bottomText, styles.bottomLink]}>
               Regisztrálj

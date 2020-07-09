@@ -28,7 +28,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           <Text style={styles.headerText}>Undersea</Text>
           <TouchableOpacity
             onPress={() => {
-              dispatch(BypassLogout())
+              navigation.navigate('ProfileModal')
             }}>
             <Image
               style={styles.avatar}

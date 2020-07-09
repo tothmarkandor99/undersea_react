@@ -38,7 +38,7 @@ export default function App() {
       </Provider>
     )
   } else {
-    return <AppLoading />
+    return <AppLoading /> /* TODO: dokumentációt elolvasni */
   }
 }
 

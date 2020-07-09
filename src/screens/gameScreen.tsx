@@ -13,7 +13,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {useDispatch} from 'react-redux'
 import {BypassLogout} from '../store/user/user.actions'
 import {Spaces} from '../constants/spaces'
-
+import StatusBar from '../components/statusBar'
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
 }
@@ -23,6 +23,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <StatusBar backgroundColor="#1C3E76" />
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Undersea</Text>

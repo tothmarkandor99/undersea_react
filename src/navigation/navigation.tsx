@@ -3,6 +3,7 @@ import LoginScreen from '../../src/screens/loginScreen'
 import RegisterScreen from '../../src/screens/registerScreen'
 import GameScreen from '../../src/screens/gameScreen'
 import ProfileModal from '../../src/screens/profileModal'
+import HighscoreModal from '../../src/screens/highscoreModal'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {useSelector} from 'react-redux'
@@ -39,6 +40,7 @@ export default function Navi() {
   function ModalStackScreen() {
     return (
       <ModalStack.Navigator
+        headerMode="none"
         screenOptions={{
           cardStyle: {backgroundColor: 'transparent'},
           cardOverlayEnabled: true,
@@ -59,12 +61,9 @@ export default function Navi() {
           }),
         }}
         mode="modal">
-        <ModalStack.Screen
-          name="GameScreen"
-          component={GameScreen}
-          options={{headerShown: false}}
-        />
+        <ModalStack.Screen name="GameScreen" component={GameScreen} />
         <ModalStack.Screen name="ProfileModal" component={ProfileModal} />
+        <ModalStack.Screen name="HighscoreModal" component={HighscoreModal} />
       </ModalStack.Navigator>
     )
   }

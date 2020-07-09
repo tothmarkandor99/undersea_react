@@ -10,11 +10,19 @@ export const userReducer = (
       return {
         ...state,
         loggedIn: true,
+        user: {
+          userId: -1,
+          name: 'Teszt Jóska',
+          city: 'Halfalva',
+          place: 13,
+          round: 8,
+        },
       }
     case BYPASS_LOGOUT:
       return {
         ...state,
         loggedIn: false,
+        user: null,
       }
     default:
       return state

@@ -14,6 +14,10 @@ import {useDispatch} from 'react-redux'
 import {BypassLogout} from '../store/user/user.actions'
 import {Spaces} from '../constants/spaces'
 import StatusBar from '../components/statusBar'
+import EpuletekSvg from '../../assets/img/epuletek_nav'
+import HarcSvg from '../../assets/img/harc_nav'
+import SeregSvg from '../../assets/img/sereg_nav'
+
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
 }
@@ -113,44 +117,24 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           start={[0.5, 0]}
           end={[0.5, 1]}>
           <TouchableOpacity style={styles.footerButton}>
-            <Image
-              style={styles.footerButtonImage}
-              resizeMode="contain"
-              source={require('../../assets/img/avatar.png')}
-            />
+            <EpuletekSvg height={50} width={50} fill="#327887" />
             <Text style={styles.footerButtonText}>Épületek</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.footerButton}>
-            <Image
-              style={styles.footerButtonImage}
-              resizeMode="contain"
-              source={require('../../assets/img/avatar.png')}
-            />
-            <Text style={styles.footerButtonText}>Épületek</Text>
+            <HarcSvg height={50} width={50} fill="#327887" />
+            <Text style={styles.footerButtonText}>Támadás</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.footerButton}>
-            <Image
-              style={styles.footerButtonImage}
-              resizeMode="contain"
-              source={require('../../assets/img/avatar.png')}
-            />
-            <Text style={styles.footerButtonText}>Épületek</Text>
+            <HarcSvg height={50} width={50} fill="#327887" />
+            <Text style={styles.footerButtonText}>Fejlesztések</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.footerButton}>
-            <Image
-              style={styles.footerButtonImage}
-              resizeMode="contain"
-              source={require('../../assets/img/avatar.png')}
-            />
-            <Text style={styles.footerButtonText}>Épületek</Text>
+            <HarcSvg height={50} width={50} fill="#327887" />
+            <Text style={styles.footerButtonText}>Harc</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.footerButton}>
-            <Image
-              style={styles.footerButtonImage}
-              resizeMode="contain"
-              source={require('../../assets/img/avatar.png')}
-            />
-            <Text style={styles.footerButtonText}>Épületek</Text>
+            <SeregSvg height={50} width={50} fill="#327887" />
+            <Text style={styles.footerButtonText}>Sereg</Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>
@@ -216,6 +200,7 @@ const styles = StyleSheet.create({
   },
   footerButtonImage: {
     height: 50, // TODO: flexbox a fix méret helyett
+    width: 50,
   },
   footerButtonText: {
     color: '#367987',

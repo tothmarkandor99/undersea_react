@@ -1,4 +1,4 @@
-import {ScoreboardItem} from '../../model/scoreboardItem'
+import {ScoreboardItem} from '../../model/score/scoreboardItem'
 
 export interface ScoreStore {
   isLoading: boolean

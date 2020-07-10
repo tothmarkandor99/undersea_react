@@ -1,4 +1,4 @@
-import {Building} from '../../model/building'
+import {Building} from '../../model/building/building'
 
 export interface BuildingStore {
   isLoading: boolean

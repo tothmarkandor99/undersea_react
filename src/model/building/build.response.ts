@@ -1,7 +1,8 @@
-export interface Building {
-  buildingId: string
+export interface BuildResponse {
+  id: string
   name: string
   description: string
   count: number
   price: number
+  picture: string
 }

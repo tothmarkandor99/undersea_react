@@ -1,4 +1,5 @@
 import {all, takeEvery, put, debounce} from 'redux-saga/effects'
+import {AxiosResponse} from 'axios'
 import {
   GET_HIGHSCORES_REQUEST,
   GetHighscoresRequestAction,
@@ -7,7 +8,6 @@ import {
 } from './highscore.actions'
 import highscoreService from '../../utility/services/highscoreService'
 import {HighscoreResponse} from '../../model/score/highscore.response'
-import {AxiosResponse} from 'axios'
 
 export function* highscoreSaga() {
   yield all([watchPost()])

@@ -19,7 +19,6 @@ export const highscoreReducer = (
         isLoading: true,
       }
     case GET_HIGHSCORES_SUCCESS:
-      console.log('Action response type:', typeof action.response)
       return {
         ...state,
         error: undefined,

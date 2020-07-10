@@ -22,7 +22,6 @@ function* getHighscoresActionWatcher(action: GetHighscoresRequestAction) {
     const response: AxiosResponse<HighscoreResponse> = yield highscoreService.searchHighscores(
       action.search,
     )
-    console.log('Response data type:', typeof response.data)
     yield put(getHighscoresSuccessActionCreator(response.data))
   } catch (error) {
     console.log(error)

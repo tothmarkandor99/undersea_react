@@ -39,7 +39,10 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
         <TextInput
           style={styles.search}
           placeholder="Felhasználónév"
-          placeholderTextColor="#001234"></TextInput>
+          placeholderTextColor="#001234"
+          onChangeText={text => {
+            setSearchPhrase(text)
+          }}></TextInput>
       </View>
       <FlatList
         data={scores}
@@ -55,6 +58,9 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
               </Text>
             </View>
           )
+        }}
+        keyExtractor={(item, index) => {
+          return index.toString()
         }}
       />
     </View>

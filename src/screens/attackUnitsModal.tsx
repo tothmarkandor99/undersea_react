@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
+import ModalButtonBar from '../components/modalButtonBar'
 
 interface AttackUnitsModalProps {
   navigation: StackNavigationProp<any>
@@ -38,6 +39,7 @@ function AttackUnitsModal({navigation}: AttackUnitsModalProps) {
           return index.toString()
         }}
       />
+      <ModalButtonBar buttonTitle="Megtámadom!" />
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import {NavigationActions} from 'react-navigation'
+//import {NavigationActions} from 'react-navigation'
 import React, {useState, useEffect} from 'react'
 import {StyleSheet, TextInput, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
@@ -23,7 +23,7 @@ function AttackTargetModal({navigation}: AttackTargetModalProps) {
       <HeaderWithArrow
         title="Támadás"
         backAction={() => {
-          navigation.dispatch(NavigationActions.back({key: null}))
+          navigation.goBack()
         }}
       />
       <FlatList
@@ -46,7 +46,7 @@ function AttackTargetModal({navigation}: AttackTargetModalProps) {
         }}
       />
       <ModalButtonBar
-        buttonTitle="Megveszem"
+        buttonTitle="Tovább"
         buttonOnPress={() => {
           navigation.navigate('AttackUnitsModal')
         }}

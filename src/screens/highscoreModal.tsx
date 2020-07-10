@@ -35,34 +35,36 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
   return (
     <View style={styles.container}>
       <HeaderWithArrow title="Ranglista" backAction={navigation.goBack} />
-      <View style={styles.highscoreRow}>
-        <TextInput
-          style={styles.search}
-          placeholder="Felhasználónév"
-          placeholderTextColor="#001234"
-          onChangeText={text => {
-            setSearchPhrase(text)
-          }}></TextInput>
+      <View style={styles.contentContainer}>
+        <View style={styles.highscoreRow}>
+          <TextInput
+            style={styles.search}
+            placeholder="Felhasználónév"
+            placeholderTextColor="#001234"
+            onChangeText={text => {
+              setSearchPhrase(text)
+            }}></TextInput>
+        </View>
+        <FlatList
+          data={scores}
+          renderItem={({item}) => {
+            /* TODO: komponensbe kiszervezni */
+            return (
+              <View style={styles.highscoreRow}>
+                <Text style={[styles.highscoreText, styles.highscorePlace]}>
+                  {item.place}
+                </Text>
+                <Text style={[styles.highscoreText, styles.highscoreText]}>
+                  {item.name}
+                </Text>
+              </View>
+            )
+          }}
+          keyExtractor={(item, index) => {
+            return index.toString()
+          }}
+        />
       </View>
-      <FlatList
-        data={scores}
-        renderItem={({item}) => {
-          /* TODO: komponensbe kiszervezni */
-          return (
-            <View style={styles.highscoreRow}>
-              <Text style={[styles.highscoreText, styles.highscorePlace]}>
-                {item.place}
-              </Text>
-              <Text style={[styles.highscoreText, styles.highscoreText]}>
-                {item.name}
-              </Text>
-            </View>
-          )
-        }}
-        keyExtractor={(item, index) => {
-          return index.toString()
-        }}
-      />
     </View>
   )
 }
@@ -74,15 +76,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
+  contentContainer: {
+    marginHorizontal: Spaces.medium,
+  },
   search: {
     backgroundColor: 'rgba(255, 255, 255, 0.39)',
     borderRadius: 1000,
     paddingVertical: Spaces.normal,
-    paddingHorizontal: Spaces.large,
+    paddingHorizontal: Spaces.medium,
     flex: 1,
   },
   highscoreRow: {
-    marginHorizontal: Spaces.medium,
     flexDirection: 'row',
     paddingVertical: Spaces.medium,
     borderBottomColor: '#3F68AE',

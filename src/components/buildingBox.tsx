@@ -46,6 +46,7 @@ export default function BuildingBox({
       </TouchableOpacity>
     )
   } else {
+    // TODO: kiszervezni a belső komponenst
     return (
       <View
         style={[

@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
+import FightItem from '../components/fightItem'
 
 interface FightModalProps {
   navigation: StackNavigationProp<any>
@@ -19,25 +20,16 @@ function FightModal({navigation}: FightModalProps) {
   return (
     <View style={styles.container}>
       <HeaderWithArrow title="Harc" backAction={navigation.goBack} />
-      <FlatList
-        data={[1, 2, 3, 4, 5, 6, 7]}
-        renderItem={({item}) => {
-          /* TODO: komponensbe kiszervezni */
-          return (
-            <View style={styles.highscoreRow}>
-              <Text style={[styles.highscoreText, styles.highscorePlace]}>
-                "lul"
-              </Text>
-              <Text style={[styles.highscoreText, styles.highscoreText]}>
-                hal
-              </Text>
-            </View>
-          )
-        }}
-        keyExtractor={(item, index) => {
-          return index.toString()
-        }}
-      />
+      <View style={styles.contentContainer}>
+        <FlatList
+          style={styles.list}
+          data={[1, 2, 3, 4, 5, 6, 7]}
+          renderItem={({item, index}) => <FightItem first={index === 0} />}
+          keyExtractor={(item, index) => {
+            return index.toString()
+          }}
+        />
+      </View>
     </View>
   )
 }
@@ -49,26 +41,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
-  search: {
-    backgroundColor: 'rgba(255, 255, 255, 0.39)',
-    borderRadius: 1000,
-    paddingVertical: Spaces.normal,
-    paddingHorizontal: Spaces.large,
-    flex: 1,
-  },
-  highscoreRow: {
+  contentContainer: {
     marginHorizontal: Spaces.medium,
-    flexDirection: 'row',
-    paddingVertical: Spaces.medium,
-    borderBottomColor: '#3F68AE',
-    borderBottomWidth: 1,
   },
-  highscoreText: {
-    color: 'white',
-  },
-  highscorePlace: {
-    paddingLeft: Spaces.medium,
-    flex: 0.2,
-  },
-  highscoreName: {},
+  list: {},
 })

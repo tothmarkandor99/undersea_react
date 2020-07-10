@@ -7,19 +7,19 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 
-interface BuildingsModalProps {
+interface UpgradesModalProps {
   navigation: StackNavigationProp<any>
 }
 
-export default BuildingsModal
-function BuildingsModal({navigation}: BuildingsModalProps) {
+export default UpgradesModal
+function UpgradesModal({navigation}: UpgradesModalProps) {
   const [selectedBuildingId, setSelectedBuildingId] = useState<
     number | undefined
   >(undefined)
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Épületek" backAction={navigation.goBack} />
+      <HeaderWithArrow title="Fejlesztések" backAction={navigation.goBack} />
       <FlatList
         data={[1, 2, 3, 4, 5, 6, 7]}
         renderItem={({item}) => {

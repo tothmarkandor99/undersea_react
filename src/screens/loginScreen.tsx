@@ -4,11 +4,10 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native'
-import LoginButton from '../components/loginButton'
+import FancyButton from '../components/fancyButton'
 import LoginTextInput from '../components/loginTextInput'
 import {Spaces} from '../constants/spaces'
 import {useDispatch} from 'react-redux'
@@ -36,12 +35,12 @@ function LoginScreen({navigation}: LoginScreenProps) {
           <LoginTextInput placeholder="Jelszó" />
         </View>
         <View style={styles.row}>
-          <LoginButton
+          <FancyButton
+            active={true}
             onPress={() => {
               dispatch(BypassLogin())
             }}
             title="Belépés"
-            style={styles.loginButton}
           />
         </View>
         <View style={styles.bottomTextRow}>
@@ -89,10 +88,6 @@ const styles = StyleSheet.create({
     marginHorizontal: Spaces.large,
   },
   inputContainer: {},
-  loginButton: {
-    flex: 0.7,
-    marginBottom: Spaces.medium,
-  },
   bottomTextRow: {
     flexDirection: 'row',
     justifyContent: 'center',

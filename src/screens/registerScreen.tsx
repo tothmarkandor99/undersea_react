@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import LoginButton from '../components/loginButton'
+import FancyButton from '../components/fancyButton'
 import {Spaces} from '../constants/spaces'
 import {useDispatch} from 'react-redux'
 import {BypassLogin} from '../store/user/user.actions'
@@ -51,12 +51,12 @@ function RegisterScreen({navigation}: LoginScreenProps) {
           />
         </View>
         <View style={styles.row}>
-          <LoginButton
+          <FancyButton
+            active={true}
             onPress={() => {
               dispatch(BypassLogin())
             }}
             title="Regisztráció"
-            style={styles.loginButton}
           />
         </View>
         <View style={styles.bottomTextRow}>
@@ -111,10 +111,6 @@ const styles = StyleSheet.create({
     marginHorizontal: Spaces.large,
   },
   inputContainer: {},
-  loginButton: {
-    flex: 0.7,
-    marginBottom: Spaces.medium,
-  },
   bottomTextRow: {
     flexDirection: 'row',
     justifyContent: 'center',

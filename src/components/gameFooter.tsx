@@ -24,23 +24,43 @@ export default function GameFooter({navigation, style}: GameFooterProps) {
       colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
       start={[0.5, 0]}
       end={[0.5, 1]}>
-      <TouchableOpacity style={styles.footerButton}>
+      <TouchableOpacity
+        style={styles.footerButton}
+        onPress={() => {
+          navigation.navigate('BuildingsModal')
+        }}>
         <EpuletekSvg height={50} width={50} fill="#327887" />
         <Text style={styles.footerButtonText}>Épületek</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.footerButton}>
+      <TouchableOpacity
+        style={styles.footerButton}
+        onPress={() => {
+          navigation.navigate('AttackStack')
+        }}>
         <HarcSvg height={50} width={50} fill="#327887" />
         <Text style={styles.footerButtonText}>Támadás</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.footerButton}>
+      <TouchableOpacity
+        style={styles.footerButton}
+        onPress={() => {
+          navigation.navigate('UpgradesModal')
+        }}>
         <HarcSvg height={50} width={50} fill="#327887" />
         <Text style={styles.footerButtonText}>Fejlesztések</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.footerButton}>
+      <TouchableOpacity
+        style={styles.footerButton}
+        onPress={() => {
+          navigation.navigate('FightModal')
+        }}>
         <HarcSvg height={50} width={50} fill="#327887" />
         <Text style={styles.footerButtonText}>Harc</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.footerButton}>
+      <TouchableOpacity
+        style={styles.footerButton}
+        onPress={() => {
+          navigation.navigate('ArmyModal')
+        }}>
         <SeregSvg height={50} width={50} fill="#327887" />
         <Text style={styles.footerButtonText}>Sereg</Text>
       </TouchableOpacity>

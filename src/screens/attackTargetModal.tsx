@@ -14,14 +14,14 @@ interface AttackTargetModalProps {
 
 export default AttackTargetModal
 function AttackTargetModal({navigation}: AttackTargetModalProps) {
-  const [selectedBuildingId, setSelectedBuildingId] = useState<
-    number | undefined
-  >(undefined)
+  const [selectedBuilding, setSelectedBuilding] = useState<number | undefined>(
+    undefined,
+  )
 
   return (
     <View style={styles.container}>
       <HeaderWithArrow
-        title="Támadás"
+        title="Támadás 1"
         backAction={() => {
           navigation.goBack()
         }}

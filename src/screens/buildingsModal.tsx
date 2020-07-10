@@ -6,6 +6,7 @@ import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
+import BuildingBox from '../components/buildingBox'
 
 interface BuildingsModalProps {
   navigation: StackNavigationProp<any>
@@ -20,20 +21,13 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
   return (
     <View style={styles.container}>
       <HeaderWithArrow title="Épületek" backAction={navigation.goBack} />
+      <Text>Jelöld ki, amelyiket szeretnéd megvenni.</Text>
+      <Text>Egyszerre csak egy épület épülhet!</Text>
       <FlatList
         data={[1, 2, 3, 4, 5, 6, 7]}
         renderItem={({item}) => {
           /* TODO: komponensbe kiszervezni */
-          return (
-            <View style={styles.highscoreRow}>
-              <Text style={[styles.highscoreText, styles.highscorePlace]}>
-                "lul"
-              </Text>
-              <Text style={[styles.highscoreText, styles.highscoreText]}>
-                hal
-              </Text>
-            </View>
-          )
+          return <BuildingBox />
         }}
         keyExtractor={(item, index) => {
           return index.toString()

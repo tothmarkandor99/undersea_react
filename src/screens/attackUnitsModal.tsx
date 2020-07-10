@@ -19,7 +19,12 @@ function AttackUnitsModal({navigation}: AttackUnitsModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Támadás" backAction={navigation.goBack} />
+      <HeaderWithArrow
+        title="Támadás 2"
+        backAction={() => {
+          navigation.pop(2) // TODO: github react-navigation #697
+        }}
+      />
       <FlatList
         data={[1, 2, 3, 4, 5, 6, 7]}
         renderItem={({item}) => {

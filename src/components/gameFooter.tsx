@@ -1,6 +1,12 @@
 import React from 'react'
-import {LinearGradient} from 'expo-linear-gradient'
-import {TouchableOpacity, Text, StyleSheet} from 'react-native'
+import {LinearGradient, LinearGradientProps} from 'expo-linear-gradient'
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
 import EpuletekSvg from '../../assets/img/epuletek_nav'
 import HarcSvg from '../../assets/img/harc_nav'
 import SeregSvg from '../../assets/img/sereg_nav'
@@ -8,12 +14,13 @@ import {StackNavigationProp} from '@react-navigation/stack'
 
 interface GameFooterProps {
   navigation: StackNavigationProp<any>
+  style?: StyleProp<ViewStyle>
 }
 
-export default function GameFooter({navigation}: GameFooterProps) {
+export default function GameFooter({navigation, style}: GameFooterProps) {
   return (
     <LinearGradient
-      style={styles.footer}
+      style={[styles.footer, style]}
       colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
       start={[0.5, 0]}
       end={[0.5, 1]}>

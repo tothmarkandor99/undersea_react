@@ -9,10 +9,12 @@ import {
   View,
 } from 'react-native'
 import LoginButton from '../components/loginButton'
+import LoginTextInput from '../components/loginTextInput'
 import {Spaces} from '../constants/spaces'
 import {useDispatch} from 'react-redux'
 import {BypassLogin} from '../store/user/user.actions'
 import {Margins} from '../constants/margins'
+import LogoSvg from '../../assets/img/logo'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -26,20 +28,12 @@ function LoginScreen({navigation}: LoginScreenProps) {
     <ImageBackground
       source={require('../../assets/img/signin_bg.png')}
       style={styles.backgroundContainer}>
-      <Text style={styles.loginBigText}>Undersea</Text>
+      <LogoSvg fill="#9FFFF0" width={250} height={70} />
       <View style={styles.whiteArea}>
         <Text style={styles.loginMediumText}>Belépés</Text>
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.loginField}
-            placeholder="Felhasználónév"
-            placeholderTextColor="#1C3E76"
-          />
-          <TextInput
-            style={styles.loginField}
-            placeholder="Jelszó"
-            placeholderTextColor="#1C3E76"
-          />
+          <LoginTextInput placeholder="Felhasználónév" />
+          <LoginTextInput placeholder="Jelszó" />
         </View>
         <View style={styles.row}>
           <LoginButton
@@ -86,15 +80,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: Spaces.medium,
     marginBottom: Spaces.medium,
-  },
-  loginField: {
-    backgroundColor: 'white',
-    color: '#1C3E76',
-    borderRadius: 1000,
-    paddingVertical: Spaces.normal,
-    paddingHorizontal: Spaces.large,
-    marginBottom: Spaces.medium,
-    marginHorizontal: Spaces.normal,
   },
   whiteArea: {
     backgroundColor: 'rgba(255, 255, 255, 0.65)',

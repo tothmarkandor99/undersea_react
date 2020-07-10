@@ -16,7 +16,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "buildNumber": "0.1.0",
+      "bundleIdentifier": "com.enco.undersea",
       "supportsTablet": false
+    },
+    "android": {
+      "package": "com.enco.undersea",
+      "versionCode": 10
     }
   }
 }

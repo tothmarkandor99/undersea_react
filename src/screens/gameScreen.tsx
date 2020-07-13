@@ -12,10 +12,10 @@ import {
 } from 'react-native'
 import {useDispatch} from 'react-redux'
 import {Spaces} from '../constants/spaces'
-import StatusBar from '../components/statusBar'
 import GameFooter from '../components/gameFooter'
 import {LinearGradient} from 'expo-linear-gradient'
 import {FontAwesome} from '@expo/vector-icons'
+import InfoOverlay from '../components/infoOverlay'
 
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
@@ -24,8 +24,9 @@ interface GameScreenProps {
 const GameScreen = ({navigation}: GameScreenProps) => {
   const dispatch = useDispatch()
   const animationDuration: number = 350
-  const fadeAnim = useRef(new Animated.Value(0)).current
-  const slideAnim = useRef(new Animated.Value(-50)).current
+  const fadeAnim = useRef(new Animated.Value(0))
+  const slideAnim = useRef(new Animated.Value(-50))
+  const [starRadius, setStarRadius] = useState(10)
   const [bottomInfosVisible, setBottomInfosVisible] = useState(false)
   useEffect(() => {
     if (bottomInfosVisible) {
@@ -35,24 +36,24 @@ const GameScreen = ({navigation}: GameScreenProps) => {
     }
   }, [bottomInfosVisible])
   const appear = () => {
-    Animated.timing(fadeAnim, {
+    Animated.timing(fadeAnim.current, {
       toValue: 1,
       duration: animationDuration,
       useNativeDriver: false,
     }).start()
-    Animated.timing(slideAnim, {
+    Animated.timing(slideAnim.current, {
       toValue: 0,
       duration: animationDuration,
       useNativeDriver: false,
     }).start()
   }
   const disappear = () => {
-    Animated.timing(fadeAnim, {
+    Animated.timing(fadeAnim.current, {
       toValue: 0,
       duration: animationDuration,
       useNativeDriver: false,
     }).start()
-    Animated.timing(slideAnim, {
+    Animated.timing(slideAnim.current, {
       toValue: -50,
       duration: animationDuration,
       useNativeDriver: false,
@@ -61,7 +62,6 @@ const GameScreen = ({navigation}: GameScreenProps) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar backgroundColor="#1C3E76" />
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Undersea</Text>
@@ -72,7 +72,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
             <Image
               style={styles.avatar}
               resizeMode="contain"
-              source={require('../../assets/img/avatar.png')}
+              source={require('../../assets/img/Group21.png')}
             />
           </TouchableOpacity>
         </View>
@@ -92,86 +92,18 @@ const GameScreen = ({navigation}: GameScreenProps) => {
                 setBottomInfosVisible(!bottomInfosVisible)
               }}>
               <LinearGradient
-                style={styles.starButton}
+                style={[styles.starButton, {borderRadius: starRadius}]}
                 colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
                 start={[0.5, 0]}
-                end={[0.5, 1]}>
+                end={[0.5, 1]}
+                onLayout={event => {
+                  setStarRadius(event.nativeEvent.layout.height / 2)
+                }}>
                 <FontAwesome name="star" style={styles.star} />
               </LinearGradient>
             </TouchableOpacity>
           </View>
-          <Animated.View
-            style={[
-              styles.mainInfoOverlay,
-              {
-                opacity: fadeAnim,
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: slideAnim,
-              },
-            ]}>
-            <View style={styles.infoOverlayRow}>
-              <View style={styles.infoOverlayItem}>
-                <Image
-                  style={styles.infoOverlayImage}
-                  resizeMode="contain"
-                  source={require('../../assets/img/avatar.png')}
-                />
-                <Text style={styles.infoOverlayText}>Épületek</Text>
-              </View>
-              <View style={styles.infoOverlayItem}>
-                <Image
-                  style={styles.infoOverlayImage}
-                  resizeMode="contain"
-                  source={require('../../assets/img/avatar.png')}
-                />
-                <Text style={styles.infoOverlayText}>Épületek</Text>
-              </View>
-              <View style={styles.infoOverlayItem}>
-                <Image
-                  style={styles.infoOverlayImage}
-                  resizeMode="contain"
-                  source={require('../../assets/img/avatar.png')}
-                />
-                <Text style={styles.infoOverlayText}>Épületek</Text>
-              </View>
-            </View>
-            <View style={styles.infoOverlayRow}>
-              <View style={styles.infoOverlayItem}>
-                <Image
-                  style={styles.infoOverlayImage}
-                  resizeMode="contain"
-                  source={require('../../assets/img/avatar.png')}
-                />
-                <Text style={styles.infoOverlayText}>Épületek</Text>
-              </View>
-              <View style={styles.infoOverlayItem}>
-                <Image
-                  style={styles.infoOverlayImage}
-                  resizeMode="contain"
-                  source={require('../../assets/img/avatar.png')}
-                />
-                <Text style={styles.infoOverlayText}>Épületek</Text>
-              </View>
-              <View style={styles.infoOverlayItem}>
-                <Image
-                  style={styles.infoOverlayImage}
-                  resizeMode="contain"
-                  source={require('../../assets/img/avatar.png')}
-                />
-                <Text style={styles.infoOverlayText}>Épületek</Text>
-              </View>
-              <View style={styles.infoOverlayItem}>
-                <Image
-                  style={styles.infoOverlayImage}
-                  resizeMode="contain"
-                  source={require('../../assets/img/avatar.png')}
-                />
-                <Text style={styles.infoOverlayText}>Épületek</Text>
-              </View>
-            </View>
-          </Animated.View>
+          <InfoOverlay fadeAnim={fadeAnim} slideAnim={slideAnim} />
         </ImageBackground>
         <GameFooter navigation={navigation} style={{zIndex: 1}} />
       </View>
@@ -226,7 +158,6 @@ const styles = StyleSheet.create({
     right: Spaces.medium,
   },
   starButton: {
-    borderRadius: 1000,
     width: 40,
     height: 40,
     alignItems: 'center',
@@ -234,25 +165,6 @@ const styles = StyleSheet.create({
   },
   star: {
     fontSize: 18,
-  },
-  mainInfoOverlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
-    flexDirection: 'column',
-  },
-  infoOverlayRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: Spaces.medium,
-  },
-  infoOverlayItem: {
-    flex: 0.2,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  infoOverlayImage: {},
-  infoOverlayText: {
-    fontFamily: 'Baloo',
-    color: '#1C3E76',
   },
 })
 

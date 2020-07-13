@@ -34,7 +34,7 @@ export default function BuildingBox({
         ]}>
         <Image
           style={styles.image}
-          source={require('../../assets/img/avatar.png')}
+          source={require('../../assets/img/Group21.png')}
         />
         <Text style={styles.name}>Zátonyvár</Text>
         <Text style={styles.description}>

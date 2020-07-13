@@ -37,7 +37,7 @@ export default function UpgradeBox({
         <Ionicons name="ios-checkmark-circle" style={styles.ownedSymbol} />
         <Image
           style={styles.image}
-          source={require('../../assets/img/avatar.png')}
+          source={require('../../assets/img/Group21.png')}
         />
         <Text style={styles.name}>Iszaptraktor</Text>
         <Text style={styles.description}>

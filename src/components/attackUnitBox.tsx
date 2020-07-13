@@ -22,7 +22,7 @@ export default function AttackUnitBox({unit}: AttackUnitBoxProps) {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../../assets/img/avatar.png')}
+        source={require('../../assets/img/Group21.png')}
       />
       <View style={styles.rightSection}>
         <Text style={styles.name}>Iszaptraktor: {count} db</Text>

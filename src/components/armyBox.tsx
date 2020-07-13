@@ -22,7 +22,7 @@ export default function ArmyBox({unit}: ArmyBoxProps) {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../../assets/img/avatar.png')}
+        source={require('../../assets/img/Group21.png')}
       />
       <Text style={styles.name}>Iszaptraktor</Text>
       <View style={styles.dataRow}>

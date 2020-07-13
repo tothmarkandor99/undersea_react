@@ -26,7 +26,7 @@ function ProfileModal({navigation}: ProfileModalProps) {
         <Image
           style={styles.profileImage}
           resizeMode="contain"
-          source={require('../../assets/img/avatar.png')}
+          source={require('../../assets/img/Group21.png')}
         />
         <Text style={styles.profileName}>{userName}</Text>
       </View>

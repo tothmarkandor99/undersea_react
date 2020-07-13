@@ -1,4 +1,4 @@
-import {all, takeEvery, put, debounce} from 'redux-saga/effects'
+import {all, put, debounce} from 'redux-saga/effects'
 import {AxiosResponse} from 'axios'
 import {
   GET_HIGHSCORES_REQUEST,
@@ -14,7 +14,7 @@ export function* highscoreSaga() {
 }
 
 function* watchPost() {
-  yield debounce(500, GET_HIGHSCORES_REQUEST, getHighscoresActionWatcher)
+  yield debounce(500, GET_HIGHSCORES_REQUEST, getHighscoresActionWatcher) // TODO: azonnal: takeEvery
 }
 
 function* getHighscoresActionWatcher(action: GetHighscoresRequestAction) {

@@ -38,7 +38,13 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
           return index.toString() // TODO: normális keyExtractor
         }}
       />
-      <ModalButtonBar buttonTitle="Tovább" buttonOnPress={() => {}} />
+      <ModalButtonBar
+        buttonTitle="Tovább"
+        buttonOnPress={() => {
+          navigation.navigate('AttackUnitsModal')
+        }}
+        buttonActive={true}
+      />
     </View>
   )
 }

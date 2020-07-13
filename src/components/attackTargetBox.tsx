@@ -23,8 +23,8 @@ export default function AttackTargetBox({
   first = false,
 }: AttackTargetBoxProps) {
   return (
-    <View style={[styles.container, first && {borderTopWidth: 1}]}>
-      <TouchableOpacity>
+    <View style={[styles.borderContainer, first && {borderTopWidth: 1}]}>
+      <TouchableOpacity style={styles.container}>
         <Text style={styles.name}>Jóskagyerek // TODO: trim name length</Text>
         {selected && (
           <Ionicons name="ios-checkmark-circle" style={styles.selectedSymbol} />
@@ -35,14 +35,16 @@ export default function AttackTargetBox({
 }
 
 const styles = StyleSheet.create({
+  borderContainer: {
+    borderBottomWidth: 1,
+    borderColor: '#3F68AE',
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
     paddingVertical: Spaces.medium,
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderColor: '#3F68AE',
   },
   image: {
     width: 60,

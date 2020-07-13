@@ -8,21 +8,22 @@ import {
   GestureResponderEvent,
 } from 'react-native'
 import {Spaces} from '../constants/spaces'
-import {Building} from '../model/building/building'
+import {Upgrade} from '../model/upgrade'
+import {Ionicons} from '@expo/vector-icons'
 
-interface BuildingBoxProps {
-  building?: Building // TODO: kivenni a nullable-t
+interface UpgradeBoxProps {
+  upgrade?: Upgrade // TODO: kivenni a nullable-t
   selected?: boolean
   active?: boolean
   onPress?: ((event: GestureResponderEvent) => void) | undefined
 }
 
-export default function BuildingBox({
+export default function UpgradeBox({
   onPress,
-  building,
+  upgrade,
   active = true,
   selected = false,
-}: BuildingBoxProps) {
+}: UpgradeBoxProps) {
   return (
     <TouchableOpacity onPress={onPress} disabled={!active}>
       <View
@@ -32,16 +33,16 @@ export default function BuildingBox({
             backgroundColor: selected ? 'rgba(255, 255, 255, 0.12)' : undefined,
           },
         ]}>
+        <Text style={styles.remainingTime}>még 3 kör</Text>
+        <Ionicons name="ios-checkmark-circle" style={styles.ownedSymbol} />
         <Image
           style={styles.image}
           source={require('../../assets/img/avatar.png')}
         />
-        <Text style={styles.name}>Zátonyvár</Text>
+        <Text style={styles.name}>Iszaptraktor</Text>
         <Text style={styles.description}>
-          50 ember-t ad a népességhez 200 krumplit termel körönként
+          növeli a krumpli termesztést 10%-kal
         </Text>
-        <Text style={styles.count}>1 db</Text>
-        <Text style={styles.price}>450 Gyöngy / db</Text>
       </View>
     </TouchableOpacity>
   )
@@ -58,7 +59,21 @@ const styles = StyleSheet.create({
     paddingVertical: Spaces.medium,
     paddingHorizontal: Spaces.extraLarge,
   },
+  remainingTime: {
+    color: '#9FFFF0',
+    position: 'absolute',
+    top: Spaces.medium,
+    left: Spaces.medium,
+    fontWeight: 'bold',
+  },
+  ownedSymbol: {
+    color: '#9FFFF0',
+    position: 'absolute',
+    top: Spaces.medium,
+    left: Spaces.medium,
+  },
   image: {
+    marginTop: Spaces.normal,
     marginBottom: Spaces.small,
   },
   name: {
@@ -67,14 +82,7 @@ const styles = StyleSheet.create({
   },
   description: {
     color: 'white',
-    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: Spaces.small,
-  },
-  count: {
-    color: 'white',
-  },
-  price: {
-    color: 'white',
   },
 })

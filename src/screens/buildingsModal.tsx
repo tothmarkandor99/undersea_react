@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, TextInput, View, Text, FlatList} from 'react-native'
+import {StyleSheet, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
@@ -18,19 +18,29 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
     number | undefined
   >(undefined)
 
+  const listHeader = () => {
+    return (
+      <View style={styles.listHeader}>
+        <Text style={[styles.text, styles.upperText]}>
+          Jelöld ki, amelyiket szeretnéd megvenni.
+        </Text>
+        <Text style={styles.text}>Egyszerre csak egy épület épülhet!</Text>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <HeaderWithArrow title="Épületek" backAction={navigation.goBack} />
-      <Text>Jelöld ki, amelyiket szeretnéd megvenni.</Text>
-      <Text>Egyszerre csak egy épület épülhet!</Text>
       <FlatList
+        style={styles.listBody}
+        ListHeaderComponent={listHeader}
         data={[1, 2, 3, 4, 5, 6, 7]}
         renderItem={({item}) => {
-          /* TODO: komponensbe kiszervezni */
           return <BuildingBox />
         }}
         keyExtractor={(item, index) => {
-          return index.toString()
+          return index.toString() // TODO: normális keyExtractor
         }}
       />
       <ModalButtonBar buttonTitle="Megveszem" buttonOnPress={() => {}} />
@@ -45,26 +55,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
-  search: {
-    backgroundColor: 'rgba(255, 255, 255, 0.39)',
-    borderRadius: 1000,
-    paddingVertical: Spaces.normal,
-    paddingHorizontal: Spaces.large,
-    flex: 1,
-  },
-  highscoreRow: {
-    marginHorizontal: Spaces.medium,
-    flexDirection: 'row',
-    paddingVertical: Spaces.medium,
-    borderBottomColor: '#3F68AE',
-    borderBottomWidth: 1,
-  },
-  highscoreText: {
+  text: {
     color: 'white',
   },
-  highscorePlace: {
-    paddingLeft: Spaces.medium,
-    flex: 0.2,
+  upperText: {
+    fontWeight: 'bold',
+    marginTop: Spaces.big,
   },
-  highscoreName: {},
+  listHeader: {
+    marginBottom: Spaces.giant,
+  },
+  listBody: {
+    paddingHorizontal: Spaces.big,
+  },
 })

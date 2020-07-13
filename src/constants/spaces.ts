@@ -7,4 +7,5 @@ export const Spaces = {
   big: 20,
   large: 25,
   extraLarge: 30,
+  giant: 45,
 }

@@ -24,9 +24,9 @@ const FancyButton = ({onPress, title, active = false}: FancyButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={styles.container}
+      style={[styles.container, {borderRadius: cornerRadius / 2}]}
       disabled={!(active && onPress !== undefined)}>
-      <View style={styles.row}>
+      {active ? (
         <LinearGradient
           colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
           start={[1, 0.3]}
@@ -38,7 +38,15 @@ const FancyButton = ({onPress, title, active = false}: FancyButtonProps) => {
           }}>
           <Text style={styles.loginButtonText}>{title}</Text>
         </LinearGradient>
-      </View>
+      ) : (
+        <View
+          style={[styles.loginButton, {borderRadius: cornerRadius / 2}]}
+          onLayout={event => {
+            setCornerRadius(event.nativeEvent.layout.height)
+          }}>
+          <Text style={styles.loginButtonText}>{title}</Text>
+        </View>
+      )}
     </TouchableOpacity>
   )
 }
@@ -46,8 +54,7 @@ const FancyButton = ({onPress, title, active = false}: FancyButtonProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 0.6,
-  },
-  loginButton: {
+    elevation: 5,
     shadowColor: '#3B7DBD',
     shadowOffset: {
       width: 0,
@@ -55,9 +62,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+  },
+  loginButton: {
     backgroundColor: '#A0D0F6',
-    flex: 1,
     paddingVertical: Spaces.normal,
   },
   loginButtonText: {
@@ -65,10 +72,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Baloo',
     color: '#1C3E76',
     fontSize: 16,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
   },
 })
 

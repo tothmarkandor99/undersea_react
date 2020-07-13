@@ -12,8 +12,7 @@ interface AttackUnitsProps {
   navigation: StackNavigationProp<any>
 }
 
-export default AttackUnits
-function AttackUnits({navigation}: AttackUnitsProps) {
+export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
@@ -37,7 +36,7 @@ function AttackUnits({navigation}: AttackUnitsProps) {
           return index.toString() // TODO: normális keyExtractor
         }}
       />
-      <ModalButtonBar buttonTitle="Megveszem" buttonOnPress={() => {}} />
+      <ModalButtonBar buttonTitle="Megtámadom!" buttonOnPress={() => {}} />
     </View>
   )
 }

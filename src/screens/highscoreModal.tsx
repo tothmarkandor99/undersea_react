@@ -6,6 +6,7 @@ import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import {getHighscores} from '../store/highscore/highscore.actions'
+import SearchField from '../components/searchField'
 
 interface HighscoreModalProps {
   navigation: StackNavigationProp<any>
@@ -37,13 +38,7 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
       <HeaderWithArrow title="Ranglista" backAction={navigation.goBack} />
       <View style={styles.contentContainer}>
         <View style={styles.highscoreRow}>
-          <TextInput
-            style={styles.search}
-            placeholder="Felhasználónév"
-            placeholderTextColor="#001234"
-            onChangeText={text => {
-              setSearchPhrase(text)
-            }}></TextInput>
+          <SearchField />
         </View>
         <FlatList
           data={scores}
@@ -78,13 +73,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     marginHorizontal: Spaces.medium,
-  },
-  search: {
-    backgroundColor: 'rgba(255, 255, 255, 0.39)',
-    borderRadius: 1000,
-    paddingVertical: Spaces.normal,
-    paddingHorizontal: Spaces.medium,
-    flex: 1,
   },
   highscoreRow: {
     flexDirection: 'row',

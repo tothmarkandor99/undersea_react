@@ -1,57 +1,44 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-//import {NavigationActions} from 'react-navigation'
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, TextInput, View, Text, FlatList} from 'react-native'
+import {StyleSheet, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
+import AttackTargetBox from '../components/attackTargetBox'
+import SearchField from '../components/searchField'
 
-interface AttackTargetModalProps {
+interface AttackTargetProps {
   navigation: StackNavigationProp<any>
 }
 
-export default AttackTargetModal
-function AttackTargetModal({navigation}: AttackTargetModalProps) {
-  const [selectedBuilding, setSelectedBuilding] = useState<number | undefined>(
-    undefined,
-  )
+export default function AttackTargetModal({navigation}: AttackTargetProps) {
+  const listHeader = () => {
+    return (
+      <View style={styles.listHeader}>
+        <Text style={[styles.text, styles.upperText]}>1. lépés</Text>
+        <Text style={styles.text}>Jelöld ki, kit szeretnél megtámadni:</Text>
+        <SearchField />
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow
-        title="Támadás 1"
-        backAction={() => {
-          navigation.goBack()
-        }}
-      />
+      <HeaderWithArrow title="Támadás" backAction={navigation.goBack} />
       <FlatList
+        style={styles.listBody}
+        ListHeaderComponent={listHeader}
         data={[1, 2, 3, 4, 5, 6, 7]}
         renderItem={({item}) => {
-          /* TODO: komponensbe kiszervezni */
-          return (
-            <View style={styles.highscoreRow}>
-              <Text style={[styles.highscoreText, styles.highscorePlace]}>
-                "lul"
-              </Text>
-              <Text style={[styles.highscoreText, styles.highscoreText]}>
-                hal
-              </Text>
-            </View>
-          )
+          return <AttackTargetBox />
         }}
         keyExtractor={(item, index) => {
-          return index.toString()
+          return index.toString() // TODO: normális keyExtractor
         }}
       />
-      <ModalButtonBar
-        buttonTitle="Tovább"
-        buttonOnPress={() => {
-          navigation.navigate('AttackUnitsModal')
-        }}
-        buttonActive={true}
-      />
+      <ModalButtonBar buttonTitle="Tovább" buttonOnPress={() => {}} />
     </View>
   )
 }
@@ -63,26 +50,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
-  search: {
-    backgroundColor: 'rgba(255, 255, 255, 0.39)',
-    borderRadius: 1000,
-    paddingVertical: Spaces.normal,
-    paddingHorizontal: Spaces.large,
-    flex: 1,
-  },
-  highscoreRow: {
-    marginHorizontal: Spaces.medium,
-    flexDirection: 'row',
-    paddingVertical: Spaces.medium,
-    borderBottomColor: '#3F68AE',
-    borderBottomWidth: 1,
-  },
-  highscoreText: {
+  text: {
     color: 'white',
   },
-  highscorePlace: {
-    paddingLeft: Spaces.medium,
-    flex: 0.2,
+  upperText: {
+    fontWeight: 'bold',
+    marginTop: Spaces.big,
   },
-  highscoreName: {},
+  listHeader: {
+    marginBottom: Spaces.normal,
+  },
+  listBody: {
+    paddingHorizontal: Spaces.big,
+  },
 })

@@ -7,6 +7,7 @@ import {
   View,
   StyleProp,
   ViewStyle,
+  Platform,
 } from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 import {Spaces} from '../constants/spaces'
@@ -22,13 +23,21 @@ const FancyButton = ({onPress, title, active = false}: FancyButtonProps) => {
     return (
       <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={styles.row}>
-          <LinearGradient
-            colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
-            start={[1, 0.3]}
-            end={[0, 0.7]}
-            style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>{title}</Text>
-          </LinearGradient>
+          {Platform.OS === 'ios' ? (
+            /* TODO: lehet hogy két színnel működik iOS-en */ <View
+              style={[styles.loginButton, {backgroundColor: '#0FCFDE'}]}>
+              <Text style={styles.loginButtonText}>{title}</Text>
+            </View>
+          ) : (
+            <LinearGradient
+              colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
+              start={[1, 0.3]}
+              end={[0, 0.7]}
+              locations={[0, 0.5, 1]}
+              style={styles.loginButton}>
+              <Text style={styles.loginButtonText}>{title}</Text>
+            </LinearGradient>
+          )}
         </View>
       </TouchableOpacity>
     )

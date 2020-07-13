@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
   avatar: {},
   main: {
-    backgroundColor: 'red',
+    backgroundColor: '#033766',
     flexGrow: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',

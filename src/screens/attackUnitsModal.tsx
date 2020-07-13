@@ -1,4 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
+import {NavigationActions} from 'react-navigation'
 import React, {useState, useEffect} from 'react'
 import {StyleSheet, TextInput, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
@@ -19,12 +20,7 @@ function AttackUnitsModal({navigation}: AttackUnitsModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow
-        title="Támadás 2"
-        backAction={() => {
-          navigation.pop(2) // TODO: github react-navigation #697
-        }}
-      />
+      <HeaderWithArrow title="Támadás 2" backAction={navigation.goBack} />
       <FlatList
         data={[1, 2, 3, 4, 5, 6, 7]}
         renderItem={({item}) => {

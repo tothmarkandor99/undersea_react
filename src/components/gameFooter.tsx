@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footerButtonImage: {
-    height: 50, // TODO: flexbox a fix méret helyett
+    height: 50, // TODO: flexbox vagy megfelelő méretű asset a fix méret helyett
     width: 50,
   },
   footerButtonText: {

@@ -1,4 +1,4 @@
-import {PurchasableUnit} from '../model/purchasableUnit'
+import {PurchasableUnit} from '../model/army/purchasableUnit'
 
 export interface PurchasableUnitStore {
   isLoading: boolean

@@ -8,7 +8,7 @@ import {
   GestureResponderEvent,
 } from 'react-native'
 import {Spaces} from '../constants/spaces'
-import {Upgrade} from '../model/upgrade'
+import {Upgrade} from '../model/upgrade/upgrade'
 import {Ionicons} from '@expo/vector-icons'
 
 interface UpgradeBoxProps {

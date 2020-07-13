@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
   TouchableOpacity,
   Text,
@@ -19,48 +19,33 @@ interface FancyButtonProps {
 }
 
 const FancyButton = ({onPress, title, active = false}: FancyButtonProps) => {
-  if (active && onPress !== undefined) {
-    return (
-      <TouchableOpacity onPress={onPress} style={styles.container}>
-        <View style={styles.row}>
-          {Platform.OS === 'ios' ? (
-            /* TODO: lehet hogy két színnel működik iOS-en */ <View
-              style={[styles.loginButton, {backgroundColor: '#0FCFDE'}]}>
-              <Text style={styles.loginButtonText}>{title}</Text>
-            </View>
-          ) : (
-            <LinearGradient
-              colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
-              start={[1, 0.3]}
-              end={[0, 0.7]}
-              locations={[0, 0.5, 1]}
-              style={styles.loginButton}>
-              <Text style={styles.loginButtonText}>{title}</Text>
-            </LinearGradient>
-          )}
-        </View>
-      </TouchableOpacity>
-    )
-  } else {
-    return (
-      <View style={styles.container}>
-        <View style={styles.row}>
-          <View style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>{title}</Text>
-          </View>
-        </View>
+  const [cornerRadius, setCornerRadius] = useState(15)
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.container}
+      disabled={!(active && onPress !== undefined)}>
+      <View style={styles.row}>
+        <LinearGradient
+          colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
+          start={[1, 0.3]}
+          end={[0, 0.7]}
+          locations={[0, 0.5, 1]}
+          style={[styles.loginButton, {borderRadius: cornerRadius / 2}]}
+          onLayout={event => {
+            setCornerRadius(event.nativeEvent.layout.height)
+          }}>
+          <Text style={styles.loginButtonText}>{title}</Text>
+        </LinearGradient>
       </View>
-    )
-  }
+    </TouchableOpacity>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 0.6,
-  },
-  loginButton: {
-    backgroundColor: '#A0D0F6',
-    borderRadius: 1000,
     shadowColor: '#3B7DBD',
     shadowOffset: {
       width: 0,
@@ -69,6 +54,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  loginButton: {
+    backgroundColor: '#A0D0F6',
     flex: 1,
     paddingVertical: Spaces.normal,
   },

@@ -46,6 +46,8 @@ const FancyButton = ({onPress, title, active = false}: FancyButtonProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 0.6,
+  },
+  loginButton: {
     shadowColor: '#3B7DBD',
     shadowOffset: {
       width: 0,
@@ -54,8 +56,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  loginButton: {
     backgroundColor: '#A0D0F6',
     flex: 1,
     paddingVertical: Spaces.normal,

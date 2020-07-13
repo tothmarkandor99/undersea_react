@@ -14,7 +14,7 @@ export function* highscoreSaga() {
 }
 
 function* watchPost() {
-  yield debounce(1000, GET_HIGHSCORES_REQUEST, getHighscoresActionWatcher)
+  yield debounce(500, GET_HIGHSCORES_REQUEST, getHighscoresActionWatcher)
 }
 
 function* getHighscoresActionWatcher(action: GetHighscoresRequestAction) {

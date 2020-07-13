@@ -1,7 +1,4 @@
-import {
-  BuildingResponse,
-  BuildingResponseItem,
-} from '../../model/building/building.response'
+import {BuildingResponse} from '../../model/building/building.response'
 import {Building} from '../../model/building/building'
 import {BuildRequest} from '../../model/building/build.request'
 import {BuildResponse} from '../../model/building/build.response'
@@ -40,7 +37,7 @@ export interface ResetSelectionAction {
 
 export interface PostBuildRequestAction {
   type: typeof POST_BUILD_REQUEST
-  building: Building
+  building: BuildRequest
 }
 
 export interface PostBuildSuccessAction {
@@ -90,7 +87,7 @@ export const resetSelection = (): ResetSelectionAction => ({
   type: RESET_SELECTION,
 })
 
-export const postBuild = (building: Building): PostBuildRequestAction => ({
+export const postBuild = (building: BuildRequest): PostBuildRequestAction => ({
   type: POST_BUILD_REQUEST,
   building,
 })

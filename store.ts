@@ -5,11 +5,14 @@ import {HighscoreStore} from './src/store/highscore/highscore.store'
 import {highscoreReducer} from './src/store/highscore/highscore.reducer'
 import {BuildingStore} from './src/store/building/building.store'
 import {buildingReducer} from './src/store/building/building.reducer'
+import {FightStore} from './src/store/fight/fight.store'
+import {fightReducer} from './src/store/fight/fight.reducer'
 
 export interface IAppStore {
   user: UserStore
   highscore: HighscoreStore
   building: BuildingStore
+  fight: FightStore
   // TODO: többi store
 }
 
@@ -31,6 +34,7 @@ export const appReducer = combineReducers<IAppStore>({
   user: userReducer,
   highscore: highscoreReducer,
   building: buildingReducer,
+  fight: fightReducer,
   // TODO: többi reducer
 })
 

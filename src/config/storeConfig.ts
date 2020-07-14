@@ -7,9 +7,10 @@ import {rootSaga} from '../../saga'
 export function configureStore() {
   const sagaMiddleware = createSagaMiddleware()
   const deepRootReducer = combineReducers({app: appRootReducer})
+
   const store = createStore(
     deepRootReducer,
-    applyMiddleware(logger, sagaMiddleware),
+    applyMiddleware(/*logger,*/ sagaMiddleware),
   )
   sagaMiddleware.run(rootSaga)
   return store

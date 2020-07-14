@@ -16,6 +16,10 @@ import GameFooter from '../components/gameFooter'
 import {LinearGradient} from 'expo-linear-gradient'
 import {FontAwesome} from '@expo/vector-icons'
 import InfoOverlay from '../components/infoOverlay'
+import {RFValue} from 'react-native-responsive-fontsize'
+import GameArea from '../components/gameArea'
+import LogoSvg from '../../assets/img/logo'
+import GameHeader from '../components/gameHeader'
 
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
@@ -27,6 +31,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
   const fadeAnim = useRef(new Animated.Value(0))
   const slideAnim = useRef(new Animated.Value(-50))
   const [starRadius, setStarRadius] = useState(10)
+
   const [bottomInfosVisible, setBottomInfosVisible] = useState(false)
   useEffect(() => {
     if (bottomInfosVisible) {
@@ -59,23 +64,11 @@ const GameScreen = ({navigation}: GameScreenProps) => {
       useNativeDriver: false,
     }).start()
   }
-
   return (
     <SafeAreaView style={styles.safeArea}>
+      {/* TODO: más megoldás a status bar-ra, mert ld. github react-native-safe-area-view #5665 */}
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Undersea</Text>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('ProfileModal')
-            }}>
-            <Image
-              style={styles.avatar}
-              resizeMode="contain"
-              source={require('../../assets/img/Group21.png')}
-            />
-          </TouchableOpacity>
-        </View>
+        <GameHeader navigation={navigation} />
         <ImageBackground
           style={styles.main}
           source={require('../../assets/img/game_bg.png')}>
@@ -103,9 +96,10 @@ const GameScreen = ({navigation}: GameScreenProps) => {
               </LinearGradient>
             </TouchableOpacity>
           </View>
-          <InfoOverlay fadeAnim={fadeAnim} slideAnim={slideAnim} />
+          <GameArea />
+          <InfoOverlay fadeAnim={fadeAnim} slideAnim={slideAnim} zIndex={9} />
         </ImageBackground>
-        <GameFooter navigation={navigation} style={{zIndex: 1}} />
+        <GameFooter navigation={navigation} style={styles.footer} />
       </View>
     </SafeAreaView>
   )
@@ -119,18 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  header: {
-    backgroundColor: '#1C3E76',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerText: {
-    fontFamily: 'Baloo',
-    color: '#9FFFF0',
-    textTransform: 'uppercase',
-  },
-  avatar: {},
   main: {
     backgroundColor: '#033766',
     flexGrow: 1,
@@ -138,6 +120,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   mainTopArea: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     marginTop: Spaces.normal,
     justifyContent: 'center',
@@ -165,6 +151,9 @@ const styles = StyleSheet.create({
   },
   star: {
     fontSize: 18,
+  },
+  footer: {
+    zIndex: 10,
   },
 })
 

@@ -2,13 +2,20 @@ import {
   GetFightsRequestAction,
   getFightsFailureActionCreator,
   getFightsSuccessActionCreator,
+  GET_FIGHTS_REQUEST,
 } from './fight.actions'
-import {put} from 'redux-saga/effects'
+import {put, takeEvery, all} from 'redux-saga/effects'
 import {AxiosResponse} from 'axios'
 import {FightResponse} from '../../model/fight/fight.response'
 import fightsService from '../../utility/services/fightService'
 
-export function* fightSaga() {}
+export function* fightSaga() {
+  yield all([watchGet()])
+}
+
+function* watchGet() {
+  yield takeEvery(GET_FIGHTS_REQUEST, getFightsActionWatcher)
+}
 
 function* getFightsActionWatcher(action: GetFightsRequestAction) {
   try {

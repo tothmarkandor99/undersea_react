@@ -1,10 +1,11 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, TextInput, View, Text, FlatList} from 'react-native'
+import {StyleSheet, View, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
+import {getFights} from '../store/fight/fight.actions'
 import FightItem from '../components/fightItem'
 
 interface FightModalProps {
@@ -13,9 +14,14 @@ interface FightModalProps {
 
 export default FightModal
 function FightModal({navigation}: FightModalProps) {
-  const [selectedBuildingId, setSelectedBuildingId] = useState<
-    number | undefined
-  >(undefined)
+  const {fights, error, isLoading} = useSelector(
+    (state: IApplicationState) => state.app.fight,
+  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getFights())
+  }, [dispatch])
 
   return (
     <View style={styles.container}>
@@ -23,8 +29,10 @@ function FightModal({navigation}: FightModalProps) {
       <View style={styles.contentContainer}>
         <FlatList
           style={styles.list}
-          data={[1, 2, 3, 4, 5, 6, 7]}
-          renderItem={({item, index}) => <FightItem first={index === 0} />}
+          data={fights}
+          renderItem={({item, index}) => (
+            <FightItem first={index === 0} fight={item} />
+          )}
           keyExtractor={(item, index) => {
             return index.toString()
           }}

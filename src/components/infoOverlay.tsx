@@ -5,9 +5,14 @@ import {Spaces} from '../constants/spaces'
 interface InfoOverlayProps {
   fadeAnim: React.MutableRefObject<Animated.Value>
   slideAnim: React.MutableRefObject<Animated.Value>
+  zIndex?: number
 }
 
-export default function InfoOverlay({fadeAnim, slideAnim}: InfoOverlayProps) {
+export default function InfoOverlay({
+  fadeAnim,
+  slideAnim,
+  zIndex = 0,
+}: InfoOverlayProps) {
   return (
     <Animated.View
       style={[
@@ -18,6 +23,7 @@ export default function InfoOverlay({fadeAnim, slideAnim}: InfoOverlayProps) {
           left: 0,
           right: 0,
           bottom: slideAnim.current,
+          zIndex: zIndex,
         },
       ]}>
       <View style={styles.infoOverlayRow}>

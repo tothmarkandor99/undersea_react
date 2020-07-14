@@ -68,6 +68,7 @@ export default function Navi() {
             },
           }),
         }}
+        initialRouteName="GameScreen"
         mode="modal">
         <GameStack.Screen name="GameScreen" component={GameScreen} />
         <GameStack.Screen name="ProfileModal" component={ProfileModal} />

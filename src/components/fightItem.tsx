@@ -1,12 +1,14 @@
 import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 import {Spaces} from '../constants/spaces'
+import {Fight} from '../model/fight/fight'
 
 interface FightItemProps {
   first?: boolean
+  fight: Fight
 }
 
-export default function FightItem({first = false}: FightItemProps) {
+export default function FightItem({first = false, fight}: FightItemProps) {
   return (
     <View
       style={[
@@ -16,10 +18,10 @@ export default function FightItem({first = false}: FightItemProps) {
           marginTop: Spaces.big,
         },
       ]}>
-      <Text style={[styles.text, styles.city]}>Atlantisz</Text>
-      <Text style={styles.text}>6 Lézercápa</Text>
-      <Text style={styles.text}>11 Lézercápa</Text>
-      <Text style={styles.text}>40 Csatacsikó</Text>
+      <Text style={[styles.text, styles.city]}>{fight.countryName}</Text>
+      <Text style={styles.text}>{fight.laserSharkCount} Lézercápa</Text>
+      <Text style={styles.text}>{fight.stormSealCount} Rohamfóka</Text>
+      <Text style={styles.text}>{fight.combatSeaHorseCount} Csatacsikó</Text>
     </View>
   )
 }

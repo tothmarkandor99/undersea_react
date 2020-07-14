@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  StyleSheet,
-  TextInput,
-  TextInputProps,
-  GestureResponderEvent,
-  View,
-} from 'react-native'
+import {StyleSheet, GestureResponderEvent, View} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import FancyButton from './fancyButton'
 

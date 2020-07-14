@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {ImageSourcePropType, Dimensions, StyleSheet, Image} from 'react-native'
 import {RFValue} from 'react-native-responsive-fontsize'
 

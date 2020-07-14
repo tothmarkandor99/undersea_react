@@ -5,9 +5,6 @@ import {
   StyleSheet,
   GestureResponderEvent,
   View,
-  StyleProp,
-  ViewStyle,
-  Platform,
 } from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 import {Spaces} from '../constants/spaces'

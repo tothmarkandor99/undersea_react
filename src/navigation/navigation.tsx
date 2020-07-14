@@ -22,7 +22,7 @@ export default function Navi() {
   const AttackStack = createStackNavigator()
 
   const loggedIn = useSelector(
-    (state: IApplicationState) => state.app.user.loggedIn,
+    (state: IApplicationState) => state.app.user.user !== undefined,
   )
 
   return (

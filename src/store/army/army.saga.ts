@@ -1,9 +1,9 @@
 import {all, put, takeEvery} from 'redux-saga/effects'
 import {
+  GET_ARMY_REQUEST,
   GetArmyRequestAction,
   getArmySuccessActionCreator,
   getArmyFailureActionCreator,
-  GET_ARMY_REQUEST,
   POST_BUY_ARMY_REQUEST,
   PostBuyArmyRequestAction,
   postBuyArmySuccessActionCreator,

@@ -9,7 +9,7 @@ export function configureStore() {
   const deepRootReducer = combineReducers({app: appRootReducer})
   const store = createStore(
     deepRootReducer,
-    applyMiddleware(/*logger, */ sagaMiddleware),
+    applyMiddleware(logger, sagaMiddleware),
   )
   sagaMiddleware.run(rootSaga)
   return store

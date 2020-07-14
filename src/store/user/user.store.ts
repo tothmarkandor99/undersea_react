@@ -3,13 +3,11 @@ import {User} from '../../model/user/user'
 export interface UserStore {
   isLoading: boolean
   error: string | undefined
-  loggedIn: boolean
-  user: User | null
+  user: User | undefined
 }
 
 export const initialUserStore = {
   isLoading: false,
   error: undefined,
-  loggedIn: false,
-  user: null,
+  user: undefined,
 }

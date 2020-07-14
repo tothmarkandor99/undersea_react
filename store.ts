@@ -9,6 +9,8 @@ import {FightStore} from './src/store/fight/fight.store'
 import {fightReducer} from './src/store/fight/fight.reducer'
 import {upgradeReducer} from './src/store/upgrade/upgrade.reducer'
 import {UpgradeStore} from './src/store/upgrade/upgrade.store'
+import {armyReducer} from './src/store/army/army.reducer'
+import {ArmyStore} from './src/store/army/army.store'
 
 export interface IAppStore {
   user: UserStore
@@ -16,7 +18,7 @@ export interface IAppStore {
   building: BuildingStore
   fight: FightStore
   upgrade: UpgradeStore
-  // TODO: többi store
+  army: ArmyStore
 }
 
 export interface IApplicationState {
@@ -34,12 +36,12 @@ export const reset = (): ResetAction => ({
 })
 
 export const appReducer = combineReducers<IAppStore>({
-  user: userReducer,
   highscore: highscoreReducer,
+  user: userReducer,
   building: buildingReducer,
   fight: fightReducer,
   upgrade: upgradeReducer,
-  // TODO: többi reducer
+  army: armyReducer,
 })
 
 export const appRootReducer: Reducer<IAppStore> = (

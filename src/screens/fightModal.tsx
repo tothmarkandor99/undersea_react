@@ -26,18 +26,16 @@ function FightModal({navigation}: FightModalProps) {
   return (
     <View style={styles.container}>
       <HeaderWithArrow title="Harc" backAction={navigation.goBack} />
-      <View style={styles.contentContainer}>
-        <FlatList
-          style={styles.list}
-          data={fights}
-          renderItem={({item, index}) => (
-            <FightItem first={index === 0} fight={item} />
-          )}
-          keyExtractor={(item, index) => {
-            return index.toString()
-          }}
-        />
-      </View>
+      <FlatList
+        style={styles.listBody}
+        data={fights}
+        renderItem={({item, index}) => (
+          <FightItem first={index === 0} fight={item} />
+        )}
+        keyExtractor={(item, index) => {
+          return index.toString()
+        }}
+      />
     </View>
   )
 }
@@ -49,8 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
-  contentContainer: {
-    marginHorizontal: Spaces.medium,
+  listBody: {
+    paddingHorizontal: Spaces.big,
   },
-  list: {},
 })

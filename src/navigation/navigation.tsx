@@ -50,23 +50,35 @@ export default function Navi() {
       <GameStack.Navigator
         headerMode="none"
         screenOptions={{
-          cardStyle: {backgroundColor: 'transparent'},
-          cardOverlayEnabled: true,
-          cardStyleInterpolator: ({current: {progress}}) => ({
-            cardStyle: {
-              opacity: progress.interpolate({
-                inputRange: [0, 0.5, 1],
-                outputRange: [0, 0.25, 1],
-              }),
-            },
-            overlayStyle: {
-              opacity: progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, 0.5],
-                extrapolate: 'clamp',
-              }),
-            },
-          }),
+          cardStyle: {backgroundColor: 'black'},
+          cardStyleInterpolator: ({current, next, layouts}) => {
+            return {
+              cardStyle: {
+                opacity: current.progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 1],
+                }),
+                transform: [
+                  {
+                    scale: next
+                      ? next.progress.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [1, 1.3],
+                        })
+                      : 1,
+                  },
+                  {
+                    scale: current
+                      ? current.progress.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0.3, 1],
+                        })
+                      : 1,
+                  },
+                ],
+              },
+            }
+          },
         }}
         initialRouteName="GameScreen"
         mode="modal">

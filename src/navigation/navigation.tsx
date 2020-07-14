@@ -100,22 +100,34 @@ export default function Navi() {
         headerMode="none"
         screenOptions={{
           cardStyle: {backgroundColor: 'transparent'},
-          cardOverlayEnabled: true,
-          cardStyleInterpolator: ({current: {progress}}) => ({
-            cardStyle: {
-              opacity: progress.interpolate({
-                inputRange: [0, 0.5, 1],
-                outputRange: [0, 0.25, 1],
-              }),
-            },
-            overlayStyle: {
-              opacity: progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, 0.5],
-                extrapolate: 'clamp',
-              }),
-            },
-          }),
+          cardStyleInterpolator: ({current, next, layouts}) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                  {
+                    translateX: next
+                      ? next.progress.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0, -layouts.screen.width],
+                        })
+                      : 0,
+                  },
+                ],
+              },
+              overlayStyle: {
+                opacity: current.progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 0.5],
+                }),
+              },
+            }
+          },
         }}
         mode="modal">
         <AttackStack.Screen

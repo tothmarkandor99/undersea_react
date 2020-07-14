@@ -1,18 +1,30 @@
-import {all, put} from 'redux-saga/effects'
+import {all, put, takeEvery} from 'redux-saga/effects'
 import {
   GetArmyRequestAction,
   getArmySuccessActionCreator,
   getArmyFailureActionCreator,
+  GET_ARMY_REQUEST,
+  POST_BUY_ARMY_REQUEST,
+  PostBuyArmyRequestAction,
+  postBuyArmySuccessActionCreator,
+  postBuyArmyFailureActionCreator,
 } from './army.actions'
 import {AxiosResponse} from 'axios'
 import {PurchasableUnitResponse} from '../../model/army/purchasableUnit.response'
 import armyService from '../../utility/services/armyService'
+import {PurchaseUnitResponse} from '../../model/army/purchaseUnit.response'
 
 export function* armySaga() {
-  yield all([watchGet()])
+  yield all([watchGet(), watchPost()])
 }
 
-function* watchGet() {}
+function* watchGet() {
+  yield takeEvery(GET_ARMY_REQUEST, getArmyActionWatcher)
+}
+
+function* watchPost() {
+  yield takeEvery(POST_BUY_ARMY_REQUEST, postBuyArmyActionWatcher)
+}
 
 function* getArmyActionWatcher(action: GetArmyRequestAction) {
   try {
@@ -22,5 +34,18 @@ function* getArmyActionWatcher(action: GetArmyRequestAction) {
     console.log(error)
     const errorMessage = 'Hiba a betöltés közben'
     yield put(getArmyFailureActionCreator(errorMessage))
+  }
+}
+
+function* postBuyArmyActionWatcher(action: PostBuyArmyRequestAction) {
+  try {
+    const response: AxiosResponse<PurchaseUnitResponse> = yield armyService.postBuyArmy(
+      action.army,
+    )
+    yield put(postBuyArmySuccessActionCreator(response.data))
+  } catch (error) {
+    console.log(error)
+    const errorMessage = 'Hiba a vásárlás közben'
+    yield put(postBuyArmyFailureActionCreator(errorMessage))
   }
 }

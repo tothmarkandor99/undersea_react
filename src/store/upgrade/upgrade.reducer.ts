@@ -59,12 +59,9 @@ export const upgradeReducer = (
         upgrades: state.upgrades.map(
           item =>
             <Upgrade>{
-              id: item.id,
-              details: item.details,
+              ...item,
               isPurchased: item.isPurchased || action.response.id == item.id,
-              name: item.name,
-              picture: item.picture,
-              remainingRounds: item.remainingRounds,
+              // TODO: ez valószínűleg nem lesz egyből purchased, backenden vissza kéne adni a remainingRounds-t
             },
         ),
       }

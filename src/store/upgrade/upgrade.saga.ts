@@ -4,17 +4,26 @@ import {
   GetUpgradesRequestAction,
   getUpgradesSuccessActionCreator,
   getUpgradesFailureActionCreator,
+  POST_BUY_UPGRADE_REQUEST,
+  PostBuyUpgradeRequestAction,
+  postBuyUpgradeFailureActionCreator,
+  postBuyUpgradeSuccessActionCreator,
 } from './upgrade.actions'
 import {AxiosResponse} from 'axios'
 import {UpgradeResponse} from '../../model/upgrade/upgrade.response'
 import upgradeService from '../../utility/services/upgradeService'
+import {BuyUpgradeResponse} from '../../model/upgrade/buyUpgrade.response'
 
 export function* upgradeSaga() {
-  yield all([watchPost()])
+  yield all([watchGet(), watchPost()])
+}
+
+function* watchGet() {
+  yield takeEvery(GET_UPGRADES_REQUEST, getUpgradesActionWatcher)
 }
 
 function* watchPost() {
-  yield takeEvery(GET_UPGRADES_REQUEST, getUpgradesActionWatcher) // TODO: azonnal: takeEvery
+  yield takeEvery(POST_BUY_UPGRADE_REQUEST, postBuyUpgradeActionWatcher)
 }
 
 function* getUpgradesActionWatcher(action: GetUpgradesRequestAction) {
@@ -25,5 +34,18 @@ function* getUpgradesActionWatcher(action: GetUpgradesRequestAction) {
     console.log(error)
     const errorMessage = 'Hiba a betöltés közben'
     yield put(getUpgradesFailureActionCreator(errorMessage))
+  }
+}
+
+function* postBuyUpgradeActionWatcher(action: PostBuyUpgradeRequestAction) {
+  try {
+    const response: AxiosResponse<BuyUpgradeResponse> = yield upgradeService.postBuyUpgrade(
+      action.upgrade,
+    )
+    yield put(postBuyUpgradeSuccessActionCreator(response.data))
+  } catch (error) {
+    console.log(error)
+    const errorMessage = 'Hiba a vásárlás közben'
+    yield put(postBuyUpgradeFailureActionCreator(errorMessage))
   }
 }

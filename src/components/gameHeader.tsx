@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: Spaces.medium,
   },
   avatar: {
     width: RFValue(31, 568),
     height: RFValue(31, 568),
+    margin: Spaces.medium,
   },
 })

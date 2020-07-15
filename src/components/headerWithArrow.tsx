@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   backButton: {
     flex: 0.1,
     paddingHorizontal: Spaces.large,
+    paddingVertical: Spaces.normal,
   },
   titleText: {
     textAlign: 'center',

@@ -1,4 +1,5 @@
 import {initialUserStore, UserStore} from './user.store'
+import {User} from '../../model/user/user'
 import {
   UserActions,
   BYPASS_LOGIN,
@@ -9,7 +10,6 @@ import {
   POST_REGISTER_FAILURE,
   POST_REGISTER_SUCCESS,
 } from './user.actions'
-import {User} from '../../model/user/user'
 
 export const userReducer = (
   state = initialUserStore,

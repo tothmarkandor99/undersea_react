@@ -1,5 +1,4 @@
 import {FightResponse} from '../../model/fight/fight.response'
-import {Fight} from '../../model/fight/fight'
 
 export const GET_FIGHTS_REQUEST = 'GET_FIGHTS_REQUEST'
 export const GET_FIGHTS_SUCCESS = 'GET_FIGHTS_SUCCESS'

@@ -18,7 +18,6 @@ import {FontAwesome} from '@expo/vector-icons'
 import InfoOverlay from '../components/infoOverlay'
 import {RFValue} from 'react-native-responsive-fontsize'
 import GameArea from '../components/gameArea'
-import LogoSvg from '../../assets/img/logo'
 import GameHeader from '../components/gameHeader'
 
 interface GameScreenProps {

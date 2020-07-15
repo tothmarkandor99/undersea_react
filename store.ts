@@ -1,5 +1,4 @@
 import {AnyAction, combineReducers, Reducer} from 'redux'
-import {UserStore} from './src/store/user/user.store'
 import {userReducer} from './src/store/user/user.reducer'
 import {HighscoreStore} from './src/store/highscore/highscore.store'
 import {highscoreReducer} from './src/store/highscore/highscore.reducer'
@@ -13,6 +12,7 @@ import {armyReducer} from './src/store/army/army.reducer'
 import {ArmyStore} from './src/store/army/army.store'
 import {StatsStore} from './src/store/stats/stats.store'
 import {statsReducer} from './src/store/stats/stats.reducer'
+import {UserStore} from './src/store/user/user.store'
 
 export interface IAppStore {
   user: UserStore

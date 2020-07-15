@@ -11,6 +11,8 @@ import {upgradeReducer} from './src/store/upgrade/upgrade.reducer'
 import {UpgradeStore} from './src/store/upgrade/upgrade.store'
 import {armyReducer} from './src/store/army/army.reducer'
 import {ArmyStore} from './src/store/army/army.store'
+import {StatsStore} from './src/store/stats/stats.store'
+import {statsReducer} from './src/store/stats/stats.reducer'
 
 export interface IAppStore {
   user: UserStore
@@ -19,6 +21,7 @@ export interface IAppStore {
   fight: FightStore
   upgrade: UpgradeStore
   army: ArmyStore
+  stats: StatsStore
 }
 
 export interface IApplicationState {
@@ -42,6 +45,7 @@ export const appReducer = combineReducers<IAppStore>({
   fight: fightReducer,
   upgrade: upgradeReducer,
   army: armyReducer,
+  stats: statsReducer,
 })
 
 export const appRootReducer: Reducer<IAppStore> = (

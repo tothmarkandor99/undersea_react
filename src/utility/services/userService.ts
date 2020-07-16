@@ -3,10 +3,10 @@ import {LoginRequest} from '../../model/user/login.request'
 import {RegisterRequest} from '../../model/user/register.request'
 import {LogoutRequest} from '../../model/user/logout.request'
 
-const LOGIN_ROUTE = 'api/Auth/login'
-const REFRESH_ROUTE = 'api/Auth/refresh'
-const LOGOUT_ROUTE = 'api/Auth/logout'
-const REGISTER_ROUTE = 'api/Auth/register'
+const LOGIN_ROUTE = 'Auth/login'
+const REFRESH_ROUTE = 'Auth/refresh'
+const LOGOUT_ROUTE = 'Auth/logout'
+const REGISTER_ROUTE = 'Auth/register'
 
 class UserService {
   logIn = async (user: LoginRequest) => {

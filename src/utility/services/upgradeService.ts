@@ -1,6 +1,7 @@
 import Network from '../network'
 import {BuyUpgradeRequest} from '../../model/upgrade/buyUpgrade.request'
-const ROUTE = 'Upgrade'
+
+const ROUTE = 'Upgrades'
 
 class UpgradeService {
   getUpgrades = async () => {

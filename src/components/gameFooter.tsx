@@ -11,8 +11,9 @@ import EpuletekSvg from '../../assets/img/epuletek_nav'
 import HarcSvg from '../../assets/img/harc_nav'
 import SeregSvg from '../../assets/img/sereg_nav'
 import {StackNavigationProp} from '@react-navigation/stack'
-import { Strings } from '../constants/strings'
-import { Fonts } from '../constants/fonts'
+import {Strings} from '../constants/strings'
+import {Fonts} from '../constants/fonts'
+import {Colors} from '../constants/colors'
 
 interface GameFooterProps {
   navigation: StackNavigationProp<any>
@@ -23,7 +24,11 @@ export default function GameFooter({navigation, style}: GameFooterProps) {
   return (
     <LinearGradient
       style={[styles.footer, style]}
-      colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
+      colors={[
+        Colors.buttonGradient1,
+        Colors.buttonGradient2,
+        Colors.buttonGradient3,
+      ]}
       start={[0.5, 0]}
       end={[0.5, 1]}>
       <TouchableOpacity

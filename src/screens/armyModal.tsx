@@ -7,7 +7,10 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import ArmyBox from '../components/armyBox'
-import { Strings } from '../constants/strings'
+import {Strings} from '../constants/strings'
+import {getArmy} from '../store/army/army.actions'
+import {showMessage} from 'react-native-flash-message'
+import Loading from '../components/loading'
 
 interface ArmyModalProps {
   navigation: StackNavigationProp<any>
@@ -15,9 +18,23 @@ interface ArmyModalProps {
 
 export default ArmyModal
 function ArmyModal({navigation}: ArmyModalProps) {
-  const [selectedBuildingId, setSelectedBuildingId] = useState<
-    number | undefined
-  >(undefined)
+  const {purchasableUnits, error, isLoading} = useSelector(
+    (state: IApplicationState) => state.app.army,
+  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getArmy())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (error !== undefined) {
+      showMessage({
+        message: error,
+        type: 'danger',
+      })
+    }
+  }, [error])
 
   const listHeader = () => {
     return (
@@ -31,19 +48,21 @@ function ArmyModal({navigation}: ArmyModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title={Strings.upgrades} backAction={navigation.goBack} />
+      <HeaderWithArrow
+        title={Strings.upgrades}
+        backAction={navigation.goBack}
+      />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
-        data={[1, 2, 3, 4, 5, 6, 7]}
+        data={purchasableUnits}
         renderItem={({item}) => {
-          return <ArmyBox />
+          return <ArmyBox unit={item} />
         }}
-        keyExtractor={(item, index) => {
-          return index.toString() // TODO: normális keyExtractor
-        }}
+        keyExtractor={item => item.id.toString()}
       />
       <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
+      <Loading animating={isLoading} />
     </View>
   )
 }

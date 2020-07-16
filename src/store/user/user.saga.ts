@@ -13,6 +13,7 @@ import {LoginResponse} from '../../model/user/login.response'
 import userService from '../../utility/services/userService'
 import {put, takeEvery, all} from 'redux-saga/effects'
 import {RegisterResponse} from '../../model/user/register.response'
+import {AsyncStorage} from 'react-native'
 
 export function* userSaga() {
   yield all([watchLogin(), watchRegister()])
@@ -31,6 +32,8 @@ function* postLoginActionWatcher(action: PostLoginRequestAction) {
     const response: AxiosResponse<LoginResponse> = yield userService.logIn(
       action.user,
     )
+    AsyncStorage.setItem('access_token', response.data.accessToken) // TODO: kell ezt awaitelni?
+    AsyncStorage.setItem('refresh_token', response.data.refreshToken)
     yield put(postLoginSuccessActionCreator(response.data))
   } catch (error) {
     console.log(error)

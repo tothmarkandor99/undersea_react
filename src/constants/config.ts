@@ -1,3 +1,3 @@
 export const Config = {
-  baseUrl: 'http://underseat2lasttry.webtest.encosoft.internal',
+  baseUrl: 'http://underseat2lasttry.webtest.encosoft.internal/api',
 }

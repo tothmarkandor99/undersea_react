@@ -7,7 +7,9 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import UpgradeBox from '../components/upgradeBox'
-import { Strings } from '../constants/strings'
+import {Strings} from '../constants/strings'
+import {getUpgrades} from '../store/upgrade/upgrade.actions'
+import {showMessage} from 'react-native-flash-message'
 
 interface UpgradesModalProps {
   navigation: StackNavigationProp<any>
@@ -15,32 +17,49 @@ interface UpgradesModalProps {
 
 export default UpgradesModal
 function UpgradesModal({navigation}: UpgradesModalProps) {
+  const {upgrades, error, isLoading} = useSelector(
+    (state: IApplicationState) => state.app.upgrade,
+  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUpgrades())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (error !== undefined) {
+      showMessage({
+        message: error,
+        type: 'danger',
+      })
+    }
+  }, [error])
+
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>
           {Strings.selectWhatYouWantToBuy}
         </Text>
-        <Text style={styles.text}>
-          {Strings.upgradeDescription}
-        </Text>
+        <Text style={styles.text}>{Strings.upgradeDescription}</Text>
       </View>
     )
   }
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title={Strings.upgrades} backAction={navigation.goBack} />
+      <HeaderWithArrow
+        title={Strings.upgrades}
+        backAction={navigation.goBack}
+      />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
-        data={[1, 2, 3, 4, 5, 6, 7]}
+        data={upgrades}
         renderItem={({item}) => {
-          return <UpgradeBox />
+          return <UpgradeBox upgrade={item} />
         }}
-        keyExtractor={(item, index) => {
-          return index.toString() // TODO: normális keyExtractor
-        }}
+        keyExtractor={item => item.id.toString()}
       />
       <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
     </View>

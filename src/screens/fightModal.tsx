@@ -7,7 +7,7 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import {getFights} from '../store/fight/fight.actions'
 import FightItem from '../components/fightItem'
-import { Strings } from '../constants/strings'
+import {Strings} from '../constants/strings'
 
 interface FightModalProps {
   navigation: StackNavigationProp<any>

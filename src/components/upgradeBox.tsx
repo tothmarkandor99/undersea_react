@@ -12,7 +12,7 @@ import {Upgrade} from '../model/upgrade/upgrade'
 import {Ionicons} from '@expo/vector-icons'
 
 interface UpgradeBoxProps {
-  upgrade?: Upgrade // TODO: kivenni a nullable-t
+  upgrade: Upgrade // TODO: kivenni a nullable-t
   selected?: boolean
   active?: boolean
   onPress?: ((event: GestureResponderEvent) => void) | undefined
@@ -39,10 +39,8 @@ export default function UpgradeBox({
           style={styles.image}
           source={require('../../assets/img/Group21.png')}
         />
-        <Text style={styles.name}>Iszaptraktor</Text>
-        <Text style={styles.description}>
-          növeli a krumpli termesztést 10%-kal
-        </Text>
+        <Text style={styles.name}>{upgrade.name}</Text>
+        <Text style={styles.description}>{upgrade.details}</Text>
       </View>
     </TouchableOpacity>
   )

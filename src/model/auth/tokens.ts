@@ -1,4 +1,4 @@
-export interface RegisterResponse {
+export interface Tokens {
   accessToken: string
   refreshToken: string
 }

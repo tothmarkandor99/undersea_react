@@ -2,7 +2,7 @@ import Network from '../network'
 import {PurchasableUnitResponse} from '../../model/army/purchasableUnit.response'
 import {PurchaseUnitRequest} from '../../model/army/purchaseUnit.request'
 
-const ROUTE = ''
+const ROUTE = 'Units'
 
 class ArmyService {
   getArmy = async () => {

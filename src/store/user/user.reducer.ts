@@ -46,6 +46,8 @@ export const userReducer = (
         user: <User>{
           /* TODO: API alapján */
         },
+        accessToken: action.response.accessToken,
+        refreshToken: action.response.refreshToken,
       }
     case POST_LOGIN_FAILURE:
       return {
@@ -68,6 +70,8 @@ export const userReducer = (
         user: <User>{
           /* TODO: API alapján */
         },
+        accessToken: action.response.accessToken,
+        refreshToken: action.response.refreshToken,
       }
     case POST_REGISTER_FAILURE:
       return {

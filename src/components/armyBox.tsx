@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native'
 import {Spaces} from '../constants/spaces'
-import {Unit} from '../model/unit'
+import {PurchasableUnit} from '../model/army/purchasableUnit'
 import {AntDesign} from '@expo/vector-icons'
 
 interface ArmyBoxProps {
-  unit?: Unit // TODO: kivenni a nullable-t
+  unit: PurchasableUnit // TODO: kivenni a nullable-t
 }
 
 export default function ArmyBox({unit}: ArmyBoxProps) {
@@ -17,26 +17,28 @@ export default function ArmyBox({unit}: ArmyBoxProps) {
         style={styles.image}
         source={require('../../assets/img/Group21.png')}
       />
-      <Text style={styles.name}>Iszaptraktor</Text>
+      <Text style={styles.name}>{unit.name}</Text>
       <View style={styles.dataRow}>
         <Text style={styles.dataName}>Birtokodban</Text>
-        <Text style={styles.dataValue}>0 db</Text>
+        <Text style={styles.dataValue}>{unit.count} db</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.dataName}>Támadás/Védekezés</Text>
-        <Text style={styles.dataValue}>5/5</Text>
+        <Text style={styles.dataValue}>
+          {unit.attackScore}/{unit.defenseScore}
+        </Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.dataName}>Zsold (kör/példány)</Text>
-        <Text style={styles.dataValue}>1 Gyöngy</Text>
+        <Text style={styles.dataValue}>{unit.pearlCostPerTurn} Gyöngy</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.dataName}>Ellátmány (kör/példány)</Text>
-        <Text style={styles.dataValue}>1 Korall</Text>
+        <Text style={styles.dataValue}>{unit.coralCostPerTurn} Korall</Text>
       </View>
       <View style={styles.dataRow}>
         <Text style={styles.dataName}>Ár</Text>
-        <Text style={styles.dataValue}>200 Gyöngy</Text>
+        <Text style={styles.dataValue}>{unit.price} Gyöngy</Text>
       </View>
       <View style={styles.counterRow}>
         <TouchableOpacity

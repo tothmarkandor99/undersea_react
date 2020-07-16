@@ -11,7 +11,7 @@ import {Spaces} from '../constants/spaces'
 import {Building} from '../model/building/building'
 
 interface BuildingBoxProps {
-  building?: Building // TODO: kivenni a nullable-t
+  building: Building // TODO: kivenni a nullable-t
   selected?: boolean
   active?: boolean
   onPress?: ((event: GestureResponderEvent) => void) | undefined

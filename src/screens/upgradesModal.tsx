@@ -10,6 +10,7 @@ import UpgradeBox from '../components/upgradeBox'
 import {Strings} from '../constants/strings'
 import {getUpgrades} from '../store/upgrade/upgrade.actions'
 import {showMessage} from 'react-native-flash-message'
+import Loading from '../components/loading'
 
 interface UpgradesModalProps {
   navigation: StackNavigationProp<any>
@@ -62,6 +63,7 @@ function UpgradesModal({navigation}: UpgradesModalProps) {
         keyExtractor={item => item.id.toString()}
       />
       <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
+      <Loading animating={isLoading} />
     </View>
   )
 }

@@ -5,4 +5,5 @@ export interface Building {
   count: number
   price: number
   pictureUrl: string
+  remainingRounds: number
 }

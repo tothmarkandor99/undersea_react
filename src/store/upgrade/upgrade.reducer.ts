@@ -31,9 +31,9 @@ export const upgradeReducer = (
             <Upgrade>{
               id: item.id,
               name: item.name,
-              details: item.details,
+              details: item.description,
               isPurchased: item.isPurchased,
-              picture: item.picture,
+              picture: item.imageUrl,
               remainingRounds: item.remainingRounds,
             },
         ),

@@ -4,7 +4,8 @@ export interface BuildingResponseItem {
   description: string
   count: number
   price: number
-  picture: string
+  imageUrl: string
+  remainingRounds: 0
 }
 
 export interface BuildingResponse extends Array<BuildingResponseItem> {}

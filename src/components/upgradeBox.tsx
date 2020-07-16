@@ -33,12 +33,15 @@ export default function UpgradeBox({
             backgroundColor: selected ? 'rgba(255, 255, 255, 0.12)' : undefined,
           },
         ]}>
-        <Text style={styles.remainingTime}>még 3 kör</Text>
-        <Ionicons name="ios-checkmark-circle" style={styles.ownedSymbol} />
-        <Image
-          style={styles.image}
-          source={require('../../assets/img/Group21.png')}
-        />
+        {!upgrade.isPurchased && upgrade.remainingRounds != 0 && (
+          <Text style={styles.remainingTime}>
+            még {upgrade.remainingRounds} kör
+          </Text>
+        )}
+        {upgrade.isPurchased && (
+          <Ionicons name="ios-checkmark-circle" style={styles.ownedSymbol} />
+        )}
+        <Image style={styles.image} source={{uri: upgrade.picture}} />
         <Text style={styles.name}>{upgrade.name}</Text>
         <Text style={styles.description}>{upgrade.details}</Text>
       </View>

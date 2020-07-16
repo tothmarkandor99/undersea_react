@@ -36,7 +36,8 @@ export const buildingReducer = (
               description: item.description,
               count: item.count,
               price: item.price,
-              pictureUrl: item.picture,
+              pictureUrl: item.imageUrl,
+              remainingRounds: item.remainingRounds,
             },
         ),
       }

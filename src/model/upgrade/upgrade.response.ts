@@ -1,8 +1,8 @@
 export interface UpgradeResponseItem {
   id: number
   name: string
-  details: string
-  picture: string
+  description: string
+  imageUrl: string
   isPurchased: boolean
   remainingRounds: number
 }

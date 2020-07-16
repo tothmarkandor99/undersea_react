@@ -7,7 +7,10 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import BuildingBox from '../components/buildingBox'
-import { Strings } from '../constants/strings'
+import {Strings} from '../constants/strings'
+import {getBuildings} from '../store/building/building.actions'
+import {showMessage} from 'react-native-flash-message'
+import Loading from '../components/loading'
 
 interface BuildingsModalProps {
   navigation: StackNavigationProp<any>
@@ -15,9 +18,23 @@ interface BuildingsModalProps {
 
 export default BuildingsModal
 function BuildingsModal({navigation}: BuildingsModalProps) {
-  const [selectedBuildingId, setSelectedBuildingId] = useState<
-    number | undefined
-  >(undefined)
+  const {buildings, error, isLoading} = useSelector(
+    (state: IApplicationState) => state.app.building,
+  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getBuildings())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (error !== undefined) {
+      showMessage({
+        message: error,
+        type: 'danger',
+      })
+    }
+  }, [error])
 
   const listHeader = () => {
     return (
@@ -25,26 +42,30 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
         <Text style={[styles.text, styles.upperText]}>
           {Strings.selectWhatYouWantToBuy}
         </Text>
-        <Text style={styles.text}>{Strings.only1BuildingCanBeBuiltAtTheSameTime}</Text>
+        <Text style={styles.text}>
+          {Strings.only1BuildingCanBeBuiltAtTheSameTime}
+        </Text>
       </View>
     )
   }
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title={Strings.buildings} backAction={navigation.goBack} />
+      <HeaderWithArrow
+        title={Strings.buildings}
+        backAction={navigation.goBack}
+      />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
-        data={[1, 2, 3, 4, 5, 6, 7]}
+        data={buildings}
         renderItem={({item}) => {
-          return <BuildingBox />
+          return <BuildingBox building={item} />
         }}
-        keyExtractor={(item, index) => {
-          return index.toString() // TODO: normális keyExtractor
-        }}
+        keyExtractor={item => item.buildingId.toString()}
       />
       <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
+      <Loading animating={isLoading} />
     </View>
   )
 }

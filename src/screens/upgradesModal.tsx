@@ -7,6 +7,7 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import UpgradeBox from '../components/upgradeBox'
+import { Strings } from '../constants/strings'
 
 interface UpgradesModalProps {
   navigation: StackNavigationProp<any>
@@ -18,12 +19,10 @@ function UpgradesModal({navigation}: UpgradesModalProps) {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>
-          Jelöld ki, amelyiket szeretnéd megvenni.
+          {Strings.selectWhatYouWantToBuy}
         </Text>
         <Text style={styles.text}>
-          Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog
-          fejleszthető és minden csak egyszer fejleszthető ki (nem lehet két
-          kombájn).
+          {Strings.upgradeDescription}
         </Text>
       </View>
     )
@@ -31,7 +30,7 @@ function UpgradesModal({navigation}: UpgradesModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Fejlesztések" backAction={navigation.goBack} />
+      <HeaderWithArrow title={Strings.upgrades} backAction={navigation.goBack} />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
@@ -43,7 +42,7 @@ function UpgradesModal({navigation}: UpgradesModalProps) {
           return index.toString() // TODO: normális keyExtractor
         }}
       />
-      <ModalButtonBar buttonTitle="Megveszem" buttonOnPress={() => {}} />
+      <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
     </View>
   )
 }

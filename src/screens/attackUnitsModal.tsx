@@ -7,6 +7,7 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import AttackUnitBox from '../components/attackUnitBox'
+import { Strings } from '../constants/strings'
 
 interface AttackUnitsProps {
   navigation: StackNavigationProp<any>
@@ -16,15 +17,15 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
-        <Text style={[styles.text, styles.upperText]}>2. lépés</Text>
-        <Text style={styles.text}>Állíts be, kiket küldesz harcba</Text>
+        <Text style={[styles.text, styles.upperText]}>{Strings._2ndStep}</Text>
+        <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
       </View>
     )
   }
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Támadás" backAction={navigation.goBack} />
+      <HeaderWithArrow title={Strings.attack} backAction={navigation.goBack} />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
@@ -36,7 +37,7 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
           return index.toString() // TODO: normális keyExtractor
         }}
       />
-      <ModalButtonBar buttonTitle="Megtámadom!" buttonOnPress={() => {}} />
+      <ModalButtonBar buttonTitle={Strings.attack} buttonOnPress={() => {}} />
     </View>
   )
 }

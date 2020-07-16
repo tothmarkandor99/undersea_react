@@ -7,6 +7,7 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import ArmyBox from '../components/armyBox'
+import { Strings } from '../constants/strings'
 
 interface ArmyModalProps {
   navigation: StackNavigationProp<any>
@@ -22,7 +23,7 @@ function ArmyModal({navigation}: ArmyModalProps) {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>
-          Jelöld ki, amelyiket szeretnéd:
+          {Strings.selectWhatYouWant}
         </Text>
       </View>
     )
@@ -30,7 +31,7 @@ function ArmyModal({navigation}: ArmyModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Fejlesztések" backAction={navigation.goBack} />
+      <HeaderWithArrow title={Strings.upgrades} backAction={navigation.goBack} />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
@@ -42,7 +43,7 @@ function ArmyModal({navigation}: ArmyModalProps) {
           return index.toString() // TODO: normális keyExtractor
         }}
       />
-      <ModalButtonBar buttonTitle="Megveszem" buttonOnPress={() => {}} />
+      <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
     </View>
   )
 }

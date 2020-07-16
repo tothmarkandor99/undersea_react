@@ -14,6 +14,8 @@ import {useDispatch} from 'react-redux'
 import {BypassLogin} from '../store/user/user.actions'
 import {Margins} from '../constants/margins'
 import LogoSvg from '../../assets/img/logo'
+import { Strings } from '../constants/strings'
+import { Fonts } from '../constants/fonts'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -29,10 +31,10 @@ function LoginScreen({navigation}: LoginScreenProps) {
       style={styles.backgroundContainer}>
       <LogoSvg fill="#9FFFF0" width={250} height={70} />
       <View style={styles.whiteArea}>
-        <Text style={styles.loginMediumText}>Belépés</Text>
+        <Text style={styles.loginMediumText}>{Strings.login}</Text>
         <View style={styles.inputContainer}>
-          <LoginTextInput placeholder="Felhasználónév" />
-          <LoginTextInput placeholder="Jelszó" />
+          <LoginTextInput placeholder={Strings.username} />
+          <LoginTextInput placeholder={Strings.password} />
         </View>
         <View style={styles.row}>
           <FancyButton
@@ -40,17 +42,17 @@ function LoginScreen({navigation}: LoginScreenProps) {
             onPress={() => {
               dispatch(BypassLogin())
             }}
-            title="Belépés"
+            title={Strings.login}
           />
         </View>
         <View style={styles.bottomTextRow}>
-          <Text style={styles.bottomText}>Nincs még fiókod?</Text>
+          <Text style={styles.bottomText}>{Strings.haveNoAccount_}</Text>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('RegisterScreen')
             }}>
             <Text style={[styles.bottomText, styles.bottomLink]}>
-              Regisztrálj
+              {Strings.register_}
             </Text>
           </TouchableOpacity>
         </View>
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loginBigText: {
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     textTransform: 'uppercase',
     color: '#9FFFF0',
     fontSize: 45, // TODO: relatív méret
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
   },
   loginMediumText: {
     color: '#1C3E76',
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     fontSize: 30,
     textAlign: 'center',
     marginTop: Spaces.medium,
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bottomText: {
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     color: '#1C3E76',
   },
   bottomLink: {

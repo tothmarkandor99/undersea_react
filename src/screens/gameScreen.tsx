@@ -19,6 +19,7 @@ import InfoOverlay from '../components/infoOverlay'
 import {RFValue} from 'react-native-responsive-fontsize'
 import GameArea from '../components/gameArea'
 import GameHeader from '../components/gameHeader'
+import { Fonts } from '../constants/fonts'
 
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
   },
   whiteAreaText: {
     color: '#1C3E76',
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
   },
   starButtonContainer: {
     position: 'absolute',

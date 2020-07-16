@@ -5,10 +5,10 @@ import {Spaces} from '../constants/spaces'
 export default function SearchField(props: TextInputProps) {
   return (
     <TextInput
+      {...props}
       style={[styles.search, props.style]}
-      placeholder="Felhasználónév"
       placeholderTextColor="#001234"
-      onChangeText={text => {}}></TextInput>
+      ></TextInput>
   )
 }
 

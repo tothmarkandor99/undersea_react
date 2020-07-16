@@ -7,6 +7,7 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import {getFights} from '../store/fight/fight.actions'
 import FightItem from '../components/fightItem'
+import { Strings } from '../constants/strings'
 
 interface FightModalProps {
   navigation: StackNavigationProp<any>
@@ -25,7 +26,7 @@ function FightModal({navigation}: FightModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Harc" backAction={navigation.goBack} />
+      <HeaderWithArrow title={Strings.fight} backAction={navigation.goBack} />
       <FlatList
         style={styles.listBody}
         data={fights}

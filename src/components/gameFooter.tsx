@@ -11,6 +11,8 @@ import EpuletekSvg from '../../assets/img/epuletek_nav'
 import HarcSvg from '../../assets/img/harc_nav'
 import SeregSvg from '../../assets/img/sereg_nav'
 import {StackNavigationProp} from '@react-navigation/stack'
+import { Strings } from '../constants/strings'
+import { Fonts } from '../constants/fonts'
 
 interface GameFooterProps {
   navigation: StackNavigationProp<any>
@@ -30,7 +32,7 @@ export default function GameFooter({navigation, style}: GameFooterProps) {
           navigation.navigate('BuildingsModal')
         }}>
         <EpuletekSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>Épületek</Text>
+        <Text style={styles.footerButtonText}>{Strings.buildings}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.footerButton}
@@ -38,7 +40,7 @@ export default function GameFooter({navigation, style}: GameFooterProps) {
           navigation.navigate('AttackStack')
         }}>
         <HarcSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>Támadás</Text>
+        <Text style={styles.footerButtonText}>{Strings.attack}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.footerButton}
@@ -46,7 +48,7 @@ export default function GameFooter({navigation, style}: GameFooterProps) {
           navigation.navigate('UpgradesModal')
         }}>
         <HarcSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>Fejlesztések</Text>
+        <Text style={styles.footerButtonText}>{Strings.upgrades}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.footerButton}
@@ -54,7 +56,7 @@ export default function GameFooter({navigation, style}: GameFooterProps) {
           navigation.navigate('FightModal')
         }}>
         <HarcSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>Harc</Text>
+        <Text style={styles.footerButtonText}>{Strings.fight}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.footerButton}
@@ -62,7 +64,7 @@ export default function GameFooter({navigation, style}: GameFooterProps) {
           navigation.navigate('ArmyModal')
         }}>
         <SeregSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>Sereg</Text>
+        <Text style={styles.footerButtonText}>{Strings.army}</Text>
       </TouchableOpacity>
     </LinearGradient>
   )
@@ -85,6 +87,6 @@ const styles = StyleSheet.create({
   },
   footerButtonText: {
     color: '#367987',
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
   },
 })

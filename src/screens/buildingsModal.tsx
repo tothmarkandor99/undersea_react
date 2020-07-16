@@ -7,6 +7,7 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import BuildingBox from '../components/buildingBox'
+import { Strings } from '../constants/strings'
 
 interface BuildingsModalProps {
   navigation: StackNavigationProp<any>
@@ -22,16 +23,16 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>
-          Jelöld ki, amelyiket szeretnéd megvenni.
+          {Strings.selectWhatYouWantToBuy}
         </Text>
-        <Text style={styles.text}>Egyszerre csak egy épület épülhet!</Text>
+        <Text style={styles.text}>{Strings.only1BuildingCanBeBuiltAtTheSameTime}</Text>
       </View>
     )
   }
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Épületek" backAction={navigation.goBack} />
+      <HeaderWithArrow title={Strings.buildings} backAction={navigation.goBack} />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
@@ -43,7 +44,7 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
           return index.toString() // TODO: normális keyExtractor
         }}
       />
-      <ModalButtonBar buttonTitle="Megveszem" buttonOnPress={() => {}} />
+      <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
     </View>
   )
 }

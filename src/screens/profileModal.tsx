@@ -6,6 +6,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import {BypassLogout} from '../store/user/user.actions'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
+import { Strings } from '../constants/strings'
+import { Fonts } from '../constants/fonts'
 
 interface ProfileModalProps {
   navigation: StackNavigationProp<any>
@@ -21,7 +23,7 @@ function ProfileModal({navigation}: ProfileModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Profil" backAction={navigation.goBack} />
+      <HeaderWithArrow title={Strings.profile} backAction={navigation.goBack} />
       <View style={styles.profileInfo}>
         <Image
           style={styles.profileImage}
@@ -36,7 +38,7 @@ function ProfileModal({navigation}: ProfileModalProps) {
           onPress={() => {
             navigation.navigate('HighscoreModal')
           }}>
-          <Text style={styles.menuItemText}>Ranglista</Text>
+          <Text style={styles.menuItemText}>{Strings.scoreboard}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.menuItem}>
@@ -46,7 +48,7 @@ function ProfileModal({navigation}: ProfileModalProps) {
             dispatch(BypassLogout())
           }}>
           <Text style={[styles.menuItemText, styles.logoutText]}>
-            Kijelentkezés
+            {Strings.logout}
           </Text>
         </TouchableOpacity>
       </View>
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
   profileImage: {},
   profileName: {
     color: 'white',
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     textAlign: 'center',
   },
   menuItem: {
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
   },
   menuItemText: {
     color: 'white',
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
   },
   logoutText: {
     color: '#9FFFF0',

@@ -12,6 +12,9 @@ import FancyButton from '../components/fancyButton'
 import {Spaces} from '../constants/spaces'
 import {useDispatch} from 'react-redux'
 import {BypassLogin} from '../store/user/user.actions'
+import { Strings } from '../constants/strings'
+import { Fonts } from '../constants/fonts'
+import { Colors }from '../constants/colors'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -25,28 +28,28 @@ function RegisterScreen({navigation}: LoginScreenProps) {
     <ImageBackground
       source={require('../../assets/img/signin_bg.png')}
       style={styles.backgroundContainer}>
-      <Text style={styles.loginBigText}>Undersea</Text>
+      <Text style={styles.loginBigText}>{Strings.undersea}</Text>
       <View style={styles.whiteArea}>
-        <Text style={styles.loginMediumText}>Regisztráció</Text>
+        <Text style={styles.loginMediumText}>{Strings.register}</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.loginField}
-            placeholder="Felhasználónév"
+            placeholder={Strings.username}
             placeholderTextColor="#1C3E76"
           />
           <TextInput
             style={styles.loginField}
-            placeholder="Jelszó"
+            placeholder={Strings.password}
             placeholderTextColor="#1C3E76"
           />
           <TextInput
             style={styles.loginField}
-            placeholder="Jelszó megerősítése"
+            placeholder={Strings.confirmPassword}
             placeholderTextColor="#1C3E76"
           />
           <TextInput
             style={styles.loginField}
-            placeholder="A városod neve, amit építesz"
+            placeholder={Strings.yourCitysName}
             placeholderTextColor="#1C3E76"
           />
         </View>
@@ -56,16 +59,16 @@ function RegisterScreen({navigation}: LoginScreenProps) {
             onPress={() => {
               dispatch(BypassLogin())
             }}
-            title="Regisztráció"
+            title={Strings.register}
           />
         </View>
         <View style={styles.bottomTextRow}>
-          <Text style={styles.bottomText}>Már van fiókod?</Text>
+          <Text style={styles.bottomText}>{Strings.alreadyHaveAccount_}</Text>
           <TouchableOpacity
             onPress={() => {
               navigation.goBack()
             }}>
-            <Text style={[styles.bottomText, styles.bottomLink]}>Lépj be</Text>
+            <Text style={[styles.bottomText, styles.bottomLink]}>{Strings.logIn}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loginBigText: {
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     textTransform: 'uppercase',
     color: '#9FFFF0',
     fontSize: 45, // TODO: relatív méret
@@ -88,7 +91,7 @@ const styles = StyleSheet.create({
   },
   loginMediumText: {
     color: '#1C3E76',
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     fontSize: 30,
     textAlign: 'center',
     marginTop: Spaces.medium,
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
     marginHorizontal: Spaces.normal,
   },
   whiteArea: {
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    backgroundColor: Colors.opaqueWhite,
     borderRadius: Spaces.medium,
     padding: Spaces.medium,
     alignItems: 'stretch',
@@ -116,7 +119,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bottomText: {
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     color: '#1C3E76',
   },
   bottomLink: {

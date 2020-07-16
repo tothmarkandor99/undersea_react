@@ -8,6 +8,7 @@ import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import AttackTargetBox from '../components/attackTargetBox'
 import SearchField from '../components/searchField'
+import { Strings } from '../constants/strings'
 
 interface AttackTargetProps {
   navigation: StackNavigationProp<any>
@@ -17,8 +18,8 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
-        <Text style={[styles.text, styles.upperText]}>1. lépés</Text>
-        <Text style={styles.text}>Jelöld ki, kit szeretnél megtámadni:</Text>
+        <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
+        <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
         <SearchField />
       </View>
     )
@@ -26,7 +27,7 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title="Támadás" backAction={navigation.goBack} />
+      <HeaderWithArrow title={Strings.attack} backAction={navigation.goBack} />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
@@ -39,7 +40,7 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
         }}
       />
       <ModalButtonBar
-        buttonTitle="Tovább"
+        buttonTitle={Strings.next}
         buttonOnPress={() => {
           navigation.navigate('AttackUnitsModal')
         }}

@@ -10,26 +10,22 @@ import {AppLoading} from 'expo'
 import {Provider} from 'react-redux'
 import {configureStore} from './src/config/storeConfig'
 import Navi from './src/navigation/navigation'
+import { Fonts } from './src/constants/fonts'
 
 // Resources
 let customFonts = {
-  Baloo: require('./assets/fonts/Baloo-Regular.ttf'),
+  [Fonts.baloo]: require('./assets/fonts/Baloo-Regular.ttf'),
+  [Fonts.openSansRegular]: require('./assets/fonts/OpenSans-Regular.ttf'),
+  [Fonts.openSansBold]: require('./assets/fonts/OpenSans-Bold.ttf'),
 }
 
 export default function App() {
   const store = configureStore()
 
   const [fontsLoaded, setfontsLoaded] = useState(false)
-  const loadFonts = () => {
-    Font.loadAsync(customFonts).then(() => {
-      setfontsLoaded(true)
-    })
+  const loadFonts = async () => {
+    return Font.loadAsync(customFonts)
   }
-
-  useEffect(() => {
-    loadFonts()
-    return () => {}
-  }, [])
 
   if (fontsLoaded) {
     return (
@@ -38,8 +34,14 @@ export default function App() {
       </Provider>
     )
   } else {
-    return <AppLoading /> /* TODO: dokumentációt elolvasni */
+    return <AppLoading 
+      startAsync={loadFonts}
+      onFinish={() => {setfontsLoaded(true)}}
+      onError={() => {console.warn("Failed to load fonts")}}
+    />
   }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  
+})

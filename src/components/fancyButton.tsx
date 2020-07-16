@@ -8,6 +8,8 @@ import {
 } from 'react-native'
 import {LinearGradient} from 'expo-linear-gradient'
 import {Spaces} from '../constants/spaces'
+import {Colors} from '../constants/colors'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 interface FancyButtonProps {
   onPress?: ((event: GestureResponderEvent) => void) | undefined
@@ -25,7 +27,11 @@ const FancyButton = ({onPress, title, active = false}: FancyButtonProps) => {
       disabled={!(active && onPress !== undefined)}>
       {active ? (
         <LinearGradient
-          colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
+          colors={[
+            Colors.buttonGradient1,
+            Colors.buttonGradient2,
+            Colors.buttonGradient3,
+          ]}
           start={[1, 0.3]}
           end={[0, 0.7]}
           locations={[0, 0.5, 1]}
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.6,
     elevation: 5,
-    shadowColor: '#3B7DBD',
+    shadowColor: Colors.shadowBlue,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -61,14 +67,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   loginButton: {
-    backgroundColor: '#A0D0F6',
     paddingVertical: Spaces.normal,
   },
   loginButtonText: {
     textAlign: 'center',
     fontFamily: 'Baloo',
-    color: '#1C3E76',
-    fontSize: 16,
+    color: Colors.darkBlue,
+    fontSize: RFValue(16, 568),
   },
 })
 

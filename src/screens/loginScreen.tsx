@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {
   ImageBackground,
@@ -6,16 +6,22 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from 'react-native'
 import FancyButton from '../components/fancyButton'
 import LoginTextInput from '../components/loginTextInput'
 import {Spaces} from '../constants/spaces'
-import {useDispatch} from 'react-redux'
-import {BypassLogin} from '../store/user/user.actions'
-import {Margins} from '../constants/margins'
+import {useDispatch, useSelector} from 'react-redux'
+import {login} from '../store/user/user.actions'
 import LogoSvg from '../../assets/img/logo'
-import { Strings } from '../constants/strings'
-import { Fonts } from '../constants/fonts'
+import {Strings} from '../constants/strings'
+import {Fonts} from '../constants/fonts'
+import {LoginRequest} from '../model/user/login.request'
+import {showMessage} from 'react-native-flash-message'
+import {IApplicationState} from '../../store'
+import {Colors} from '../constants/colors'
+import {RFValue} from 'react-native-responsive-fontsize'
+import Loading from '../components/loading'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -23,40 +29,64 @@ interface LoginScreenProps {
 
 export default LoginScreen
 function LoginScreen({navigation}: LoginScreenProps) {
+  const {error, isLoading} = useSelector(
+    (state: IApplicationState) => state.app.user,
+  )
+
   const dispatch = useDispatch()
+  const [userName, setUserName] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+
+  useEffect(() => {
+    if (error !== undefined) {
+      showMessage({
+        message: error,
+        type: 'danger',
+      })
+    }
+  }, [error]) // Gets triggered on registration error also
 
   return (
     <ImageBackground
       source={require('../../assets/img/signin_bg.png')}
       style={styles.backgroundContainer}>
-      <LogoSvg fill="#9FFFF0" width={250} height={70} />
+      <LogoSvg fill={Colors.logoBlue} width={250} height={70} />
       <View style={styles.whiteArea}>
         <Text style={styles.loginMediumText}>{Strings.login}</Text>
         <View style={styles.inputContainer}>
-          <LoginTextInput placeholder={Strings.username} />
-          <LoginTextInput placeholder={Strings.password} />
+          <LoginTextInput
+            placeholder={Strings.username}
+            onChangeText={setUserName}
+          />
+          <LoginTextInput
+            placeholder={Strings.password}
+            onChangeText={setPassword}
+          />
         </View>
         <View style={styles.row}>
           <FancyButton
             active={true}
             onPress={() => {
-              dispatch(BypassLogin())
+              dispatch(
+                login({
+                  userName: userName,
+                  password: password,
+                } as LoginRequest),
+              )
             }}
             title={Strings.login}
           />
         </View>
         <View style={styles.bottomTextRow}>
-          <Text style={styles.bottomText}>{Strings.haveNoAccount_}</Text>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('RegisterScreen')
             }}>
-            <Text style={[styles.bottomText, styles.bottomLink]}>
-              {Strings.register_}
-            </Text>
+            <Text style={styles.bottomText}>{Strings.register}</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <Loading animating={isLoading} />
     </ImageBackground>
   )
 }
@@ -67,23 +97,16 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
   },
-  loginBigText: {
-    fontFamily: Fonts.baloo,
-    textTransform: 'uppercase',
-    color: '#9FFFF0',
-    fontSize: 45, // TODO: relatív méret
-    textAlign: 'center',
-  },
   loginMediumText: {
-    color: '#1C3E76',
+    color: Colors.mediumDarkBlue,
     fontFamily: Fonts.baloo,
-    fontSize: 30,
+    fontSize: RFValue(20, 568),
     textAlign: 'center',
     marginTop: Spaces.medium,
     marginBottom: Spaces.medium,
   },
   whiteArea: {
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    backgroundColor: Colors.opaqueWhite,
     borderRadius: Spaces.medium,
     padding: Spaces.medium,
     alignItems: 'stretch',
@@ -91,15 +114,14 @@ const styles = StyleSheet.create({
   },
   inputContainer: {},
   bottomTextRow: {
+    marginTop: Spaces.medium,
     flexDirection: 'row',
     justifyContent: 'center',
   },
   bottomText: {
     fontFamily: Fonts.baloo,
-    color: '#1C3E76',
-  },
-  bottomLink: {
-    textDecorationLine: 'underline',
+    color: Colors.darkBlue,
+    fontSize: RFValue(16, 568),
   },
   row: {
     flexDirection: 'row',

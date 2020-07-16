@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {
   ImageBackground,
@@ -10,11 +10,17 @@ import {
 } from 'react-native'
 import FancyButton from '../components/fancyButton'
 import {Spaces} from '../constants/spaces'
-import {useDispatch} from 'react-redux'
-import {BypassLogin} from '../store/user/user.actions'
-import { Strings } from '../constants/strings'
-import { Fonts } from '../constants/fonts'
-import { Colors }from '../constants/colors'
+import {useDispatch, useSelector} from 'react-redux'
+import {register} from '../store/user/user.actions'
+import {Strings} from '../constants/strings'
+import {Fonts} from '../constants/fonts'
+import {Colors} from '../constants/colors'
+import {RegisterRequest} from '../model/user/register.request'
+import LogoSvg from '../../assets/img/logo'
+import LoginTextInput from '../components/loginTextInput'
+import {RFValue} from 'react-native-responsive-fontsize'
+import {IApplicationState} from '../../store'
+import Loading from '../components/loading'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -23,55 +29,63 @@ interface LoginScreenProps {
 export default RegisterScreen
 function RegisterScreen({navigation}: LoginScreenProps) {
   const dispatch = useDispatch()
+  const {isLoading} = useSelector((state: IApplicationState) => state.app.user)
+
+  const [userName, setUserName] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('') // TODO: validáció
+  const [coutryName, setCountryName] = useState('')
 
   return (
     <ImageBackground
       source={require('../../assets/img/signin_bg.png')}
       style={styles.backgroundContainer}>
-      <Text style={styles.loginBigText}>{Strings.undersea}</Text>
+      <LogoSvg fill={Colors.logoBlue} width={250} height={70} />
       <View style={styles.whiteArea}>
         <Text style={styles.loginMediumText}>{Strings.register}</Text>
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.loginField}
+          <LoginTextInput
             placeholder={Strings.username}
-            placeholderTextColor="#1C3E76"
+            onChangeText={setUserName}
           />
-          <TextInput
-            style={styles.loginField}
+          <LoginTextInput
             placeholder={Strings.password}
-            placeholderTextColor="#1C3E76"
+            onChangeText={setPassword}
           />
-          <TextInput
-            style={styles.loginField}
+          <LoginTextInput
             placeholder={Strings.confirmPassword}
-            placeholderTextColor="#1C3E76"
+            onChangeText={setConfirmPassword}
           />
-          <TextInput
-            style={styles.loginField}
-            placeholder={Strings.yourCitysName}
-            placeholderTextColor="#1C3E76"
+          <LoginTextInput
+            placeholder={Strings.yourCityName}
+            onChangeText={setCountryName}
           />
         </View>
         <View style={styles.row}>
           <FancyButton
             active={true}
             onPress={() => {
-              dispatch(BypassLogin())
+              dispatch(
+                register({
+                  userName: userName,
+                  password: password,
+                  countryName: coutryName,
+                } as RegisterRequest),
+              )
             }}
             title={Strings.register}
           />
         </View>
         <View style={styles.bottomTextRow}>
-          <Text style={styles.bottomText}>{Strings.alreadyHaveAccount_}</Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack()
+              navigation.navigate('LoginScreen')
             }}>
-            <Text style={[styles.bottomText, styles.bottomLink]}>{Strings.logIn}</Text>
+            <Text style={styles.bottomText}>{Strings.login}</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <Loading animating={isLoading} />
     </ImageBackground>
   )
 }
@@ -82,29 +96,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'center',
   },
-  loginBigText: {
-    fontFamily: Fonts.baloo,
-    textTransform: 'uppercase',
-    color: '#9FFFF0',
-    fontSize: 45, // TODO: relatív méret
-    textAlign: 'center',
-  },
   loginMediumText: {
-    color: '#1C3E76',
+    color: Colors.mediumDarkBlue,
     fontFamily: Fonts.baloo,
-    fontSize: 30,
+    fontSize: RFValue(20, 568),
     textAlign: 'center',
     marginTop: Spaces.medium,
     marginBottom: Spaces.medium,
-  },
-  loginField: {
-    backgroundColor: 'white',
-    color: '#1C3E76',
-    borderRadius: 1000,
-    paddingVertical: Spaces.normal,
-    paddingHorizontal: Spaces.large,
-    marginBottom: Spaces.medium,
-    marginHorizontal: Spaces.normal,
   },
   whiteArea: {
     backgroundColor: Colors.opaqueWhite,
@@ -115,15 +113,14 @@ const styles = StyleSheet.create({
   },
   inputContainer: {},
   bottomTextRow: {
+    marginTop: Spaces.medium,
     flexDirection: 'row',
     justifyContent: 'center',
   },
   bottomText: {
     fontFamily: Fonts.baloo,
-    color: '#1C3E76',
-  },
-  bottomLink: {
-    textDecorationLine: 'underline',
+    color: Colors.darkBlue,
+    fontSize: RFValue(16, 568),
   },
   row: {
     flexDirection: 'row',

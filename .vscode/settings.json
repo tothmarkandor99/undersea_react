@@ -1,4 +1,30 @@
 {
-    "editor.detectIndentation": false,
-    "editor.tabSize": 2
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "colorInfo.languages": [
+    {
+      "selector": "ts",
+      "colors": "css"
+    },
+    {
+      "selector": "tsx",
+      "colors": "css"
+    },
+    {
+      "selector": "css",
+      "colors": "css"
+    },
+    {
+      "selector": "sass",
+      "colors": "css"
+    },
+    {
+      "selector": "scss",
+      "colors": "css"
+    },
+    {
+      "selector": "less",
+      "colors": "css"
+    }
+  ]
 }

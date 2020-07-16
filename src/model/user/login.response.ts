@@ -1,3 +1,4 @@
 export interface LoginResponse {
-  // TODO: implementálni
+  accessToken: string,
+  refreshToken: string,
 }

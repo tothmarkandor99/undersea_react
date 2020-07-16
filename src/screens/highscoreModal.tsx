@@ -20,9 +20,9 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
   )
   const dispatch = useDispatch()
 
-  const [searchPhrase, setSearchPhrase] = useState('')
-  const [page, setPage] = useState(0)
-  const [itemPerPage, setItemPerPage] = useState(10)
+  const [searchPhrase, setSearchPhrase] = useState<string>('')
+  const [page, setPage] = useState<number>(0)
+  const [itemPerPage, setItemPerPage] = useState<number>(10)
 
   useEffect(() => {
     dispatch(

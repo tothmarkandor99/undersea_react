@@ -10,7 +10,8 @@ import {AppLoading} from 'expo'
 import {Provider} from 'react-redux'
 import {configureStore} from './src/config/storeConfig'
 import Navi from './src/navigation/navigation'
-import { Fonts } from './src/constants/fonts'
+import {Fonts} from './src/constants/fonts'
+import FlashMessage from 'react-native-flash-message'
 
 // Resources
 let customFonts = {
@@ -31,17 +32,22 @@ export default function App() {
     return (
       <Provider store={store}>
         <Navi />
+        <FlashMessage duration={3000} />
       </Provider>
     )
   } else {
-    return <AppLoading 
-      startAsync={loadFonts}
-      onFinish={() => {setfontsLoaded(true)}}
-      onError={() => {console.warn("Failed to load fonts")}}
-    />
+    return (
+      <AppLoading
+        startAsync={loadFonts}
+        onFinish={() => {
+          setfontsLoaded(true)
+        }}
+        onError={() => {
+          console.warn('Failed to load fonts')
+        }}
+      />
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  
-})
+const styles = StyleSheet.create({})

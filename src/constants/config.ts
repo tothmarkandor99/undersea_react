@@ -1,3 +1,3 @@
 export const Config = {
-  baseUrl: 'https://halhal.free.beeceptor.com',
+  baseUrl: 'http://underseat2lasttry.webtest.encosoft.internal',
 }

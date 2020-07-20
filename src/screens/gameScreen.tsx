@@ -38,53 +38,6 @@ const GameScreen = ({navigation}: GameScreenProps) => {
     dispatch(getStats())
   }, [dispatch])
 
-  const animationDuration: number = 350
-  const rotateAnim = useRef(new Animated.Value(0))
-  const rotateValue = rotateAnim.current.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '180deg'],
-  })
-  const [overlayHeight, setOverlayHeight] = useState(90)
-  const [overlayControlHeight, setOverlayControlHeight] = useState(25)
-  const slideAnim = useRef(new Animated.Value(0))
-  const slideValue = slideAnim.current.interpolate({
-    // TODO: érdemes lenne ezeket a komponensen belülre mozgatni
-    inputRange: [0, 1],
-    outputRange: [-overlayHeight + overlayControlHeight, 0],
-  })
-
-  const [bottomInfosVisible, setBottomInfosVisible] = useState(false)
-  useEffect(() => {
-    if (bottomInfosVisible) {
-      appear()
-    } else {
-      disappear()
-    }
-  }, [bottomInfosVisible])
-  const appear = () => {
-    Animated.timing(rotateAnim.current, {
-      toValue: 1,
-      duration: animationDuration,
-      useNativeDriver: true,
-    }).start()
-    Animated.timing(slideAnim.current, {
-      toValue: 1,
-      duration: animationDuration,
-      useNativeDriver: false,
-    }).start()
-  }
-  const disappear = () => {
-    Animated.timing(rotateAnim.current, {
-      toValue: 0,
-      duration: animationDuration,
-      useNativeDriver: true,
-    }).start()
-    Animated.timing(slideAnim.current, {
-      toValue: 0,
-      duration: animationDuration,
-      useNativeDriver: false,
-    }).start()
-  }
   return (
     <SafeAreaView style={styles.safeArea}>
       {/* TODO: más megoldás a status bar-ra, mert ld. github react-native-safe-area-view #5665 */}
@@ -102,20 +55,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
             </View>
           </View>
           <GameArea />
-          <InfoOverlay
-            rotateValue={rotateValue}
-            slideValue={slideValue}
-            zIndex={9}
-            onLayout={(event: LayoutChangeEvent) =>
-              setOverlayHeight(event.nativeEvent.layout.height)
-            }
-            onControlLayout={event => {
-              setOverlayControlHeight(event.nativeEvent.layout.height)
-            }}
-            onControlPress={() => {
-              setBottomInfosVisible(!bottomInfosVisible)
-            }}
-          />
+          <InfoOverlay zIndex={9} />
         </ImageBackground>
         <GameFooter
           navigation={navigation}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {
   StyleSheet,
   Animated,
@@ -17,33 +17,67 @@ import {IApplicationState} from '../../store'
 import {statsReducer} from '../store/stats/stats.reducer'
 
 interface InfoOverlayProps {
-  rotateValue: Animated.AnimatedInterpolation
-  slideValue: Animated.AnimatedInterpolation
   zIndex?: number
-  onControlPress?: ((event: GestureResponderEvent) => void) | undefined
-  onLayout?:
-    | Animated.WithAnimatedValue<
-        ((event: LayoutChangeEvent) => void) | undefined
-      >
-    | undefined
-  onControlLayout?: ((event: LayoutChangeEvent) => void) | undefined
 }
 
-export default function InfoOverlay({
-  rotateValue,
-  slideValue,
-  zIndex = 0,
-  onControlPress,
-  onLayout,
-  onControlLayout,
-}: InfoOverlayProps) {
+export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
   const {stats, error, isLoading} = useSelector(
     (state: IApplicationState) => state.app.stats,
   )
 
+  const animationDuration: number = 350
+  const rotateAnim = useRef(new Animated.Value(0))
+  const rotateValue = rotateAnim.current.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  })
+  const [overlayHeight, setOverlayHeight] = useState(90)
+  const [overlayControlHeight, setOverlayControlHeight] = useState(25)
+  const slideAnim = useRef(new Animated.Value(0))
+  const slideValue = slideAnim.current.interpolate({
+    // TODO: érdemes lenne ezeket a komponensen belülre mozgatni
+    inputRange: [0, 1],
+    outputRange: [-overlayHeight + overlayControlHeight, 0],
+  })
+
+  const [bottomInfosVisible, setBottomInfosVisible] = useState(false)
+  useEffect(() => {
+    if (bottomInfosVisible) {
+      appear()
+    } else {
+      disappear()
+    }
+  }, [bottomInfosVisible])
+  const appear = () => {
+    Animated.timing(rotateAnim.current, {
+      toValue: 1,
+      duration: animationDuration,
+      useNativeDriver: true,
+    }).start()
+    Animated.timing(slideAnim.current, {
+      toValue: 1,
+      duration: animationDuration,
+      useNativeDriver: false,
+    }).start()
+  }
+  const disappear = () => {
+    Animated.timing(rotateAnim.current, {
+      toValue: 0,
+      duration: animationDuration,
+      useNativeDriver: true,
+    }).start()
+    Animated.timing(slideAnim.current, {
+      toValue: 0,
+      duration: animationDuration,
+      useNativeDriver: false,
+    }).start()
+  }
+
   return (
     <Animated.View
-      onLayout={onLayout}
+      onLayout={(event: LayoutChangeEvent) => {
+        setOverlayHeight(event.nativeEvent.layout.height)
+      }}
       style={[
         styles.mainInfoOverlay,
         {
@@ -52,9 +86,15 @@ export default function InfoOverlay({
           zIndex: zIndex,
         },
       ]}>
-      <View style={styles.controlBar} onLayout={onControlLayout}>
+      <View
+        style={styles.controlBar}
+        onLayout={event => {
+          setOverlayControlHeight(event.nativeEvent.layout.height)
+        }}>
         <TouchableOpacity
-          onPress={onControlPress}
+          onPress={() => {
+            setBottomInfosVisible(!bottomInfosVisible)
+          }}
           style={styles.controlBarTouchable}>
           <Animated.Image
             source={require('../../assets/img/caret_up.png')}

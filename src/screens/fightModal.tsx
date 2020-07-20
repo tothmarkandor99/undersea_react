@@ -8,6 +8,8 @@ import {Spaces} from '../constants/spaces'
 import {getFights} from '../store/fight/fight.actions'
 import FightItem from '../components/fightItem'
 import {Strings} from '../constants/strings'
+import Loading from '../components/loading'
+import {showMessage} from 'react-native-flash-message'
 
 interface FightModalProps {
   navigation: StackNavigationProp<any>
@@ -24,6 +26,15 @@ function FightModal({navigation}: FightModalProps) {
     dispatch(getFights())
   }, [dispatch])
 
+  useEffect(() => {
+    if (error !== undefined) {
+      showMessage({
+        message: error,
+        type: 'danger',
+      })
+    }
+  }, [error])
+
   return (
     <View style={styles.container}>
       <HeaderWithArrow title={Strings.fight} backAction={navigation.goBack} />
@@ -37,6 +48,7 @@ function FightModal({navigation}: FightModalProps) {
           return index.toString()
         }}
       />
+      <Loading animating={isLoading} />
     </View>
   )
 }

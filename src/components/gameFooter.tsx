@@ -18,9 +18,14 @@ import {Colors} from '../constants/colors'
 interface GameFooterProps {
   navigation: StackNavigationProp<any>
   style?: StyleProp<ViewStyle>
+  activeIcon: 'home' | 'city' | 'attack' | 'army'
 }
 
-export default function GameFooter({navigation, style}: GameFooterProps) {
+export default function GameFooter({
+  navigation,
+  style,
+  activeIcon,
+}: GameFooterProps) {
   return (
     <LinearGradient
       style={[styles.footer, style]}

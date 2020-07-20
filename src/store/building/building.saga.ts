@@ -14,7 +14,17 @@ import buildingService from '../../utility/services/buildingService'
 import {BuildResponse} from '../../model/building/build.response'
 import {BuildingResponse} from '../../model/building/building.response'
 
-export function* buildingSaga() {}
+export function* buildingSaga() {
+  yield all([watchGet(), watchPost()])
+}
+
+function* watchGet() {
+  yield takeEvery(GET_BUILDINGS_REQUEST, getBuildingsActionWatcher)
+}
+
+function* watchPost() {
+  yield takeEvery(POST_BUILD_REQUEST, postBuildActionWatcher)
+}
 
 function* getBuildingsActionWatcher(action: GetBuildingsRequestAction) {
   try {

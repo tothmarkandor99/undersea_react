@@ -8,7 +8,7 @@ import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import BuildingBox from '../components/buildingBox'
 import {Strings} from '../constants/strings'
-import {getBuildings} from '../store/building/building.actions'
+import {getBuildings, selectBuilding} from '../store/building/building.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
 
@@ -18,7 +18,7 @@ interface BuildingsModalProps {
 
 export default BuildingsModal
 function BuildingsModal({navigation}: BuildingsModalProps) {
-  const {buildings, error, isLoading} = useSelector(
+  const {buildings, error, isLoading, selectedBuilding} = useSelector(
     (state: IApplicationState) => state.app.building,
   )
   const dispatch = useDispatch()
@@ -60,7 +60,19 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
         ListHeaderComponent={listHeader}
         data={buildings}
         renderItem={({item}) => {
-          return <BuildingBox building={item} />
+          return (
+            <BuildingBox
+              building={item}
+              active={
+                item.buildingId === selectedBuilding?.buildingId ||
+                !selectedBuilding
+              }
+              selected={item.buildingId === selectedBuilding?.buildingId}
+              onPress={() => {
+                dispatch(selectBuilding(item))
+              }}
+            />
+          )
         }}
         keyExtractor={item => item.buildingId.toString()}
       />

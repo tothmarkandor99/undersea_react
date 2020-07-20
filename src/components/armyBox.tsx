@@ -1,16 +1,27 @@
 import React, {useState} from 'react'
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  GestureResponderEvent,
+} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {PurchasableUnit} from '../model/army/purchasableUnit'
 import {AntDesign} from '@expo/vector-icons'
 
 interface ArmyBoxProps {
   unit: PurchasableUnit // TODO: kivenni a nullable-t
+  onIncrement?: ((event: GestureResponderEvent) => void) | undefined
+  onDecrement?: ((event: GestureResponderEvent) => void) | undefined
 }
 
-export default function ArmyBox({unit}: ArmyBoxProps) {
-  const [count, setCount] = useState(0)
-
+export default function ArmyBox({
+  unit,
+  onIncrement,
+  onDecrement,
+}: ArmyBoxProps) {
   return (
     <View style={styles.container}>
       <Image
@@ -41,17 +52,11 @@ export default function ArmyBox({unit}: ArmyBoxProps) {
         <Text style={styles.dataValue}>{unit.price} Gyöngy</Text>
       </View>
       <View style={styles.counterRow}>
-        <TouchableOpacity
-          onPress={() => {
-            setCount(count - 1)
-          }}>
+        <TouchableOpacity onPress={onDecrement}>
           <AntDesign name="minuscircle" style={styles.counterControl} />
         </TouchableOpacity>
-        <Text style={styles.counterText}>{count}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            setCount(count + 1)
-          }}>
+        <Text style={styles.counterText}>{unit.viewCount}</Text>
+        <TouchableOpacity onPress={onIncrement}>
           <AntDesign name="pluscircle" style={styles.counterControl} />
         </TouchableOpacity>
       </View>

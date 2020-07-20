@@ -8,7 +8,11 @@ import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import ArmyBox from '../components/armyBox'
 import {Strings} from '../constants/strings'
-import {getArmy} from '../store/army/army.actions'
+import {
+  getArmy,
+  incrementArmyCount,
+  decrementArmyCount,
+} from '../store/army/army.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
 
@@ -57,7 +61,17 @@ function ArmyModal({navigation}: ArmyModalProps) {
         ListHeaderComponent={listHeader}
         data={purchasableUnits}
         renderItem={({item}) => {
-          return <ArmyBox unit={item} />
+          return (
+            <ArmyBox
+              unit={item}
+              onDecrement={() => {
+                dispatch(decrementArmyCount(item))
+              }}
+              onIncrement={() => {
+                dispatch(incrementArmyCount(item))
+              }}
+            />
+          )
         }}
         keyExtractor={item => item.id.toString()}
       />

@@ -11,6 +11,7 @@ import {
   POST_BUILD_SUCCESS,
   POST_BUILD_FAILURE,
 } from './building.actions'
+import {select} from 'redux-saga/effects'
 
 export const buildingReducer = (
   state = initialBuildingStore,
@@ -40,6 +41,7 @@ export const buildingReducer = (
               remainingRounds: item.remainingRounds,
             },
         ),
+        selectedBuilding: undefined,
       }
     case GET_BUILDINGS_FAILURE:
       return {
@@ -47,11 +49,16 @@ export const buildingReducer = (
         error: action.reason,
         isLoading: false,
         buildings: [],
+        selectedBuilding: undefined,
       }
     case SELECT_BUILDING:
+      let sel: Building | undefined = action.building
+      if (state.selectedBuilding) {
+        sel = undefined
+      }
       return {
         ...state,
-        selectedBuilding: action.building,
+        selectedBuilding: sel,
       }
     case RESET_SELECTION:
       return {

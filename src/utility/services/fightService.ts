@@ -1,6 +1,6 @@
 import Network from '../network'
 
-const ROUTE = 'outgoingAttack'
+const ROUTE = 'Attacks/getoutgoing'
 
 class FightsService {
   getFights = async () => {

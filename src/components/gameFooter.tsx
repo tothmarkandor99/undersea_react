@@ -6,6 +6,7 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
+  Image,
 } from 'react-native'
 import EpuletekSvg from '../../assets/img/epuletek_nav'
 import HarcSvg from '../../assets/img/harc_nav'
@@ -14,11 +15,12 @@ import {StackNavigationProp} from '@react-navigation/stack'
 import {Strings} from '../constants/strings'
 import {Fonts} from '../constants/fonts'
 import {Colors} from '../constants/colors'
+import {Spaces} from '../constants/spaces'
 
 interface GameFooterProps {
   navigation: StackNavigationProp<any>
   style?: StyleProp<ViewStyle>
-  activeIcon: 'home' | 'city' | 'attack' | 'army'
+  activeIcon: 'home' | 'city' | 'attack' | 'units'
 }
 
 export default function GameFooter({
@@ -37,44 +39,52 @@ export default function GameFooter({
       start={[0.5, 0]}
       end={[0.5, 1]}>
       <TouchableOpacity
-        style={styles.footerButton}
+        disabled={activeIcon === 'home'}
+        style={[
+          styles.footerButton,
+          activeIcon === 'home' && styles.footerButtonActive,
+        ]}
         onPress={() => {
-          navigation.navigate('BuildingsModal')
+          navigation.navigate('GameScreen')
         }}>
-        <EpuletekSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>{Strings.buildings}</Text>
+        <Image source={require('../../assets/img/footer/tab_home.png')} />
+        <Text style={styles.footerButtonText}>{Strings.home}</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.footerButton}
+        disabled={activeIcon === 'city'}
+        style={[
+          styles.footerButton,
+          activeIcon === 'city' && styles.footerButtonActive,
+        ]}
+        onPress={() => {
+          navigation.navigate('CityStack')
+        }}>
+        <Image source={require('../../assets/img/footer/tab_city.png')} />
+        <Text style={styles.footerButtonText}>{Strings.city}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        disabled={activeIcon === 'attack'}
+        style={[
+          styles.footerButton,
+          activeIcon === 'attack' && styles.footerButtonActive,
+        ]}
         onPress={() => {
           navigation.navigate('AttackStack')
         }}>
-        <HarcSvg height={50} width={50} fill="#327887" />
+        <Image source={require('../../assets/img/footer/tab_attack.png')} />
         <Text style={styles.footerButtonText}>{Strings.attack}</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.footerButton}
-        onPress={() => {
-          navigation.navigate('UpgradesModal')
-        }}>
-        <HarcSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>{Strings.upgrades}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.footerButton}
+        disabled={activeIcon === 'units'}
+        style={[
+          styles.footerButton,
+          activeIcon === 'units' && styles.footerButtonActive,
+        ]}
         onPress={() => {
           navigation.navigate('FightModal')
         }}>
-        <HarcSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>{Strings.fight}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.footerButton}
-        onPress={() => {
-          navigation.navigate('ArmyModal')
-        }}>
-        <SeregSvg height={50} width={50} fill="#327887" />
-        <Text style={styles.footerButtonText}>{Strings.army}</Text>
+        <Image source={require('../../assets/img/footer/tab_units.png')} />
+        <Text style={styles.footerButtonText}>{Strings.myUnits}</Text>
       </TouchableOpacity>
     </LinearGradient>
   )
@@ -85,18 +95,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
     flexDirection: 'row',
     justifyContent: 'space-around',
+    paddingTop: Spaces.normal,
+    paddingBottom: Spaces.small,
   },
   footerButton: {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    opacity: 0.6,
   },
-  footerButtonImage: {
-    height: 50, // TODO: flexbox vagy megfelelő méretű asset a fix méret helyett
-    width: 50,
+  footerButtonActive: {
+    opacity: 1,
   },
   footerButtonText: {
-    color: '#367987',
+    color: '#001234',
     fontFamily: Fonts.baloo,
   },
 })

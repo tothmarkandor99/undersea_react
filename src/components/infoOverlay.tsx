@@ -1,31 +1,60 @@
 import React from 'react'
-import {StyleSheet, Animated, View, Image, Text} from 'react-native'
+import {
+  StyleSheet,
+  Animated,
+  View,
+  Image,
+  Text,
+  GestureResponderEvent,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  LayoutChangeEvent,
+} from 'react-native'
 import {Spaces} from '../constants/spaces'
+import {Colors} from '../constants/colors'
 
 interface InfoOverlayProps {
-  fadeAnim: React.MutableRefObject<Animated.Value>
-  slideAnim: React.MutableRefObject<Animated.Value>
+  rotateValue: Animated.AnimatedInterpolation
+  slideValue: Animated.AnimatedInterpolation
   zIndex?: number
+  onControlPress?: ((event: GestureResponderEvent) => void) | undefined
+  onLayout?:
+    | Animated.WithAnimatedValue<
+        ((event: LayoutChangeEvent) => void) | undefined
+      >
+    | undefined
+  onControlLayout?: ((event: LayoutChangeEvent) => void) | undefined
 }
 
 export default function InfoOverlay({
-  fadeAnim,
-  slideAnim,
+  rotateValue,
+  slideValue,
   zIndex = 0,
+  onControlPress,
+  onLayout,
+  onControlLayout,
 }: InfoOverlayProps) {
   return (
     <Animated.View
+      onLayout={onLayout}
       style={[
         styles.mainInfoOverlay,
         {
-          opacity: fadeAnim.current,
           position: 'absolute',
-          left: 0,
-          right: 0,
-          bottom: slideAnim.current,
+          bottom: slideValue,
           zIndex: zIndex,
         },
       ]}>
+      <View style={styles.controlBar} onLayout={onControlLayout}>
+        <TouchableOpacity
+          onPress={onControlPress}
+          style={styles.controlBarTouchable}>
+          <Animated.Image
+            source={require('../../assets/img/caret_up.png')}
+            style={{transform: [{rotate: rotateValue}]}}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={styles.infoOverlayRow}>
         <View style={styles.infoOverlayItem}>
           <Image
@@ -96,7 +125,20 @@ const styles = StyleSheet.create({
   mainInfoOverlay: {
     backgroundColor: 'rgba(255, 255, 255, 0.65)',
     flexDirection: 'column',
-    paddingTop: Spaces.medium,
+    left: 0,
+    right: 0,
+  },
+  controlBar: {
+    backgroundColor: Colors.white,
+    marginBottom: Spaces.medium,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  controlBarTouchable: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   infoOverlayRow: {
     flexDirection: 'row',

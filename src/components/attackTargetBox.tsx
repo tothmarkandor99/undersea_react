@@ -1,25 +1,32 @@
 import React from 'react'
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
 import {Spaces} from '../constants/spaces'
-import {Unit} from '../model/unit'
+import {AttackTarget} from '../model/attack/attackTarget'
 import {Ionicons} from '@expo/vector-icons'
+import {useDispatch} from 'react-redux'
+import {selectAttackTarget} from '../store/attack/attack.actions'
 
 interface AttackTargetBoxProps {
-  unit?: Unit // TODO: megfelelő típus kell
+  target: AttackTarget // TODO: megfelelő típus kell
   selected?: boolean
   first?: boolean
 }
 
 export default function AttackTargetBox({
-  unit,
-  selected = false,
+  target,
   first = false,
 }: AttackTargetBoxProps) {
+  const dispatch = useDispatch()
+
   return (
     <View style={[styles.borderContainer, first && {borderTopWidth: 1}]}>
-      <TouchableOpacity style={styles.container}>
-        <Text style={styles.name}>Jóskagyerek // TODO: trim name length</Text>
-        {selected && (
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => {
+          dispatch(selectAttackTarget(target))
+        }}>
+        <Text style={styles.name}>{target.name}</Text>
+        {target.selected && (
           <Ionicons name="ios-checkmark-circle" style={styles.selectedSymbol} />
         )}
       </TouchableOpacity>

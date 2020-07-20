@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Animated,
+  LayoutChangeEvent,
 } from 'react-native'
 import {useDispatch} from 'react-redux'
 import {Spaces} from '../constants/spaces'
@@ -19,7 +20,8 @@ import InfoOverlay from '../components/infoOverlay'
 import {RFValue} from 'react-native-responsive-fontsize'
 import GameArea from '../components/gameArea'
 import GameHeader from '../components/gameHeader'
-import { Fonts } from '../constants/fonts'
+import {Fonts} from '../constants/fonts'
+import {Colors} from '../constants/colors'
 
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
@@ -28,9 +30,19 @@ interface GameScreenProps {
 const GameScreen = ({navigation}: GameScreenProps) => {
   const dispatch = useDispatch()
   const animationDuration: number = 350
-  const fadeAnim = useRef(new Animated.Value(0))
-  const slideAnim = useRef(new Animated.Value(-50))
-  const [starRadius, setStarRadius] = useState(10)
+  const rotateAnim = useRef(new Animated.Value(0))
+  const rotateValue = rotateAnim.current.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  })
+  const [overlayHeight, setOverlayHeight] = useState(90)
+  const [overlayControlHeight, setOverlayControlHeight] = useState(25)
+  const slideAnim = useRef(new Animated.Value(0))
+  const slideValue = slideAnim.current.interpolate({
+    // TODO: érdemes lenne ezeket a komponensen belülre mozgatni
+    inputRange: [0, 1],
+    outputRange: [-overlayHeight + overlayControlHeight, 0],
+  })
 
   const [bottomInfosVisible, setBottomInfosVisible] = useState(false)
   useEffect(() => {
@@ -41,25 +53,25 @@ const GameScreen = ({navigation}: GameScreenProps) => {
     }
   }, [bottomInfosVisible])
   const appear = () => {
-    Animated.timing(fadeAnim.current, {
+    Animated.timing(rotateAnim.current, {
       toValue: 1,
       duration: animationDuration,
       useNativeDriver: false,
     }).start()
     Animated.timing(slideAnim.current, {
-      toValue: 0,
+      toValue: 1,
       duration: animationDuration,
       useNativeDriver: false,
     }).start()
   }
   const disappear = () => {
-    Animated.timing(fadeAnim.current, {
+    Animated.timing(rotateAnim.current, {
       toValue: 0,
       duration: animationDuration,
       useNativeDriver: false,
     }).start()
     Animated.timing(slideAnim.current, {
-      toValue: -50,
+      toValue: 0,
       duration: animationDuration,
       useNativeDriver: false,
     }).start()
@@ -79,27 +91,28 @@ const GameScreen = ({navigation}: GameScreenProps) => {
                 23. hely
               </Text>
             </View>
-            <TouchableOpacity
-              style={styles.starButtonContainer}
-              onPress={() => {
-                setBottomInfosVisible(!bottomInfosVisible)
-              }}>
-              <LinearGradient
-                style={[styles.starButton, {borderRadius: starRadius}]}
-                colors={['#9FFFF0', '#6BEEE9', '#0FCFDE']}
-                start={[0.5, 0]}
-                end={[0.5, 1]}
-                onLayout={event => {
-                  setStarRadius(event.nativeEvent.layout.height / 2)
-                }}>
-                <FontAwesome name="star" style={styles.star} />
-              </LinearGradient>
-            </TouchableOpacity>
           </View>
           <GameArea />
-          <InfoOverlay fadeAnim={fadeAnim} slideAnim={slideAnim} zIndex={9} />
+          <InfoOverlay
+            rotateValue={rotateValue}
+            slideValue={slideValue}
+            zIndex={9}
+            onLayout={(event: LayoutChangeEvent) =>
+              setOverlayHeight(event.nativeEvent.layout.height)
+            }
+            onControlLayout={event => {
+              setOverlayControlHeight(event.nativeEvent.layout.height)
+            }}
+            onControlPress={() => {
+              setBottomInfosVisible(!bottomInfosVisible)
+            }}
+          />
         </ImageBackground>
-        <GameFooter navigation={navigation} style={styles.footer} />
+        <GameFooter
+          navigation={navigation}
+          style={styles.footer}
+          activeIcon="home"
+        />
       </View>
     </SafeAreaView>
   )
@@ -129,7 +142,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   whiteArea: {
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    backgroundColor: Colors.white,
+    elevation: 8,
     borderRadius: Spaces.medium,
     flexDirection: 'row',
     paddingHorizontal: Spaces.medium,
@@ -138,19 +152,6 @@ const styles = StyleSheet.create({
   whiteAreaText: {
     color: '#1C3E76',
     fontFamily: Fonts.baloo,
-  },
-  starButtonContainer: {
-    position: 'absolute',
-    right: Spaces.medium,
-  },
-  starButton: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  star: {
-    fontSize: 18,
   },
   footer: {
     zIndex: 10,

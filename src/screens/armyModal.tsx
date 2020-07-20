@@ -12,9 +12,15 @@ import {
   getArmy,
   incrementArmyCount,
   decrementArmyCount,
+  postBuyArmy,
 } from '../store/army/army.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
+import {disableExpoCliLogging} from 'expo/build/logs/Logs'
+import {
+  PurchaseUnitRequest,
+  PurchaseUnitRequestItem,
+} from '../model/army/purchaseUnit.request'
 
 interface ArmyModalProps {
   navigation: StackNavigationProp<any>
@@ -50,6 +56,19 @@ function ArmyModal({navigation}: ArmyModalProps) {
     )
   }
 
+  const buyUnits = () => {
+    let units: PurchaseUnitRequest = []
+    purchasableUnits.forEach(item => {
+      if (item.viewCount > 0) {
+        units.push({
+          typeId: item.id,
+          count: item.viewCount,
+        } as PurchaseUnitRequestItem)
+      }
+    })
+    dispatch(postBuyArmy(units))
+  }
+
   return (
     <View style={styles.container}>
       <HeaderWithArrow
@@ -61,21 +80,15 @@ function ArmyModal({navigation}: ArmyModalProps) {
         ListHeaderComponent={listHeader}
         data={purchasableUnits}
         renderItem={({item}) => {
-          return (
-            <ArmyBox
-              unit={item}
-              onDecrement={() => {
-                dispatch(decrementArmyCount(item))
-              }}
-              onIncrement={() => {
-                dispatch(incrementArmyCount(item))
-              }}
-            />
-          )
+          return <ArmyBox unit={item} />
         }}
         keyExtractor={item => item.id.toString()}
       />
-      <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
+      <ModalButtonBar
+        buttonTitle={Strings.iBuyIt}
+        buttonOnPress={buyUnits}
+        buttonActive={true}
+      />
       <Loading animating={isLoading} />
     </View>
   )

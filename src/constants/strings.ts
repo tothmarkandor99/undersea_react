@@ -30,4 +30,7 @@ export const Strings = {
   upgradeDescription:
     'Minden fejlesztés 15 kört vesz igénybe, egyszerre csak egy dolog fejleszthető és minden csak egyszer fejleszthető ki (nem lehet két kombájn).',
   army: 'Sereg',
+  home: 'Kezdőlap',
+  city: 'Városom',
+  myUnits: 'Csapataim',
 }

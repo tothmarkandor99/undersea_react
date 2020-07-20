@@ -9,22 +9,31 @@ import {
 } from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {Building} from '../model/building/building'
+import {useDispatch, useSelector} from 'react-redux'
+import {IApplicationState} from '../../store'
+import {selectBuilding} from '../store/building/building.actions'
 
 interface BuildingBoxProps {
   building: Building // TODO: kivenni a nullable-t
-  selected?: boolean
-  active?: boolean
-  onPress?: ((event: GestureResponderEvent) => void) | undefined
 }
 
-export default function BuildingBox({
-  onPress,
-  building,
-  active = true,
-  selected = false,
-}: BuildingBoxProps) {
+export default function BuildingBox({building}: BuildingBoxProps) {
+  const {selectedBuilding} = useSelector(
+    (state: IApplicationState) => state.app.building,
+  )
+  const dispatch = useDispatch()
+
+  const selected = selectedBuilding && selectedBuilding.id === building.id
+  const active =
+    (selectedBuilding && selectedBuilding.id === building.id) ||
+    selectedBuilding === undefined
+
+  const select = () => {
+    dispatch(selectBuilding(building))
+  }
+
   return (
-    <TouchableOpacity onPress={onPress} disabled={!active}>
+    <TouchableOpacity onPress={select} disabled={!active}>
       <View
         style={[
           styles.container,
@@ -32,16 +41,11 @@ export default function BuildingBox({
             backgroundColor: selected ? 'rgba(255, 255, 255, 0.12)' : undefined,
           },
         ]}>
-        <Image
-          style={styles.image}
-          source={require('../../assets/img/Group21.png')}
-        />
-        <Text style={styles.name}>Zátonyvár</Text>
-        <Text style={styles.description}>
-          50 ember-t ad a népességhez 200 krumplit termel körönként
-        </Text>
-        <Text style={styles.count}>1 db</Text>
-        <Text style={styles.price}>450 Gyöngy / db</Text>
+        <Image style={styles.image} source={{uri: building.pictureUrl}} />
+        <Text style={styles.name}>{building.name}</Text>
+        <Text style={styles.description}>{building.description}</Text>
+        <Text style={styles.count}>{building.count} db</Text>
+        <Text style={styles.price}>{building.price} Gyöngy / db</Text>
       </View>
     </TouchableOpacity>
   )

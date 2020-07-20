@@ -8,19 +8,48 @@ import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import AttackTargetBox from '../components/attackTargetBox'
 import SearchField from '../components/searchField'
-import { Strings } from '../constants/strings'
+import {Strings} from '../constants/strings'
+import GameFooter from '../components/gameFooter'
+import {getAttackTargets} from '../store/attack/attack.actions'
+import {SearchRequest} from '../model/search.request'
+import Loading from '../components/loading'
 
 interface AttackTargetProps {
   navigation: StackNavigationProp<any>
 }
 
 export default function AttackTargetModal({navigation}: AttackTargetProps) {
+  const {attackTargets, error, isLoading, selectedTargetCount} = useSelector(
+    (state: IApplicationState) => state.app.attack,
+  )
+  const dispatch = useDispatch()
+
+  const [searchPhrase, setSearchPhrase] = useState<string>('')
+  const [page, setPage] = useState<number>(1)
+  const [itemPerPage, setItemPerPage] = useState<number>(10)
+
+  useEffect(() => {
+    dispatch(
+      getAttackTargets({
+        searchPhrase,
+        page,
+        itemPerPage,
+      } as SearchRequest),
+    )
+  }, [dispatch, searchPhrase])
+
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
         <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
-        <SearchField />
+        <SearchField
+          onChangeText={text => {
+            console.log(text)
+            setSearchPhrase(text)
+          }}
+        />
+        <Loading animating={isLoading} />
       </View>
     )
   }
@@ -28,24 +57,25 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
   return (
     <View style={styles.container}>
       <HeaderWithArrow title={Strings.attack} backAction={navigation.goBack} />
-      <FlatList
-        style={styles.listBody}
-        ListHeaderComponent={listHeader}
-        data={[1, 2, 3, 4, 5, 6, 7]}
-        renderItem={({item}) => {
-          return <AttackTargetBox />
-        }}
-        keyExtractor={(item, index) => {
-          return index.toString() // TODO: normális keyExtractor
-        }}
-      />
-      <ModalButtonBar
-        buttonTitle={Strings.next}
-        buttonOnPress={() => {
-          navigation.navigate('AttackUnitsModal')
-        }}
-        buttonActive={true}
-      />
+      <View style={styles.contentContainer}>
+        <FlatList
+          style={styles.listBody}
+          ListHeaderComponent={listHeader}
+          data={attackTargets}
+          renderItem={({item}) => {
+            return <AttackTargetBox target={item} />
+          }}
+          keyExtractor={item => item.id.toString()}
+        />
+        <ModalButtonBar
+          buttonTitle={Strings.next}
+          buttonOnPress={() => {
+            navigation.navigate('AttackUnitsModal')
+          }}
+          buttonActive={true}
+        />
+      </View>
+      <GameFooter navigation={navigation} activeIcon="attack" />
     </View>
   )
 }
@@ -56,6 +86,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#03255F',
     flexDirection: 'column',
     alignItems: 'stretch',
+  },
+  contentContainer: {
+    flexShrink: 1,
+    flexGrow: 1,
   },
   text: {
     color: 'white',

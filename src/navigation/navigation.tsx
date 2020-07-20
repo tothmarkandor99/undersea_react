@@ -8,6 +8,7 @@ import BuildingsModal from '../screens/buildingsModal'
 
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 import {useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import ArmyModal from '../screens/armyModal'
@@ -20,6 +21,7 @@ export default function Navi() {
   const LoginStack = createStackNavigator()
   const GameStack = createStackNavigator()
   const AttackStack = createStackNavigator()
+  const CityStack = createMaterialTopTabNavigator()
 
   const loggedIn = useSelector(
     (state: IApplicationState) => state.app.user.user !== undefined,
@@ -85,12 +87,20 @@ export default function Navi() {
         <GameStack.Screen name="GameScreen" component={GameScreen} />
         <GameStack.Screen name="ProfileModal" component={ProfileModal} />
         <GameStack.Screen name="HighscoreModal" component={HighscoreModal} />
-        <GameStack.Screen name="BuildingsModal" component={BuildingsModal} />
-        <GameStack.Screen name="ArmyModal" component={ArmyModal} />
-        <GameStack.Screen name="FightModal" component={FightModal} />
-        <GameStack.Screen name="UpgradesModal" component={UpgradesModal} />
+        <GameStack.Screen name="CityStack" component={CityStackScreen} />
         <GameStack.Screen name="AttackStack" component={AttackStackScreen} />
+        <GameStack.Screen name="FightModal" component={FightModal} />
       </GameStack.Navigator>
+    )
+  }
+
+  function CityStackScreen() {
+    return (
+      <CityStack.Navigator>
+        <GameStack.Screen name="BuildingsModal" component={BuildingsModal} />
+        <GameStack.Screen name="UpgradesModal" component={UpgradesModal} />
+        <GameStack.Screen name="ArmyModal" component={ArmyModal} />
+      </CityStack.Navigator>
     )
   }
 

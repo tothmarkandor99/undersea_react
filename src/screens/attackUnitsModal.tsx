@@ -7,13 +7,25 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import AttackUnitBox from '../components/attackUnitBox'
-import { Strings } from '../constants/strings'
+import {Strings} from '../constants/strings'
+import GameFooter from '../components/gameFooter'
+import {getAttackUnits} from '../store/attack/attack.actions'
+import Loading from '../components/loading'
 
 interface AttackUnitsProps {
   navigation: StackNavigationProp<any>
 }
 
 export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
+  const {attackUnits, error, isLoading, selectedUnitCount} = useSelector(
+    (state: IApplicationState) => state.app.attack,
+  )
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAttackUnits())
+  }, [dispatch])
+
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
@@ -26,18 +38,20 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
   return (
     <View style={styles.container}>
       <HeaderWithArrow title={Strings.attack} backAction={navigation.goBack} />
-      <FlatList
-        style={styles.listBody}
-        ListHeaderComponent={listHeader}
-        data={[1, 2, 3, 4, 5, 6, 7]}
-        renderItem={({item}) => {
-          return <AttackUnitBox />
-        }}
-        keyExtractor={(item, index) => {
-          return index.toString() // TODO: normális keyExtractor
-        }}
-      />
-      <ModalButtonBar buttonTitle={Strings.attack} buttonOnPress={() => {}} />
+      <View style={styles.contentContainer}>
+        <FlatList
+          style={styles.listBody}
+          ListHeaderComponent={listHeader}
+          data={attackUnits}
+          renderItem={({item}) => {
+            return <AttackUnitBox unit={item} />
+          }}
+          keyExtractor={item => item.id.toString()}
+        />
+        <ModalButtonBar buttonTitle={Strings.attack} buttonOnPress={() => {}} />
+      </View>
+      <GameFooter navigation={navigation} activeIcon="attack" />
+      <Loading animating={isLoading} />
     </View>
   )
 }
@@ -48,6 +62,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#03255F',
     flexDirection: 'column',
     alignItems: 'stretch',
+  },
+  contentContainer: {
+    flexShrink: 1,
+    flexGrow: 1,
   },
   text: {
     color: 'white',

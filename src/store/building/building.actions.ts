@@ -1,7 +1,7 @@
 import {BuildingResponse} from '../../model/building/building.response'
 import {Building} from '../../model/building/building'
-import {BuildRequest} from '../../model/building/build.request'
 import {BuildResponse} from '../../model/building/build.response'
+import {BuildRequest} from '../../model/building/build.request'
 
 export const GET_BUILDINGS_REQUEST = 'GET_BUILDINGS_REQUEST'
 export const GET_BUILDINGS_SUCCESS = 'GET_BUILDINGS_SUCCESS'

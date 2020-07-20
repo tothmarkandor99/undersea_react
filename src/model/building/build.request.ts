@@ -1,3 +1,3 @@
 export interface BuildRequest {
-  buildingId: number
+  id: number
 }

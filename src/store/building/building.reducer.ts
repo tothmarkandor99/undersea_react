@@ -32,7 +32,7 @@ export const buildingReducer = (
         buildings: action.response.map(
           item =>
             <Building>{
-              buildingId: item.id,
+              id: item.id,
               name: item.name,
               description: item.description,
               count: item.count,

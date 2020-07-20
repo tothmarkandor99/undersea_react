@@ -44,6 +44,7 @@ export const armyReducer = (
               viewCount: 0,
             },
         ),
+        selectedUnitCount: 0,
       }
     case GET_ARMY_FAILURE:
       return {
@@ -51,6 +52,7 @@ export const armyReducer = (
         error: action.reason,
         isLoading: false,
         purchasableUnits: [],
+        selectedUnitCount: 0,
       }
     case POST_BUY_ARMY_REQUEST:
       return {
@@ -68,8 +70,10 @@ export const armyReducer = (
             <PurchasableUnit>{
               ...item,
               count: item.count + countFromId(action.response, item.id),
+              viewCount: 0,
             },
         ),
+        selectedUnitCount: 0,
       }
     case POST_BUY_ARMY_FAILURE:
       return {
@@ -87,6 +91,7 @@ export const armyReducer = (
       return {
         ...state,
         purchasableUnits: incrementedUnits,
+        selectedUnitCount: state.selectedUnitCount + 1,
       }
     case DECREMENT_ARMY_COUNT:
       let decrementedUnits = state.purchasableUnits
@@ -101,6 +106,7 @@ export const armyReducer = (
       return {
         ...state,
         purchasableUnits: decrementedUnits,
+        selectedUnitCount: state.selectedUnitCount - 1,
       }
     default:
       return state
@@ -109,7 +115,7 @@ export const armyReducer = (
 
 const countFromId = (response: PurchaseUnitResponse, id: number): number => {
   for (let i: number = 0; i < response.length; i++) {
-    if (response[i].id === id) {
+    if (response[i].typeId === id) {
       return response[i].count
     }
   }

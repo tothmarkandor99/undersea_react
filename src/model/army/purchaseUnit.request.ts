@@ -1,5 +1,5 @@
 export interface PurchaseUnitRequestItem {
-  id: number
+  typeId: number
   count: number
 }
 

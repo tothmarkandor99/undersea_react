@@ -31,4 +31,16 @@ Network.interceptors.request.use(
   },
 )
 
+Network.interceptors.request.use(request => {
+  console.log(request.baseURL + request.url)
+  console.log(request.data)
+  return request
+})
+
+Network.interceptors.response.use(response => {
+  console.log(response.status, response.statusText)
+  console.log(response.data)
+  return response
+})
+
 export default Network

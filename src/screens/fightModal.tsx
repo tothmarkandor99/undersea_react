@@ -10,6 +10,7 @@ import FightItem from '../components/fightItem'
 import {Strings} from '../constants/strings'
 import Loading from '../components/loading'
 import {showMessage} from 'react-native-flash-message'
+import GameFooter from '../components/gameFooter'
 
 interface FightModalProps {
   navigation: StackNavigationProp<any>
@@ -48,6 +49,7 @@ function FightModal({navigation}: FightModalProps) {
           return index.toString()
         }}
       />
+      <GameFooter navigation={navigation} activeIcon="units" />
       <Loading animating={isLoading} />
     </View>
   )

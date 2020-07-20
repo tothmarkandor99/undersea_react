@@ -8,9 +8,10 @@ import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import BuildingBox from '../components/buildingBox'
 import {Strings} from '../constants/strings'
-import {getBuildings, selectBuilding} from '../store/building/building.actions'
+import {getBuildings, postBuild} from '../store/building/building.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
+import {BuildRequest} from '../model/building/build.request'
 
 interface BuildingsModalProps {
   navigation: StackNavigationProp<any>
@@ -49,6 +50,12 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
     )
   }
 
+  const build = () => {
+    if (selectedBuilding) {
+      dispatch(postBuild({id: selectedBuilding.id} as BuildRequest))
+    }
+  }
+
   return (
     <View style={styles.container}>
       <HeaderWithArrow
@@ -60,23 +67,15 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
         ListHeaderComponent={listHeader}
         data={buildings}
         renderItem={({item}) => {
-          return (
-            <BuildingBox
-              building={item}
-              active={
-                item.buildingId === selectedBuilding?.buildingId ||
-                !selectedBuilding
-              }
-              selected={item.buildingId === selectedBuilding?.buildingId}
-              onPress={() => {
-                dispatch(selectBuilding(item))
-              }}
-            />
-          )
+          return <BuildingBox building={item} />
         }}
-        keyExtractor={item => item.buildingId.toString()}
+        keyExtractor={item => item.id.toString()}
       />
-      <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
+      <ModalButtonBar
+        buttonTitle={Strings.iBuyIt}
+        buttonOnPress={build}
+        buttonActive={selectedBuilding !== undefined}
+      />
       <Loading animating={isLoading} />
     </View>
   )

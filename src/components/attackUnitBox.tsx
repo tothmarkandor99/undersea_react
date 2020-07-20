@@ -1,30 +1,31 @@
 import React, {useState} from 'react'
 import {StyleSheet, View, Image, Text} from 'react-native'
 import {Spaces} from '../constants/spaces'
-import {Unit} from '../model/unit'
+import {AttackUnit} from '../model/attack/attackUnit'
 import Slider from '@react-native-community/slider'
+import {useDispatch} from 'react-redux'
+import {setAttackUnitCount} from '../store/attack/attack.actions'
 
 interface AttackUnitBoxProps {
-  unit?: Unit // TODO: kivenni a nullable-t
+  unit: AttackUnit
 }
 
 export default function AttackUnitBox({unit}: AttackUnitBoxProps) {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch()
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../../assets/img/Group21.png')}
-      />
+      <Image style={styles.image} source={{uri: unit.imageUrl}} />
       <View style={styles.rightSection}>
-        <Text style={styles.name}>Iszaptraktor: {count} db</Text>
+        <Text style={styles.name}>
+          {unit.name}: {unit.count} db
+        </Text>
         <Slider
           style={styles.slider}
           minimumValue={0}
-          maximumValue={50}
+          maximumValue={unit.maxCount}
           onValueChange={value => {
-            setCount(value)
+            dispatch(setAttackUnitCount(unit, value))
           }}
           step={1}
           minimumTrackTintColor="#9FFFF0"

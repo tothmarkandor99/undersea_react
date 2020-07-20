@@ -7,7 +7,7 @@ import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import {getHighscores} from '../store/highscore/highscore.actions'
 import SearchField from '../components/searchField'
-import { Strings } from '../constants/strings'
+import {Strings} from '../constants/strings'
 
 interface HighscoreModalProps {
   navigation: StackNavigationProp<any>
@@ -21,7 +21,7 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
   const dispatch = useDispatch()
 
   const [searchPhrase, setSearchPhrase] = useState<string>('')
-  const [page, setPage] = useState<number>(0)
+  const [page, setPage] = useState<number>(1)
   const [itemPerPage, setItemPerPage] = useState<number>(10)
 
   useEffect(() => {
@@ -36,7 +36,10 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title={Strings.scoreboard} backAction={navigation.goBack} />
+      <HeaderWithArrow
+        title={Strings.scoreboard}
+        backAction={navigation.goBack}
+      />
       <View style={styles.contentContainer}>
         <View style={styles.highscoreRow}>
           <SearchField />

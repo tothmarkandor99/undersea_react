@@ -10,18 +10,19 @@ import {
 import {Spaces} from '../constants/spaces'
 import {PurchasableUnit} from '../model/army/purchasableUnit'
 import {AntDesign} from '@expo/vector-icons'
+import {useDispatch} from 'react-redux'
+import {
+  decrementArmyCount,
+  incrementArmyCount,
+} from '../store/army/army.actions'
 
 interface ArmyBoxProps {
-  unit: PurchasableUnit // TODO: kivenni a nullable-t
-  onIncrement?: ((event: GestureResponderEvent) => void) | undefined
-  onDecrement?: ((event: GestureResponderEvent) => void) | undefined
+  unit: PurchasableUnit
 }
 
-export default function ArmyBox({
-  unit,
-  onIncrement,
-  onDecrement,
-}: ArmyBoxProps) {
+export default function ArmyBox({unit}: ArmyBoxProps) {
+  const dispatch = useDispatch()
+
   return (
     <View style={styles.container}>
       <Image
@@ -52,11 +53,17 @@ export default function ArmyBox({
         <Text style={styles.dataValue}>{unit.price} Gyöngy</Text>
       </View>
       <View style={styles.counterRow}>
-        <TouchableOpacity onPress={onDecrement}>
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(decrementArmyCount(unit))
+          }}>
           <AntDesign name="minuscircle" style={styles.counterControl} />
         </TouchableOpacity>
         <Text style={styles.counterText}>{unit.viewCount}</Text>
-        <TouchableOpacity onPress={onIncrement}>
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(incrementArmyCount(unit))
+          }}>
           <AntDesign name="pluscircle" style={styles.counterControl} />
         </TouchableOpacity>
       </View>

@@ -1,5 +1,5 @@
 export interface PurchaseUnitResponseItem {
-  id: number
+  typeId: number
   count: number
 }
 

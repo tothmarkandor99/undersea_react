@@ -1,5 +1,5 @@
 export interface Building {
-  buildingId: string
+  id: number
   name: string
   description: string
   count: number

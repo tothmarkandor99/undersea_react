@@ -1,7 +1,7 @@
 import Network from '../network'
 import {SearchRequest} from '../../model/search.request'
 
-const SEARCH_ROUTE = 'highscores'
+const SEARCH_ROUTE = 'Scoreboard'
 
 class HighscoreService {
   searchHighscores = async (search: SearchRequest) => {

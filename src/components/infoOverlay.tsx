@@ -12,6 +12,9 @@ import {
 } from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {Colors} from '../constants/colors'
+import {useSelector} from 'react-redux'
+import {IApplicationState} from '../../store'
+import {statsReducer} from '../store/stats/stats.reducer'
 
 interface InfoOverlayProps {
   rotateValue: Animated.AnimatedInterpolation
@@ -34,6 +37,10 @@ export default function InfoOverlay({
   onLayout,
   onControlLayout,
 }: InfoOverlayProps) {
+  const {stats, error, isLoading} = useSelector(
+    (state: IApplicationState) => state.app.stats,
+  )
+
   return (
     <Animated.View
       onLayout={onLayout}
@@ -56,66 +63,54 @@ export default function InfoOverlay({
         </TouchableOpacity>
       </View>
       <View style={styles.infoOverlayRow}>
-        <View style={styles.infoOverlayItem}>
-          <Image
-            style={styles.infoOverlayImage}
-            resizeMode="contain"
-            source={require('../../assets/img/stats/Group132.png')}
-          />
-          <Text style={styles.infoOverlayText}>0</Text>
-        </View>
-        <View style={styles.infoOverlayItem}>
-          <Image
-            style={styles.infoOverlayImage}
-            resizeMode="contain"
-            source={require('../../assets/img/stats/Group131.png')}
-          />
-          <Text style={styles.infoOverlayText}>5</Text>
-        </View>
-        <View style={styles.infoOverlayItem}>
-          <Image
-            style={styles.infoOverlayImage}
-            resizeMode="contain"
-            source={require('../../assets/img/stats/Group130.png')}
-          />
-          <Text style={styles.infoOverlayText}>13</Text>
-        </View>
+        {stats?.unitStats.map(item => (
+          <View style={styles.infoOverlayItem}>
+            <Image
+              style={styles.infoOverlayImage}
+              resizeMode="contain"
+              source={{uri: item.imageUrl}}
+            />
+            <Text style={styles.infoOverlayText}>{item.availableCount}</Text>
+          </View>
+        ))}
       </View>
       <View style={styles.infoOverlayRow}>
         <View style={styles.infoOverlayItem}>
           <Image
             style={styles.infoOverlayImage}
             resizeMode="contain"
-            source={require('../../assets/img/stats/Group129.png')}
+            source={{url: stats?.resourceStats.pearlPictureUrl}}
           />
-          <Text style={styles.infoOverlayText}>230</Text>
-          <Text style={styles.infoOverlayText}>12/kör</Text>
+          <Text style={styles.infoOverlayText}>
+            {stats?.resourceStats.pearlCount}
+          </Text>
+          <Text style={styles.infoOverlayText}>
+            {stats?.resourceStats.pearlProductionCount}/kör
+          </Text>
         </View>
         <View style={styles.infoOverlayItem}>
           <Image
             style={styles.infoOverlayImage}
             resizeMode="contain"
-            source={require('../../assets/img/stats/Group128.png')}
+            source={{url: stats?.resourceStats.coralPictureUrl}}
           />
-          <Text style={styles.infoOverlayText}>230</Text>
-          <Text style={styles.infoOverlayText}>12/kör</Text>
+          <Text style={styles.infoOverlayText}>
+            {stats?.resourceStats.coralCount}
+          </Text>
+          <Text style={styles.infoOverlayText}>
+            {stats?.resourceStats.coralProductionCount}/kör
+          </Text>
         </View>
-        <View style={styles.infoOverlayItem}>
-          <Image
-            style={styles.infoOverlayImage}
-            resizeMode="contain"
-            source={require('../../assets/img/stats/Group125.png')}
-          />
-          <Text style={styles.infoOverlayText}>1</Text>
-        </View>
-        <View style={styles.infoOverlayItem}>
-          <Image
-            style={styles.infoOverlayImage}
-            resizeMode="contain"
-            source={require('../../assets/img/stats/Group126.png')}
-          />
-          <Text style={styles.infoOverlayText}>0</Text>
-        </View>
+        {stats?.buildingStats.map(item => (
+          <View style={styles.infoOverlayItem}>
+            <Image
+              style={styles.infoOverlayImage}
+              resizeMode="contain"
+              source={{uri: item.imageUrl}}
+            />
+            <Text style={styles.infoOverlayText}>{item.count}</Text>
+          </View>
+        ))}
       </View>
     </Animated.View>
   )

@@ -11,24 +11,33 @@ import {
   Animated,
   LayoutChangeEvent,
 } from 'react-native'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {Spaces} from '../constants/spaces'
 import GameFooter from '../components/gameFooter'
-import {LinearGradient} from 'expo-linear-gradient'
-import {FontAwesome} from '@expo/vector-icons'
 import InfoOverlay from '../components/infoOverlay'
 import {RFValue} from 'react-native-responsive-fontsize'
 import GameArea from '../components/gameArea'
 import GameHeader from '../components/gameHeader'
 import {Fonts} from '../constants/fonts'
 import {Colors} from '../constants/colors'
+import {IApplicationState} from '../../store'
+import {getStats} from '../store/stats/stats.actions'
+import Loading from '../components/loading'
 
 interface GameScreenProps {
   navigation: StackNavigationProp<any>
 }
 
 const GameScreen = ({navigation}: GameScreenProps) => {
+  const {stats, error, isLoading} = useSelector(
+    (state: IApplicationState) => state.app.stats,
+  )
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getStats())
+  }, [dispatch])
+
   const animationDuration: number = 350
   const rotateAnim = useRef(new Animated.Value(0))
   const rotateValue = rotateAnim.current.interpolate({
@@ -56,7 +65,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
     Animated.timing(rotateAnim.current, {
       toValue: 1,
       duration: animationDuration,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start()
     Animated.timing(slideAnim.current, {
       toValue: 1,
@@ -68,7 +77,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
     Animated.timing(rotateAnim.current, {
       toValue: 0,
       duration: animationDuration,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start()
     Animated.timing(slideAnim.current, {
       toValue: 0,
@@ -86,9 +95,9 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           source={require('../../assets/img/game_bg.png')}>
           <View style={styles.mainTopArea}>
             <View style={styles.whiteArea}>
-              <Text style={styles.whiteAreaText}>4. kör</Text>
+              <Text style={styles.whiteAreaText}>{stats?.round}. kör</Text>
               <Text style={[styles.whiteAreaText, {marginLeft: Spaces.medium}]}>
-                23. hely
+                {stats?.scoreboardPosition}. hely
               </Text>
             </View>
           </View>
@@ -114,6 +123,7 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           activeIcon="home"
         />
       </View>
+      <Loading animating={isLoading} />
     </SafeAreaView>
   )
 }

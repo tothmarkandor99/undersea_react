@@ -5,7 +5,7 @@ import {
   GET_STATS_SUCCESS,
   GET_STATS_FAILURE,
 } from './stats.actions'
-import {Stats} from '../../model/stats/stats'
+import {Stats, UnitStat, BuildingStat} from '../../model/stats/stats'
 
 export const statsReducer = (
   state = initialStatsStore,
@@ -25,7 +25,24 @@ export const statsReducer = (
         error: undefined,
         isLoading: false,
         stats: <Stats>{
-          /* TODO: API alapján */
+          unitStats: action.response.statusBar.availableUnits.map(
+            item =>
+              <UnitStat>{
+                ...item,
+              },
+          ),
+          buildingStats: action.response.statusBar.buildings.map(
+            item =>
+              <BuildingStat>{
+                ...item,
+                id: item.typeId,
+              },
+          ),
+          round: action.response.statusBar.roundCount,
+          scoreboardPosition: action.response.statusBar.scoreboardPosition,
+          resourceStats: {...action.response.statusBar.resources},
+          countryName: action.response.countryName,
+          structureStats: {...action.response.structures},
         },
       }
     case GET_STATS_FAILURE:

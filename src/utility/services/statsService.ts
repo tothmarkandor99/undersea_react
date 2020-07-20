@@ -1,6 +1,6 @@
 import Network from '../network'
 
-const ROUTE = ''
+const ROUTE = 'MainPage'
 
 class StatsService {
   getStats = async () => {

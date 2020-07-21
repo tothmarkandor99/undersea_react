@@ -104,7 +104,7 @@ export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
       </View>
       <View style={styles.infoOverlayRow}>
         {stats?.unitStats.map(item => (
-          <View style={styles.infoOverlayItem}>
+          <View style={styles.infoOverlayItem} key={item.id.toString()}>
             <Image
               style={styles.infoOverlayImage}
               resizeMode="contain"
@@ -142,7 +142,7 @@ export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
           </Text>
         </View>
         {stats?.buildingStats.map(item => (
-          <View style={styles.infoOverlayItem}>
+          <View style={styles.infoOverlayItem} key={item.id.toString()}>
             <Image
               style={styles.infoOverlayImage}
               resizeMode="contain"

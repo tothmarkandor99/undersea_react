@@ -21,6 +21,7 @@ import LoginTextInput from '../components/loginTextInput'
 import {RFValue} from 'react-native-responsive-fontsize'
 import {IApplicationState} from '../../store'
 import Loading from '../components/loading'
+import {showMessage} from 'react-native-flash-message'
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any>
@@ -35,6 +36,28 @@ function RegisterScreen({navigation}: LoginScreenProps) {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('') // TODO: validáció
   const [coutryName, setCountryName] = useState('')
+
+  const tryRegister = () => {
+    if (password.length < 4) {
+      showMessage({
+        message: Strings.passwordMustBeAtLeast4CharLong,
+        type: 'danger',
+      })
+    } else if (password !== confirmPassword) {
+      showMessage({
+        message: Strings.thePasswordsShouldMatch,
+        type: 'danger',
+      })
+    } else {
+      dispatch(
+        register({
+          userName: userName,
+          password: password,
+          countryName: coutryName,
+        } as RegisterRequest),
+      )
+    }
+  }
 
   return (
     <ImageBackground
@@ -64,15 +87,7 @@ function RegisterScreen({navigation}: LoginScreenProps) {
         <View style={styles.row}>
           <FancyButton
             active={true}
-            onPress={() => {
-              dispatch(
-                register({
-                  userName: userName,
-                  password: password,
-                  countryName: coutryName,
-                } as RegisterRequest),
-              )
-            }}
+            onPress={tryRegister}
             title={Strings.register}
           />
         </View>

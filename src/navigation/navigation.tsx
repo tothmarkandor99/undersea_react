@@ -24,7 +24,7 @@ export default function Navi() {
   const CityStack = createMaterialTopTabNavigator()
 
   const loggedIn = useSelector(
-    (state: IApplicationState) => state.app.user.user !== undefined,
+    (state: IApplicationState) => state.app.user.loggedIn,
   )
 
   return (

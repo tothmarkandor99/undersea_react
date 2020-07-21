@@ -9,6 +9,7 @@ import {
   POST_LOGIN_FAILURE,
   POST_REGISTER_FAILURE,
   POST_REGISTER_SUCCESS,
+  POST_REGISTER_REQUEST,
 } from './user.actions'
 
 export const userReducer = (
@@ -19,18 +20,12 @@ export const userReducer = (
     case BYPASS_LOGIN:
       return {
         ...state,
-        user: {
-          userId: -1,
-          name: 'Teszt Jóska',
-          city: 'Halfalva',
-          place: 13,
-          round: 8,
-        },
+        loggedIn: true,
       }
     case BYPASS_LOGOUT:
       return {
         ...state,
-        user: undefined,
+        loggedIn: false,
       }
     case POST_LOGIN_REQUEST:
       return {
@@ -43,20 +38,18 @@ export const userReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        user: <User>{
-          /* TODO: API alapján */
-        },
         accessToken: action.response.accessToken,
         refreshToken: action.response.refreshToken,
+        loggedIn: true,
       }
     case POST_LOGIN_FAILURE:
       return {
         ...state,
         error: action.reason,
         isLoading: false,
-        user: undefined,
+        loggedIn: false,
       }
-    case POST_REGISTER_SUCCESS:
+    case POST_REGISTER_REQUEST:
       return {
         ...state,
         error: undefined,
@@ -67,18 +60,16 @@ export const userReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        user: <User>{
-          /* TODO: API alapján */
-        },
         accessToken: action.response.accessToken,
         refreshToken: action.response.refreshToken,
+        loggedIn: true,
       }
     case POST_REGISTER_FAILURE:
       return {
         ...state,
         error: action.reason,
         isLoading: false,
-        user: undefined,
+        loggedIn: false,
       }
     default:
       return state

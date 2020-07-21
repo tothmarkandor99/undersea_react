@@ -1,6 +1,9 @@
 export interface Fight {
   countryName: string
-  laserSharkCount: number
-  stormSealCount: number
-  combatSeaHorseCount: number
+  units: FightUnit[]
+}
+
+export interface FightUnit {
+  count: number
+  name: string
 }

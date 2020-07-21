@@ -19,9 +19,11 @@ export default function FightItem({first = false, fight}: FightItemProps) {
         },
       ]}>
       <Text style={[styles.text, styles.city]}>{fight.countryName}</Text>
-      <Text style={styles.text}>{fight.laserSharkCount} Lézercápa</Text>
-      <Text style={styles.text}>{fight.stormSealCount} Rohamfóka</Text>
-      <Text style={styles.text}>{fight.combatSeaHorseCount} Csatacsikó</Text>
+      {fight.units.map(item => (
+        <Text style={styles.text} key={item.name}>
+          {item.count} {item.name}
+        </Text>
+      ))}
     </View>
   )
 }

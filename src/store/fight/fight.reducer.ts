@@ -5,7 +5,7 @@ import {
   GET_FIGHTS_SUCCESS,
   GET_FIGHTS_FAILURE,
 } from './fight.actions'
-import {Fight} from '../../model/fight/fight'
+import {Fight, FightUnit} from '../../model/fight/fight'
 
 export const fightReducer = (
   state = initialFightStore,
@@ -27,9 +27,12 @@ export const fightReducer = (
           item =>
             <Fight>{
               countryName: item.countryName,
-              combatSeaHorseCount: item.combatSeaHorseCount,
-              laserSharkCount: item.laserSharkCount,
-              stormSealCount: item.stormSealCount,
+              units: item.units.map(
+                item2 =>
+                  <FightUnit>{
+                    ...item2,
+                  },
+              ),
             },
         ),
       }

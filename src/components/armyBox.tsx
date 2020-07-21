@@ -1,12 +1,5 @@
-import React, {useState} from 'react'
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  GestureResponderEvent,
-} from 'react-native'
+import React from 'react'
+import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {PurchasableUnit} from '../model/army/purchasableUnit'
 import {AntDesign} from '@expo/vector-icons'

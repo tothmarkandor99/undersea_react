@@ -22,7 +22,7 @@ class UserService {
   }
 
   refresh = async (token: string) => {
-    return await Network.post(REFRESH_ROUTE, {token}) // TODO: API-hoz igazítani
+    return await Network.post(REFRESH_ROUTE, {token})
   }
 }
 

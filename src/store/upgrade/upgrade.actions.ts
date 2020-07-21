@@ -1,7 +1,6 @@
 import {UpgradeResponse} from '../../model/upgrade/upgrade.response'
 import {BuyUpgradeResponse} from '../../model/upgrade/buyUpgrade.response'
 import {BuyUpgradeRequest} from '../../model/upgrade/buyUpgrade.request'
-import {Upgrade} from '../../model/upgrade/upgrade'
 
 export const GET_UPGRADES_REQUEST = 'GET_UPGRADES_REQUEST'
 export const GET_UPGRADES_SUCCESS = 'GET_UPGRADES_SUCCESS'

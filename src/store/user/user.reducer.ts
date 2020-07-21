@@ -1,5 +1,4 @@
 import {initialUserStore, UserStore} from './user.store'
-import {User} from '../../model/user/user'
 import {
   UserActions,
   BYPASS_LOGIN,
@@ -38,7 +37,6 @@ export const userReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        accessToken: action.response.accessToken,
         refreshToken: action.response.refreshToken,
         loggedIn: true,
       }
@@ -60,7 +58,6 @@ export const userReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        accessToken: action.response.accessToken,
         refreshToken: action.response.refreshToken,
         loggedIn: true,
       }

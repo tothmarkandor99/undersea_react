@@ -32,7 +32,7 @@ function* postLoginActionWatcher(action: PostLoginRequestAction) {
     const response: AxiosResponse<LoginResponse> = yield userService.logIn(
       action.user,
     )
-    AsyncStorage.setItem('access_token', response.data.accessToken) // TODO: kell ezt awaitelni?
+    AsyncStorage.setItem('access_token', response.data.accessToken)
     AsyncStorage.setItem('refresh_token', response.data.refreshToken)
     yield put(postLoginSuccessActionCreator(response.data))
   } catch (error) {

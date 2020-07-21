@@ -6,7 +6,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ActivityIndicator,
 } from 'react-native'
 import FancyButton from '../components/fancyButton'
 import LoginTextInput from '../components/loginTextInput'

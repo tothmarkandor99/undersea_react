@@ -1,9 +1,7 @@
-import {User} from '../../model/user/user'
 import {LoginRequest} from '../../model/user/login.request'
 import {LoginResponse} from '../../model/user/login.response'
 import {RegisterRequest} from '../../model/user/register.request'
 import {RegisterResponse} from '../../model/user/register.response'
-import {LogoutRequest} from '../../model/user/logout.request'
 
 export const BYPASS_LOGIN = 'BYPASS_LOGIN'
 export const BYPASS_LOGOUT = 'BYPASS_LOGOUT'

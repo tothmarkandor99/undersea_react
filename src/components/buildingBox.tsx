@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  GestureResponderEvent,
-} from 'react-native'
+import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {Building} from '../model/building/building'
 import {useDispatch, useSelector} from 'react-redux'
@@ -15,7 +8,7 @@ import {selectBuilding} from '../store/building/building.actions'
 import {Colors} from '../constants/colors'
 
 interface BuildingBoxProps {
-  building: Building // TODO: kivenni a nullable-t
+  building: Building
 }
 
 export default function BuildingBox({building}: BuildingBoxProps) {

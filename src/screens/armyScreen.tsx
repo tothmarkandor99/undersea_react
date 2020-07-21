@@ -3,20 +3,13 @@ import React, {useState, useEffect} from 'react'
 import {StyleSheet, TextInput, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
-import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import ArmyBox from '../components/armyBox'
 import {Strings} from '../constants/strings'
-import {
-  getArmy,
-  incrementArmyCount,
-  decrementArmyCount,
-  postBuyArmy,
-} from '../store/army/army.actions'
+import {getArmy, postBuyArmy} from '../store/army/army.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
-import {disableExpoCliLogging} from 'expo/build/logs/Logs'
 import {
   PurchaseUnitRequest,
   PurchaseUnitRequestItem,

@@ -1,19 +1,6 @@
 import React from 'react'
 import {LinearGradient} from 'expo-linear-gradient'
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  Image,
-  View,
-} from 'react-native'
-import EpuletekSvg from '../../assets/img/epuletek_nav'
-import HarcSvg from '../../assets/img/harc_nav'
-import SeregSvg from '../../assets/img/sereg_nav'
-import {StackNavigationProp} from '@react-navigation/stack'
-import {Strings} from '../constants/strings'
+import {TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {Fonts} from '../constants/fonts'
 import {Colors} from '../constants/colors'
 import {Spaces} from '../constants/spaces'

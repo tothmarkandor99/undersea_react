@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {
   TabView,
-  SceneMap,
   SceneRendererProps,
   NavigationState,
 } from 'react-native-tab-view'
@@ -16,8 +15,6 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native'
-import {TabBar} from 'react-native-tab-view'
-import Animated from 'react-native-reanimated'
 import {Colors} from '../constants/colors'
 import {Fonts} from '../constants/fonts'
 import {Spaces} from '../constants/spaces'
@@ -42,7 +39,6 @@ export default function CityScreen({navigation}: CityModalProps) {
       }
     },
   ) => {
-    // TODO: típus
     switch (props.route.key) {
       case 'buildings':
         return <BuildingsScreen navigation={navigation} />

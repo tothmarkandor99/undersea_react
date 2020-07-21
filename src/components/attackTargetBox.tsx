@@ -9,7 +9,7 @@ import {IApplicationState} from '../../store'
 import {Colors} from '../constants/colors'
 
 interface AttackTargetBoxProps {
-  target: AttackTarget // TODO: megfelelő típus kell
+  target: AttackTarget
   selected?: boolean
   first?: boolean
 }

@@ -1,11 +1,8 @@
 import axios, {AxiosResponse} from 'axios'
 import {Config} from '../constants/config'
-import {useSelector} from 'react-redux'
-import {IApplicationState} from '../../store'
 import {AsyncStorage} from 'react-native'
 import jwt_decode from 'jwt-decode'
 import {Token} from '../model/token/token'
-import {Strings} from '../constants/strings'
 import {RefreshTokenRequest} from '../model/token/refreshToken.request'
 import {RefreshTokenResponse} from '../model/token/refreshToken.response'
 

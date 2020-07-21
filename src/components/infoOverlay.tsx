@@ -5,8 +5,6 @@ import {
   View,
   Image,
   Text,
-  GestureResponderEvent,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   LayoutChangeEvent,
 } from 'react-native'
@@ -14,7 +12,6 @@ import {Spaces} from '../constants/spaces'
 import {Colors} from '../constants/colors'
 import {useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
-import {statsReducer} from '../store/stats/stats.reducer'
 import {Fonts} from '../constants/fonts'
 
 interface InfoOverlayProps {
@@ -36,7 +33,6 @@ export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
   const [overlayControlHeight, setOverlayControlHeight] = useState(25)
   const slideAnim = useRef(new Animated.Value(0))
   const slideValue = slideAnim.current.interpolate({
-    // TODO: érdemes lenne ezeket a komponensen belülre mozgatni
     inputRange: [0, 1],
     outputRange: [-overlayHeight + overlayControlHeight, 0],
   })

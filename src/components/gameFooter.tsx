@@ -55,7 +55,7 @@ export default function GameFooter({
                 size: 14,
                 color: 'green',
               })}
-            <Text>{options.title}</Text>
+            <Text style={styles.footerButtonText}>{options.title}</Text>
           </TouchableOpacity>
         )
       })}

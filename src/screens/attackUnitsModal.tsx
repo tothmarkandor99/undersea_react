@@ -12,6 +12,8 @@ import GameFooter from '../components/gameFooter'
 import {getAttackUnits, attack} from '../store/attack/attack.actions'
 import Loading from '../components/loading'
 import {AttackRequestItem} from '../model/attack/attack.request'
+import {Colors} from '../constants/colors'
+import {Fonts} from '../constants/fonts'
 
 interface AttackUnitsProps {
   navigation: StackNavigationProp<any>
@@ -35,7 +37,7 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>{Strings._2ndStep}</Text>
-        <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
+        <Text style={styles.text}>{Strings.selectWhoYouSendToAttack}</Text>
       </View>
     )
   }
@@ -53,11 +55,22 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
     }
   }
 
+  const renderEmptyList = () => {
+    return (
+      <View style={styles.emptyList}>
+        <Text style={styles.emptyListText}>
+          {Strings.noPlayerWithThisNameExist}
+        </Text>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <HeaderWithArrow title={Strings.attack} backAction={navigation.goBack} />
       <View style={styles.contentContainer}>
         <FlatList
+          ListEmptyComponent={renderEmptyList}
           style={styles.listBody}
           ListHeaderComponent={listHeader}
           data={attackUnits}
@@ -101,5 +114,14 @@ const styles = StyleSheet.create({
   },
   listBody: {
     paddingHorizontal: Spaces.big,
+  },
+  emptyList: {
+    alignContent: 'center',
+    marginTop: Spaces.medium,
+  },
+  emptyListText: {
+    textAlign: 'center',
+    color: Colors.white,
+    fontFamily: Fonts.openSansBold,
   },
 })

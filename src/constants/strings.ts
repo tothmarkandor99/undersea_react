@@ -39,4 +39,5 @@ export const Strings = {
   myCityName: 'Városom neve',
   youAreNotFightingAtTheMoment: 'Jelenleg egy csapatod sem harcol',
   noPlayerWithThisNameExist: 'Nincs ilyen nevű játékos',
+  selectWhoYouSendToAttack: 'Állítsd be, kiket küldesz harcba:',
 }

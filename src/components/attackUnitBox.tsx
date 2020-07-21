@@ -12,7 +12,6 @@ interface AttackUnitBoxProps {
 
 export default function AttackUnitBox({unit}: AttackUnitBoxProps) {
   const dispatch = useDispatch()
-
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={{uri: unit.imageUrl}} />
@@ -21,6 +20,7 @@ export default function AttackUnitBox({unit}: AttackUnitBoxProps) {
           {unit.name}: {unit.count} db
         </Text>
         <Slider
+          disabled={unit.maxCount === 0}
           style={styles.slider}
           minimumValue={0}
           maximumValue={unit.maxCount}

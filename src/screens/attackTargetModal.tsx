@@ -27,7 +27,7 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
   )
   const dispatch = useDispatch()
 
-  const [searchPhrase, setSearchPhrase] = useState<string>('hal')
+  const [searchPhrase, setSearchPhrase] = useState<string>('')
   const [page, setPage] = useState<number>(1)
   const [itemPerPage, setItemPerPage] = useState<number>(10)
 
@@ -60,7 +60,7 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
     )
   }
 
-  const listHeader = () => {
+  const renderListHeader = () => {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
@@ -78,7 +78,7 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
         <FlatList
           ListEmptyComponent={renderEmptyList}
           style={styles.listBody}
-          ListHeaderComponent={listHeader}
+          ListHeaderComponent={renderListHeader}
           data={attackTargets}
           renderItem={({item}) => {
             return <AttackTargetBox target={item} />

@@ -3,10 +3,7 @@ import {Config} from '../constants/config'
 import {useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import {AsyncStorage} from 'react-native'
-
-/*const {accessToken, refreshToken} = useSelector(
-  (state: IApplicationState) => state.app.user,
-)*/
+import JWT from 'expo-jwt'
 
 const Network = axios.create({
   baseURL: Config.baseUrl,
@@ -21,6 +18,7 @@ Network.interceptors.request.use(
   async reqConfig => {
     let accessToken = await AsyncStorage.getItem('access_token')
     if (accessToken) {
+      // console.log(JWT.decode(accessToken, 'SOME_RANDOM_KEY_DO_NOT_SHARE'))
       reqConfig.headers['Authorization'] = 'Bearer ' + accessToken
     }
 
@@ -32,7 +30,7 @@ Network.interceptors.request.use(
 )
 
 Network.interceptors.request.use(request => {
-  console.log(request.baseURL + request.url)
+  console.log(request.baseURL + '/' + request.url)
   console.log(JSON.stringify(request.data))
   return request
 })

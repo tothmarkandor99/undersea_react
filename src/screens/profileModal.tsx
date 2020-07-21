@@ -33,9 +33,11 @@ function ProfileModal({navigation}: ProfileModalProps) {
   )
 
   useEffect(() => {
-    AsyncStorage.removeItem('access_token')
-    AsyncStorage.removeItem('refresh_token')
-    console.log('Tokens removed')
+    if (!loggedIn) {
+      AsyncStorage.removeItem('access_token')
+      AsyncStorage.removeItem('refresh_token')
+      console.log('Tokens removed')
+    }
   }, [loggedIn])
 
   return (

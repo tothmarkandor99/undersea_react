@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, View, FlatList, Text} from 'react-native'
+import {StyleSheet, View, FlatList, Text, RefreshControl} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'

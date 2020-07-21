@@ -27,6 +27,7 @@ export default function Navi() {
   const ModalStack = createStackNavigator()
   const BottomTabStack = createBottomTabNavigator()
   const AttackStack = createStackNavigator()
+  const CityStack = createStackNavigator()
 
   const loggedIn = useSelector(
     (state: IApplicationState) => state.app.user.loggedIn,
@@ -47,6 +48,18 @@ export default function Navi() {
     )
   }
 
+  const CityStackScreen = () => {
+    return (
+      <CityStack.Navigator>
+        <CityStack.Screen
+          name="CityScreen"
+          component={CityScreen}
+          options={{title: 'Városom'}}
+        />
+      </CityStack.Navigator>
+    )
+  }
+
   const BottomTabStackScreen = () => {
     return (
       <BottomTabStack.Navigator tabBar={GameFooter}>
@@ -61,8 +74,8 @@ export default function Navi() {
           }}
         />
         <BottomTabStack.Screen
-          name="CityModal"
-          component={CityScreen}
+          name="CityStackScreen"
+          component={CityStackScreen}
           options={{
             tabBarIcon: () => (
               <Image source={require('../../assets/img/footer/tab_city.png')} />

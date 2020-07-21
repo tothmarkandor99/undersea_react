@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {TabView, SceneMap} from 'react-native-tab-view'
 import BuildingsModal from './buildingsModal'
-import ArmyModal from './armyModal'
 import UpgradesModal from './upgradesModal'
+import ArmyModal from './armyModal'
 import {Dimensions} from 'react-native'
 
 interface CityModalProps {
@@ -13,16 +13,23 @@ interface CityModalProps {
 export default function CityScreen({navigation}: CityModalProps) {
   const [index, setIndex] = useState(0)
   const [routes] = useState([
-    {key: 'first', title: 'First'},
-    {key: 'second', title: 'Second'},
-    {key: 'third', title: 'Third'},
+    {key: 'buildings', title: 'Épületek'},
+    {key: 'upgrades', title: 'Fejlesztések'},
+    {key: 'army', title: 'Sereg'},
   ])
 
-  const renderScene = SceneMap({
-    /*first: BuildingsModal({navigation}),
-    third: UpgradesModal({navigation}),
-    second: ArmyModal({navigation}),*/
-  })
+  const renderScene = ({route}) => {
+    switch (route.key) {
+      case 'buildings':
+        return <BuildingsModal navigation={navigation} />
+      case 'upgrades':
+        return <UpgradesModal navigation={navigation} />
+      case 'army':
+        return <ArmyModal navigation={navigation} />
+      default:
+        return null
+    }
+  }
 
   const initialLayout = {width: Dimensions.get('window').width}
 

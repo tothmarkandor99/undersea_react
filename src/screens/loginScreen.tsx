@@ -12,7 +12,7 @@ import FancyButton from '../components/fancyButton'
 import LoginTextInput from '../components/loginTextInput'
 import {Spaces} from '../constants/spaces'
 import {useDispatch, useSelector} from 'react-redux'
-import {login, BypassLogin} from '../store/user/user.actions'
+import {login} from '../store/user/user.actions'
 import LogoSvg from '../../assets/img/logo'
 import {Strings} from '../constants/strings'
 import {Fonts} from '../constants/fonts'
@@ -67,7 +67,12 @@ function LoginScreen({navigation}: LoginScreenProps) {
           <FancyButton
             active={true}
             onPress={() => {
-              dispatch(BypassLogin())
+              dispatch(
+                login({
+                  userName: userName,
+                  password: password,
+                } as LoginRequest),
+              )
             }}
             title={Strings.login}
           />

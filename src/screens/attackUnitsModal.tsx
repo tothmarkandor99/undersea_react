@@ -9,17 +9,22 @@ import ModalButtonBar from '../components/modalButtonBar'
 import AttackUnitBox from '../components/attackUnitBox'
 import {Strings} from '../constants/strings'
 import GameFooter from '../components/gameFooter'
-import {getAttackUnits} from '../store/attack/attack.actions'
+import {getAttackUnits, attack} from '../store/attack/attack.actions'
 import Loading from '../components/loading'
+import {AttackRequestItem} from '../model/attack/attack.request'
 
 interface AttackUnitsProps {
   navigation: StackNavigationProp<any>
 }
 
 export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
-  const {attackUnits, error, isLoading, selectedUnitCount} = useSelector(
-    (state: IApplicationState) => state.app.attack,
-  )
+  const {
+    attackUnits,
+    error,
+    isLoading,
+    selectedUnits,
+    selectedTargetId,
+  } = useSelector((state: IApplicationState) => state.app.attack)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -35,6 +40,19 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
     )
   }
 
+  const tryAttack = () => {
+    if (selectedTargetId) {
+      dispatch(
+        attack({
+          defenderUserId: selectedTargetId,
+          attackingUnits: selectedUnits.map(item => {
+            return {id: item.id, sendCount: item.count} as AttackRequestItem
+          }),
+        }),
+      )
+    }
+  }
+
   return (
     <View style={styles.container}>
       <HeaderWithArrow title={Strings.attack} backAction={navigation.goBack} />
@@ -48,7 +66,11 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
           }}
           keyExtractor={item => item.id.toString()}
         />
-        <ModalButtonBar buttonTitle={Strings.attack} buttonOnPress={() => {}} />
+        <ModalButtonBar
+          buttonTitle={Strings.attack}
+          buttonOnPress={tryAttack}
+          buttonActive={!isLoading && selectedUnits.length !== 0}
+        />
       </View>
       <GameFooter navigation={navigation} activeIcon="attack" />
       <Loading animating={isLoading} />

@@ -38,7 +38,7 @@ function FightModal({navigation}: FightModalProps) {
     }
   }, [error])
 
-  const emptyList = () => {
+  const renderEmptyList = () => {
     return (
       <View style={styles.emptyList}>
         <Text style={styles.emptyListText}>
@@ -52,7 +52,7 @@ function FightModal({navigation}: FightModalProps) {
     <View style={styles.container}>
       <HeaderWithArrow title={Strings.fight} backAction={navigation.goBack} />
       <FlatList
-        ListEmptyComponent={emptyList}
+        ListEmptyComponent={renderEmptyList}
         style={styles.listBody}
         data={fights}
         renderItem={({item, index}) => (

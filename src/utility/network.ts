@@ -33,7 +33,7 @@ Network.interceptors.request.use(
 
 Network.interceptors.request.use(request => {
   console.log(request.baseURL + request.url)
-  console.log(request.data)
+  console.log(JSON.stringify(request.data))
   return request
 })
 

@@ -1,3 +1,6 @@
-export interface AttackResponse {
-  // TODO: majd ha kész lesz az API
+export interface AttackResponseItem {
+  typeId: number
+  count: number
 }
+
+export interface AttackResponse extends Array<AttackResponseItem> {}

@@ -3,8 +3,9 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {AttackTarget} from '../model/attack/attackTarget'
 import {Ionicons} from '@expo/vector-icons'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {selectAttackTarget} from '../store/attack/attack.actions'
+import {IApplicationState} from '../../store'
 
 interface AttackTargetBoxProps {
   target: AttackTarget // TODO: megfelelő típus kell
@@ -16,6 +17,9 @@ export default function AttackTargetBox({
   target,
   first = false,
 }: AttackTargetBoxProps) {
+  const {selectedTargetId} = useSelector(
+    (state: IApplicationState) => state.app.attack,
+  )
   const dispatch = useDispatch()
 
   return (
@@ -26,7 +30,7 @@ export default function AttackTargetBox({
           dispatch(selectAttackTarget(target))
         }}>
         <Text style={styles.name}>{target.name}</Text>
-        {target.selected && (
+        {target.id === selectedTargetId && (
           <Ionicons name="ios-checkmark-circle" style={styles.selectedSymbol} />
         )}
       </TouchableOpacity>

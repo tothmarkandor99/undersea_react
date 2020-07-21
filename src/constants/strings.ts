@@ -38,4 +38,5 @@ export const Strings = {
   thePasswordsShouldMatch: 'A jelszavaknak meg kell egyezniük',
   myCityName: 'Városom neve',
   youAreNotFightingAtTheMoment: 'Jelenleg egy csapatod sem harcol',
+  noPlayerWithThisNameExist: 'Nincs ilyen nevű játékos',
 }

@@ -1,9 +1,9 @@
 export interface AttackRequestItem {
   id: number
-  count: number
+  sendCount: number
 }
 
 export interface AttackRequest {
-  countryId: number
+  defenderUserId: number
   attackingUnits: AttackRequestItem[]
 }

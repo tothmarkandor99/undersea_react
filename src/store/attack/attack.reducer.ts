@@ -15,6 +15,11 @@ import {
 } from './attack.actions'
 import {AttackTarget} from '../../model/attack/attackTarget'
 import {AttackUnit} from '../../model/attack/attackUnit'
+import {AttackIdCount} from '../../model/attack/attackIdCount'
+import {
+  AttackResponseItem,
+  AttackResponse,
+} from '../../model/attack/attack.response'
 
 export const attackReducer = (
   state = initialAttackStore,
@@ -40,6 +45,7 @@ export const attackReducer = (
               selected: false,
             },
         ),
+        selectedTargetId: undefined,
       }
     case GET_ATTACK_TARGETS_FAILURE:
       return {
@@ -78,16 +84,27 @@ export const attackReducer = (
     case SELECT_ATTACK_TARGET:
       return {
         ...state,
-        attackTargets: state.attackTargets.map(
-          item =>
-            <AttackTarget>{
-              ...item,
-              selected:
-                item.id === action.target.id ? !item.selected : item.selected,
-            },
-        ),
+        selectedTargetId:
+          state.selectedTargetId === action.target.id
+            ? undefined
+            : action.target.id,
       }
     case SET_ATTACK_UNIT_COUNT:
+      let newSelectedUnits: AttackIdCount[] = []
+      let containsNew = false
+      state.selectedUnits.forEach(item => {
+        if (item.id === action.unit.id) {
+          containsNew = true
+          if (action.count > 0) {
+            newSelectedUnits.push({count: action.count, id: item.id})
+          }
+        } else {
+          newSelectedUnits.push(item)
+        }
+      })
+      if (!containsNew) {
+        newSelectedUnits.push({id: action.unit.id, count: action.count})
+      }
       return {
         ...state,
         attackUnits: state.attackUnits.map(
@@ -102,6 +119,7 @@ export const attackReducer = (
                   : item.count,
             },
         ),
+        selectedUnits: newSelectedUnits,
       }
     case POST_ATTACK_REQUEST:
       return {
@@ -114,7 +132,15 @@ export const attackReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        // TODO: response-t feldolgozni
+        selectedUnits: [],
+        attackUnits: state.attackUnits.map(
+          item =>
+            <AttackUnit>{
+              ...item,
+              maxCount: item.maxCount - countFromId(action.response, item.id),
+              count: 0,
+            },
+        ),
       }
     case POST_ATTACK_FAILURE:
       return {
@@ -125,4 +151,13 @@ export const attackReducer = (
     default:
       return state
   }
+}
+
+const countFromId = (response: AttackResponse, id: number): number => {
+  for (let i: number = 0; i < response.length; i++) {
+    if (response[i].typeId === id) {
+      return response[i].count
+    }
+  }
+  return 0
 }

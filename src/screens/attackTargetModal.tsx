@@ -13,18 +13,21 @@ import GameFooter from '../components/gameFooter'
 import {getAttackTargets} from '../store/attack/attack.actions'
 import {SearchRequest} from '../model/search.request'
 import Loading from '../components/loading'
+import {Colors} from '../constants/colors'
+import {Fonts} from '../constants/fonts'
+import {showMessage} from 'react-native-flash-message'
 
 interface AttackTargetProps {
   navigation: StackNavigationProp<any>
 }
 
 export default function AttackTargetModal({navigation}: AttackTargetProps) {
-  const {attackTargets, error, isLoading, selectedTargetCount} = useSelector(
+  const {attackTargets, error, isLoading, selectedTargetId} = useSelector(
     (state: IApplicationState) => state.app.attack,
   )
   const dispatch = useDispatch()
 
-  const [searchPhrase, setSearchPhrase] = useState<string>('')
+  const [searchPhrase, setSearchPhrase] = useState<string>('hal')
   const [page, setPage] = useState<number>(1)
   const [itemPerPage, setItemPerPage] = useState<number>(10)
 
@@ -38,17 +41,31 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
     )
   }, [dispatch, searchPhrase])
 
+  useEffect(() => {
+    if (error !== undefined) {
+      showMessage({
+        message: error,
+        type: 'danger',
+      })
+    }
+  }, [error])
+
+  const renderEmptyList = () => {
+    return (
+      <View style={styles.emptyList}>
+        <Text style={styles.emptyListText}>
+          {Strings.noPlayerWithThisNameExist}
+        </Text>
+      </View>
+    )
+  }
+
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
         <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
-        <SearchField
-          onChangeText={text => {
-            console.log(text)
-            setSearchPhrase(text)
-          }}
-        />
+        <SearchField onChangeText={setSearchPhrase} value={searchPhrase} />
         <Loading animating={isLoading} />
       </View>
     )
@@ -59,6 +76,7 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
       <HeaderWithArrow title={Strings.attack} backAction={navigation.goBack} />
       <View style={styles.contentContainer}>
         <FlatList
+          ListEmptyComponent={renderEmptyList}
           style={styles.listBody}
           ListHeaderComponent={listHeader}
           data={attackTargets}
@@ -72,10 +90,11 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
           buttonOnPress={() => {
             navigation.navigate('AttackUnitsModal')
           }}
-          buttonActive={true}
+          buttonActive={!isLoading && selectedTargetId !== undefined}
         />
       </View>
       <GameFooter navigation={navigation} activeIcon="attack" />
+      <Loading animating={isLoading} />
     </View>
   )
 }
@@ -103,5 +122,14 @@ const styles = StyleSheet.create({
   },
   listBody: {
     paddingHorizontal: Spaces.big,
+  },
+  emptyList: {
+    alignContent: 'center',
+    marginTop: Spaces.medium,
+  },
+  emptyListText: {
+    textAlign: 'center',
+    color: Colors.white,
+    fontFamily: Fonts.openSansBold,
   },
 })

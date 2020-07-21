@@ -12,6 +12,7 @@ import {getBuildings, postBuild} from '../store/building/building.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
 import {BuildRequest} from '../model/building/build.request'
+import {Colors} from '../constants/colors'
 
 interface BuildingsModalProps {
   navigation: StackNavigationProp<any>
@@ -84,12 +85,12 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#03255F',
+    backgroundColor: Colors.backgroundDarkBlue,
     flexDirection: 'column',
     alignItems: 'stretch',
   },
   text: {
-    color: 'white',
+    color: Colors.white,
   },
   upperText: {
     fontWeight: 'bold',

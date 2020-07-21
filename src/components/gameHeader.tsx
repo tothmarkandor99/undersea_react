@@ -4,6 +4,7 @@ import {RFValue} from 'react-native-responsive-fontsize'
 import {Spaces} from '../constants/spaces'
 import {StackNavigationProp} from '@react-navigation/stack'
 import LogoSvg from '../../assets/img/logo'
+import {Colors} from '../constants/colors'
 
 interface GameHeaderProps {
   navigation: StackNavigationProp<any>
@@ -29,7 +30,7 @@ export default function GameHeader({navigation}: GameHeaderProps) {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#1C3E76',
+    backgroundColor: Colors.mediumDarkBlue,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

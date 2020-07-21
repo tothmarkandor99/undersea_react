@@ -10,6 +10,7 @@ import {
 import {Spaces} from '../constants/spaces'
 import {Upgrade} from '../model/upgrade/upgrade'
 import {Ionicons} from '@expo/vector-icons'
+import {Colors} from '../constants/colors'
 
 interface UpgradeBoxProps {
   upgrade: Upgrade // TODO: kivenni a nullable-t
@@ -30,7 +31,7 @@ export default function UpgradeBox({
         style={[
           styles.container,
           {
-            backgroundColor: selected ? 'rgba(255, 255, 255, 0.12)' : undefined,
+            backgroundColor: selected ? Colors.opaquestWhite : undefined,
           },
         ]}>
         {!upgrade.isPurchased && upgrade.remainingRounds != 0 && (
@@ -55,20 +56,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
+    borderColor: Colors.opaquestWhite,
     marginBottom: Spaces.normal,
     paddingVertical: Spaces.medium,
     paddingHorizontal: Spaces.extraLarge,
   },
   remainingTime: {
-    color: '#9FFFF0',
+    color: Colors.logoBlue,
     position: 'absolute',
     top: Spaces.medium,
     left: Spaces.medium,
     fontWeight: 'bold',
   },
   ownedSymbol: {
-    color: '#9FFFF0',
+    color: Colors.logoBlue,
     position: 'absolute',
     top: Spaces.medium,
     left: Spaces.medium,
@@ -78,11 +79,11 @@ const styles = StyleSheet.create({
     marginBottom: Spaces.small,
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   description: {
-    color: 'white',
+    color: Colors.white,
     textAlign: 'center',
     marginBottom: Spaces.small,
   },

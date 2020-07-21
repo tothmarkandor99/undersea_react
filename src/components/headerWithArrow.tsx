@@ -10,6 +10,7 @@ import {
 import {RFValue} from 'react-native-responsive-fontsize'
 import StatusBar from './statusBar'
 import {Spaces} from '../constants/spaces'
+import {Colors} from '../constants/colors'
 
 interface HeaderWithArrowProps {
   title: string
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     height: RFValue(60, 640),
-    backgroundColor: '#1C3E76',
+    backgroundColor: Colors.mediumDarkBlue,
   },
   headerItems: {
     flexDirection: 'row',
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     textAlign: 'center',
-    color: 'white',
+    color: Colors.white,
     fontSize: RFValue(24, 740),
     fontWeight: 'bold',
   },

@@ -12,6 +12,7 @@ import {Building} from '../model/building/building'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import {selectBuilding} from '../store/building/building.actions'
+import {Colors} from '../constants/colors'
 
 interface BuildingBoxProps {
   building: Building // TODO: kivenni a nullable-t
@@ -38,7 +39,7 @@ export default function BuildingBox({building}: BuildingBoxProps) {
         style={[
           styles.container,
           {
-            backgroundColor: selected ? 'rgba(255, 255, 255, 0.12)' : undefined,
+            backgroundColor: selected ? Colors.opaquestWhite : undefined,
           },
         ]}>
         <Image style={styles.image} source={{uri: building.pictureUrl}} />
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.12)',
+    borderColor: Colors.opaquestWhite,
     marginBottom: Spaces.normal,
     paddingVertical: Spaces.medium,
     paddingHorizontal: Spaces.extraLarge,
@@ -66,19 +67,19 @@ const styles = StyleSheet.create({
     marginBottom: Spaces.small,
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   description: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: Spaces.small,
   },
   count: {
-    color: 'white',
+    color: Colors.white,
   },
   price: {
-    color: 'white',
+    color: Colors.white,
   },
 })

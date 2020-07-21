@@ -56,6 +56,9 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
   }
 
   const renderEmptyList = () => {
+    if (isLoading) {
+      return <></>
+    }
     return (
       <View style={styles.emptyList}>
         <Text style={styles.emptyListText}>
@@ -94,7 +97,7 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#03255F',
+    backgroundColor: Colors.backgroundDarkBlue,
     flexDirection: 'column',
     alignItems: 'stretch',
   },
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   text: {
-    color: 'white',
+    color: Colors.white,
   },
   upperText: {
     fontWeight: 'bold',

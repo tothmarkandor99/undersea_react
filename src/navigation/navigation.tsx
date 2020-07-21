@@ -16,12 +16,12 @@ import FightModal from '../screens/fightModal'
 import UpgradesModal from '../screens/upgradesModal'
 import AttackTargetModal from '../screens/attackTargetModal'
 import AttackUnitsModal from '../screens/attackUnitsModal'
+import CityModal from '../screens/cityModal'
 
 export default function Navi() {
   const LoginStack = createStackNavigator()
   const GameStack = createStackNavigator()
   const AttackStack = createStackNavigator()
-  const CityStack = createMaterialTopTabNavigator()
 
   const loggedIn = useSelector(
     (state: IApplicationState) => state.app.user.loggedIn,
@@ -40,14 +40,14 @@ export default function Navi() {
           </>
         ) : (
           <>
-            <LoginStack.Screen name="ModalStack" component={ModalStackScreen} />
+            <LoginStack.Screen name="GameStack" component={GameStackScreen} />
           </>
         )}
       </LoginStack.Navigator>
     </NavigationContainer>
   )
 
-  function ModalStackScreen() {
+  function GameStackScreen() {
     return (
       <GameStack.Navigator
         headerMode="none"
@@ -87,14 +87,14 @@ export default function Navi() {
         <GameStack.Screen name="GameScreen" component={GameScreen} />
         <GameStack.Screen name="ProfileModal" component={ProfileModal} />
         <GameStack.Screen name="HighscoreModal" component={HighscoreModal} />
-        <GameStack.Screen name="CityStack" component={CityStackScreen} />
+        <GameStack.Screen name="CityModal" component={CityModal} />
         <GameStack.Screen name="AttackStack" component={AttackStackScreen} />
         <GameStack.Screen name="FightModal" component={FightModal} />
       </GameStack.Navigator>
     )
   }
 
-  function CityStackScreen() {
+  /*function CityStackScreen() {
     return (
       <CityStack.Navigator>
         <GameStack.Screen name="BuildingsModal" component={BuildingsModal} />
@@ -102,7 +102,7 @@ export default function Navi() {
         <GameStack.Screen name="ArmyModal" component={ArmyModal} />
       </CityStack.Navigator>
     )
-  }
+  }*/
 
   function AttackStackScreen() {
     return (

@@ -2,6 +2,7 @@ import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {Fight} from '../model/fight/fight'
+import {Colors} from '../constants/colors'
 
 interface FightItemProps {
   first?: boolean
@@ -32,14 +33,14 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: Spaces.medium,
     borderBottomWidth: 2,
-    borderColor: '#3F68AE',
+    borderColor: Colors.borderBlue,
   },
   city: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   text: {
-    color: 'white',
+    color: Colors.white,
     marginBottom: Spaces.normal,
   },
 })

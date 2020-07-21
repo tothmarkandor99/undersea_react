@@ -98,12 +98,12 @@ function ArmyModal({navigation}: ArmyModalProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#03255F',
+    backgroundColor: Colors.backgroundDarkBlue,
     flexDirection: 'column',
     alignItems: 'stretch',
   },
   text: {
-    color: 'white',
+    color: Colors.white,
   },
   upperText: {
     fontWeight: 'bold',

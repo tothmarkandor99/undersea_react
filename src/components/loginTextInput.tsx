@@ -10,7 +10,7 @@ export default function LoginTextInput(props: TextInputProps) {
     <TextInput
       {...props}
       style={[styles.loginField, props.style]}
-      placeholderTextColor={props.placeholderTextColor ?? '#1C3E76'}
+      placeholderTextColor={props.placeholderTextColor ?? Colors.mediumDarkBlue}
     />
   )
 }

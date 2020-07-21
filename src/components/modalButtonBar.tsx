@@ -2,6 +2,7 @@ import React from 'react'
 import {StyleSheet, GestureResponderEvent, View} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import FancyButton from './fancyButton'
+import {Colors} from '../constants/colors'
 
 interface ModalButtonBarProps {
   buttonActive?: boolean
@@ -26,7 +27,7 @@ export default function ModalButtonBar({
 
 const styles = StyleSheet.create({
   whiteArea: {
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    backgroundColor: Colors.opaqueWhite,
     paddingVertical: Spaces.medium,
     position: 'absolute',
     left: 0,

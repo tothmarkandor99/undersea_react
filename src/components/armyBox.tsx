@@ -15,6 +15,7 @@ import {
   decrementArmyCount,
   incrementArmyCount,
 } from '../store/army/army.actions'
+import {Colors} from '../constants/colors'
 
 interface ArmyBoxProps {
   unit: PurchasableUnit
@@ -76,20 +77,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: '#3F68AE',
+    borderColor: Colors.borderBlue,
     marginBottom: Spaces.normal,
     paddingVertical: Spaces.medium,
     paddingHorizontal: Spaces.extraLarge,
   },
   remainingTime: {
-    color: '#9FFFF0',
+    color: Colors.logoBlue,
     position: 'absolute',
     top: Spaces.medium,
     left: Spaces.medium,
     fontWeight: 'bold',
   },
   ownedSymbol: {
-    color: '#9FFFF0',
+    color: Colors.logoBlue,
     position: 'absolute',
     top: Spaces.medium,
     left: Spaces.medium,
@@ -99,18 +100,18 @@ const styles = StyleSheet.create({
     marginBottom: Spaces.small,
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   dataRow: {
     flexDirection: 'row',
   },
   dataName: {
-    color: 'white',
+    color: Colors.white,
     flex: 0.6,
   },
   dataValue: {
-    color: 'white',
+    color: Colors.white,
     flex: 0.4,
   },
   counterRow: {
@@ -119,10 +120,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   counterControl: {
-    color: '#9FFFF0',
+    color: Colors.logoBlue,
   },
   counterText: {
-    color: 'white',
+    color: Colors.white,
     width: 50,
     textAlign: 'center',
   },

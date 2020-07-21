@@ -158,7 +158,7 @@ export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
 
 const styles = StyleSheet.create({
   mainInfoOverlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    backgroundColor: Colors.opaqueWhite,
     flexDirection: 'column',
     left: 0,
     right: 0,
@@ -191,6 +191,6 @@ const styles = StyleSheet.create({
   },
   infoOverlayText: {
     fontFamily: 'Baloo',
-    color: '#1C3E76',
+    color: Colors.mediumDarkBlue,
   },
 })

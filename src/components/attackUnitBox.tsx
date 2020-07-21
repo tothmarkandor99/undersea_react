@@ -5,6 +5,7 @@ import {AttackUnit} from '../model/attack/attackUnit'
 import Slider from '@react-native-community/slider'
 import {useDispatch} from 'react-redux'
 import {setAttackUnitCount} from '../store/attack/attack.actions'
+import {Colors} from '../constants/colors'
 
 interface AttackUnitBoxProps {
   unit: AttackUnit
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   slider: {},

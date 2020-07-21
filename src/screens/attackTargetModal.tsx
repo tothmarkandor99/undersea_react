@@ -51,6 +51,9 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
   }, [error])
 
   const renderEmptyList = () => {
+    if (isLoading) {
+      return <></>
+    }
     return (
       <View style={styles.emptyList}>
         <Text style={styles.emptyListText}>
@@ -66,7 +69,6 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
         <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
         <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
         <SearchField onChangeText={setSearchPhrase} value={searchPhrase} />
-        <Loading animating={isLoading} />
       </View>
     )
   }
@@ -102,7 +104,7 @@ export default function AttackTargetModal({navigation}: AttackTargetProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#03255F',
+    backgroundColor: Colors.backgroundDarkBlue,
     flexDirection: 'column',
     alignItems: 'stretch',
   },
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   text: {
-    color: 'white',
+    color: Colors.white,
   },
   upperText: {
     fontWeight: 'bold',

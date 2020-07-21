@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spaces.normal,
   },
   whiteAreaText: {
-    color: '#1C3E76',
+    color: Colors.mediumDarkBlue,
     fontFamily: Fonts.baloo,
   },
   footer: {

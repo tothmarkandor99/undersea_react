@@ -6,6 +6,7 @@ import {Ionicons} from '@expo/vector-icons'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectAttackTarget} from '../store/attack/attack.actions'
 import {IApplicationState} from '../../store'
+import {Colors} from '../constants/colors'
 
 interface AttackTargetBoxProps {
   target: AttackTarget // TODO: megfelelő típus kell
@@ -41,7 +42,7 @@ export default function AttackTargetBox({
 const styles = StyleSheet.create({
   borderContainer: {
     borderBottomWidth: 1,
-    borderColor: '#3F68AE',
+    borderColor: Colors.borderBlue,
   },
   container: {
     flex: 1,
@@ -61,11 +62,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   name: {
-    color: 'white',
+    color: Colors.white,
     fontWeight: 'bold',
   },
   selectedSymbol: {
-    color: '#9FFFF0',
+    color: Colors.logoBlue,
     paddingRight: Spaces.large,
   },
 })

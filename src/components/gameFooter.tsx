@@ -57,7 +57,7 @@ export default function GameFooter({
           activeIcon === 'city' && styles.footerButtonActive,
         ]}
         onPress={() => {
-          navigation.navigate('CityStack')
+          navigation.navigate('CityModal')
         }}>
         <Image source={require('../../assets/img/footer/tab_city.png')} />
         <Text style={styles.footerButtonText}>{Strings.city}</Text>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   footerButtonText: {
-    color: '#001234',
+    color: Colors.darkBlue,
     fontFamily: Fonts.baloo,
   },
 })

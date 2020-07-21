@@ -5,9 +5,11 @@ export const Colors = {
   opaquestWhite: 'rgba(255, 255, 255, 0.12)',
   mediumDarkBlue: '#1C3E76',
   darkBlue: '#001234',
+  backgroundDarkBlue: '#03255F',
   shadowBlue: '#3B7DBD',
   buttonGradient1: '#9FFFF0',
   buttonGradient2: '#6BEEE9',
   buttonGradient3: '#0FCFDE',
   logoBlue: '#9FFFF0',
+  borderBlue: '#3F68AE',
 }

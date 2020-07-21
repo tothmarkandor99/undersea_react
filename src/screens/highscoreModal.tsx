@@ -8,6 +8,7 @@ import {Spaces} from '../constants/spaces'
 import {getHighscores} from '../store/highscore/highscore.actions'
 import SearchField from '../components/searchField'
 import {Strings} from '../constants/strings'
+import {Colors} from '../constants/colors'
 
 interface HighscoreModalProps {
   navigation: StackNavigationProp<any>
@@ -71,7 +72,7 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#03255F',
+    backgroundColor: Colors.backgroundDarkBlue,
     flexDirection: 'column',
     alignItems: 'stretch',
   },
@@ -81,11 +82,11 @@ const styles = StyleSheet.create({
   highscoreRow: {
     flexDirection: 'row',
     paddingVertical: Spaces.medium,
-    borderBottomColor: '#3F68AE',
+    borderBottomColor: Colors.borderBlue,
     borderBottomWidth: 1,
   },
   highscoreText: {
-    color: 'white',
+    color: Colors.white,
   },
   highscorePlace: {
     paddingLeft: Spaces.medium,

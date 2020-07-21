@@ -15,6 +15,7 @@ import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Strings} from '../constants/strings'
 import {Fonts} from '../constants/fonts'
+import {Colors} from '../constants/colors'
 
 interface ProfileModalProps {
   navigation: StackNavigationProp<any>
@@ -70,7 +71,7 @@ function ProfileModal({navigation}: ProfileModalProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#03255F',
+    backgroundColor: Colors.backgroundDarkBlue,
     flexDirection: 'column',
     alignItems: 'stretch',
   },
@@ -84,31 +85,31 @@ const styles = StyleSheet.create({
     height: 80,
   },
   profileName: {
-    color: 'white',
+    color: Colors.white,
     fontFamily: Fonts.baloo,
     textAlign: 'center',
   },
   menuItem: {
     marginHorizontal: Spaces.medium,
-    borderBottomColor: '#3F68AE',
+    borderBottomColor: Colors.borderBlue,
     borderBottomWidth: 1,
   },
   menuItemContent: {
     paddingVertical: Spaces.big,
   },
   menuItemText: {
-    color: 'white',
+    color: Colors.white,
     fontFamily: Fonts.openSansRegular,
   },
   menuItemTextBold: {
-    color: 'white',
+    color: Colors.white,
     fontFamily: Fonts.openSansBold,
   },
   menuItemTextFunky: {
-    color: 'white',
+    color: Colors.white,
     fontFamily: Fonts.baloo,
   },
   logoutText: {
-    color: '#9FFFF0',
+    color: Colors.logoBlue,
   },
 })

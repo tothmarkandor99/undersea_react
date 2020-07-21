@@ -9,6 +9,7 @@ import {getHighscores} from '../store/highscore/highscore.actions'
 import SearchField from '../components/searchField'
 import {Strings} from '../constants/strings'
 import {Colors} from '../constants/colors'
+import Loading from '../components/loading'
 
 interface HighscoreModalProps {
   navigation: StackNavigationProp<any>
@@ -37,13 +38,9 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow
-        title={Strings.scoreboard}
-        backAction={navigation.goBack}
-      />
       <View style={styles.contentContainer}>
         <View style={styles.highscoreRow}>
-          <SearchField />
+          <SearchField value={searchPhrase} onChangeText={setSearchPhrase} />
         </View>
         <FlatList
           data={scores}
@@ -65,6 +62,7 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
           }}
         />
       </View>
+      <Loading animating={isLoading} />
     </View>
   )
 }

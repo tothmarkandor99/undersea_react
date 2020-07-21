@@ -7,6 +7,7 @@ import {
   StyleProp,
   ViewStyle,
   Image,
+  View,
 } from 'react-native'
 import EpuletekSvg from '../../assets/img/epuletek_nav'
 import HarcSvg from '../../assets/img/harc_nav'
@@ -16,21 +17,16 @@ import {Strings} from '../constants/strings'
 import {Fonts} from '../constants/fonts'
 import {Colors} from '../constants/colors'
 import {Spaces} from '../constants/spaces'
-
-interface GameFooterProps {
-  navigation: StackNavigationProp<any>
-  style?: StyleProp<ViewStyle>
-  activeIcon: 'home' | 'city' | 'attack' | 'units'
-}
+import {BottomTabBarProps} from '@react-navigation/bottom-tabs'
 
 export default function GameFooter({
   navigation,
-  style,
-  activeIcon,
-}: GameFooterProps) {
+  descriptors,
+  state,
+}: BottomTabBarProps) {
   return (
     <LinearGradient
-      style={[styles.footer, style]}
+      style={styles.footer}
       colors={[
         Colors.buttonGradient1,
         Colors.buttonGradient2,
@@ -38,61 +34,37 @@ export default function GameFooter({
       ]}
       start={[0.5, 0]}
       end={[0.5, 1]}>
-      <TouchableOpacity
-        disabled={activeIcon === 'home'}
-        style={[
-          styles.footerButton,
-          activeIcon === 'home' && styles.footerButtonActive,
-        ]}
-        onPress={() => {
-          navigation.navigate('GameScreen')
-        }}>
-        <Image source={require('../../assets/img/footer/tab_home.png')} />
-        <Text style={styles.footerButtonText}>{Strings.home}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        disabled={activeIcon === 'city'}
-        style={[
-          styles.footerButton,
-          activeIcon === 'city' && styles.footerButtonActive,
-        ]}
-        onPress={() => {
-          navigation.navigate('CityModal')
-        }}>
-        <Image source={require('../../assets/img/footer/tab_city.png')} />
-        <Text style={styles.footerButtonText}>{Strings.city}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        disabled={activeIcon === 'attack'}
-        style={[
-          styles.footerButton,
-          activeIcon === 'attack' && styles.footerButtonActive,
-        ]}
-        onPress={() => {
-          navigation.navigate('AttackStack')
-        }}>
-        <Image source={require('../../assets/img/footer/tab_attack.png')} />
-        <Text style={styles.footerButtonText}>{Strings.attack}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        disabled={activeIcon === 'units'}
-        style={[
-          styles.footerButton,
-          activeIcon === 'units' && styles.footerButtonActive,
-        ]}
-        onPress={() => {
-          navigation.navigate('FightModal')
-        }}>
-        <Image source={require('../../assets/img/footer/tab_units.png')} />
-        <Text style={styles.footerButtonText}>{Strings.myUnits}</Text>
-      </TouchableOpacity>
+      {state.routes.map((item, index) => {
+        const {options} = descriptors[item.key]
+        const isFocused = state.index === index
+
+        return (
+          <TouchableOpacity
+            key={item.name}
+            disabled={isFocused}
+            style={[
+              styles.footerButton,
+              isFocused && styles.footerButtonActive,
+            ]}
+            onPress={() => {
+              navigation.navigate(item.name)
+            }}>
+            {options.tabBarIcon &&
+              options.tabBarIcon({
+                focused: isFocused,
+                size: 14,
+                color: 'green',
+              })}
+            <Text>{options.title}</Text>
+          </TouchableOpacity>
+        )
+      })}
     </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
   footer: {
-    backgroundColor: 'yellow',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: Spaces.normal,

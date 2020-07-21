@@ -6,54 +6,49 @@ import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
-import AttackUnitBox from '../components/attackUnitBox'
+import AttackTargetBox from '../components/attackTargetBox'
+import SearchField from '../components/searchField'
 import {Strings} from '../constants/strings'
 import GameFooter from '../components/gameFooter'
-import {getAttackUnits, attack} from '../store/attack/attack.actions'
+import {getAttackTargets} from '../store/attack/attack.actions'
+import {SearchRequest} from '../model/search.request'
 import Loading from '../components/loading'
-import {AttackRequestItem} from '../model/attack/attack.request'
 import {Colors} from '../constants/colors'
 import {Fonts} from '../constants/fonts'
+import {showMessage} from 'react-native-flash-message'
 
-interface AttackUnitsProps {
+interface AttackTargetProps {
   navigation: StackNavigationProp<any>
 }
 
-export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
-  const {
-    attackUnits,
-    error,
-    isLoading,
-    selectedUnits,
-    selectedTargetId,
-  } = useSelector((state: IApplicationState) => state.app.attack)
+export default function AttackTargetScreen({navigation}: AttackTargetProps) {
+  const {attackTargets, error, isLoading, selectedTargetId} = useSelector(
+    (state: IApplicationState) => state.app.attack,
+  )
   const dispatch = useDispatch()
 
+  const [searchPhrase, setSearchPhrase] = useState<string>('')
+  const [page, setPage] = useState<number>(1)
+  const [itemPerPage, setItemPerPage] = useState<number>(10)
+
   useEffect(() => {
-    dispatch(getAttackUnits())
-  }, [dispatch])
-
-  const listHeader = () => {
-    return (
-      <View style={styles.listHeader}>
-        <Text style={[styles.text, styles.upperText]}>{Strings._2ndStep}</Text>
-        <Text style={styles.text}>{Strings.selectWhoYouSendToAttack}</Text>
-      </View>
+    dispatch(
+      getAttackTargets({
+        searchPhrase,
+        page,
+        itemPerPage,
+      } as SearchRequest),
     )
-  }
+  }, [dispatch, searchPhrase])
 
-  const tryAttack = () => {
-    if (selectedTargetId) {
-      dispatch(
-        attack({
-          defenderUserId: selectedTargetId,
-          attackingUnits: selectedUnits.map(item => {
-            return {id: item.id, sendCount: item.count} as AttackRequestItem
-          }),
-        }),
-      )
+  useEffect(() => {
+    if (error !== undefined) {
+      showMessage({
+        message: error,
+        type: 'danger',
+      })
     }
-  }
+  }, [error])
 
   const renderEmptyList = () => {
     if (isLoading) {
@@ -68,27 +63,37 @@ export default function AttackUnitsModal({navigation}: AttackUnitsProps) {
     )
   }
 
+  const renderListHeader = () => {
+    return (
+      <View style={styles.listHeader}>
+        <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
+        <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
+        <SearchField onChangeText={setSearchPhrase} value={searchPhrase} />
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title={Strings.attack} backAction={navigation.goBack} />
       <View style={styles.contentContainer}>
         <FlatList
           ListEmptyComponent={renderEmptyList}
           style={styles.listBody}
-          ListHeaderComponent={listHeader}
-          data={attackUnits}
+          ListHeaderComponent={renderListHeader}
+          data={attackTargets}
           renderItem={({item}) => {
-            return <AttackUnitBox unit={item} />
+            return <AttackTargetBox target={item} />
           }}
           keyExtractor={item => item.id.toString()}
         />
         <ModalButtonBar
-          buttonTitle={Strings.attack}
-          buttonOnPress={tryAttack}
-          buttonActive={!isLoading && selectedUnits.length !== 0}
+          buttonTitle={Strings.next}
+          buttonOnPress={() => {
+            navigation.navigate('AttackUnitsModal')
+          }}
+          buttonActive={!isLoading && selectedTargetId !== undefined}
         />
       </View>
-      <GameFooter navigation={navigation} activeIcon="attack" />
       <Loading animating={isLoading} />
     </View>
   )
@@ -113,7 +118,7 @@ const styles = StyleSheet.create({
     marginTop: Spaces.big,
   },
   listHeader: {
-    marginBottom: Spaces.extraLarge,
+    marginBottom: Spaces.normal,
   },
   listBody: {
     paddingHorizontal: Spaces.big,

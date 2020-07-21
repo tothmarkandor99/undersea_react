@@ -42,7 +42,6 @@ function ProfileModal({navigation}: ProfileModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title={Strings.profile} backAction={navigation.goBack} />
       <View style={[styles.menuItem, styles.profileInfo]}>
         <Image
           style={styles.profileImage}

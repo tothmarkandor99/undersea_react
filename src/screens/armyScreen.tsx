@@ -1,32 +1,41 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, View, Text, FlatList} from 'react-native'
+import {StyleSheet, TextInput, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
-import BuildingBox from '../components/buildingBox'
+import ArmyBox from '../components/armyBox'
 import {Strings} from '../constants/strings'
-import {getBuildings, postBuild} from '../store/building/building.actions'
+import {
+  getArmy,
+  incrementArmyCount,
+  decrementArmyCount,
+  postBuyArmy,
+} from '../store/army/army.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
-import {BuildRequest} from '../model/building/build.request'
+import {disableExpoCliLogging} from 'expo/build/logs/Logs'
+import {
+  PurchaseUnitRequest,
+  PurchaseUnitRequestItem,
+} from '../model/army/purchaseUnit.request'
 import {Colors} from '../constants/colors'
 
-interface BuildingsModalProps {
+interface ArmyScreenProps {
   navigation: StackNavigationProp<any>
 }
 
-export default BuildingsModal
-function BuildingsModal({navigation}: BuildingsModalProps) {
-  const {buildings, error, isLoading, selectedBuilding} = useSelector(
-    (state: IApplicationState) => state.app.building,
+export default ArmyScreen
+function ArmyScreen({navigation}: ArmyScreenProps) {
+  const {purchasableUnits, error, isLoading} = useSelector(
+    (state: IApplicationState) => state.app.army,
   )
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getBuildings())
+    dispatch(getArmy())
   }, [dispatch])
 
   useEffect(() => {
@@ -42,40 +51,40 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
     return (
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>
-          {Strings.selectWhatYouWantToBuy}
-        </Text>
-        <Text style={styles.text}>
-          {Strings.only1BuildingCanBeBuiltAtTheSameTime}
+          {Strings.selectWhatYouWant}
         </Text>
       </View>
     )
   }
 
-  const build = () => {
-    if (selectedBuilding) {
-      dispatch(postBuild({id: selectedBuilding.id} as BuildRequest))
-    }
+  const buyUnits = () => {
+    let units: PurchaseUnitRequest = []
+    purchasableUnits.forEach(item => {
+      if (item.viewCount > 0) {
+        units.push({
+          typeId: item.id,
+          count: item.viewCount,
+        } as PurchaseUnitRequestItem)
+      }
+    })
+    dispatch(postBuyArmy(units))
   }
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow
-        title={Strings.buildings}
-        backAction={navigation.goBack}
-      />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
-        data={buildings}
+        data={purchasableUnits}
         renderItem={({item}) => {
-          return <BuildingBox building={item} />
+          return <ArmyBox unit={item} />
         }}
         keyExtractor={item => item.id.toString()}
       />
       <ModalButtonBar
         buttonTitle={Strings.iBuyIt}
-        buttonOnPress={build}
-        buttonActive={selectedBuilding !== undefined}
+        buttonOnPress={buyUnits}
+        buttonActive={true}
       />
       <Loading animating={isLoading} />
     </View>

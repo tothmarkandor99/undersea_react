@@ -20,7 +20,7 @@ export default function GameHeader({navigation}: GameHeaderProps) {
         <Image
           style={styles.avatar}
           resizeMode="contain"
-          source={require('../../assets/img/Group21.png')}
+          source={require('../../assets/img/avatar.png')}
         />
       </TouchableOpacity>
     </View>

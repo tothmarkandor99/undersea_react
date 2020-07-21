@@ -36,4 +36,5 @@ export const Strings = {
   passwordMustBeAtLeast4CharLong:
     'A jelszónak legalább 4 karakter hosszúnak kell lennie',
   thePasswordsShouldMatch: 'A jelszavaknak meg kell egyezniük',
+  myCityName: 'Városom neve',
 }

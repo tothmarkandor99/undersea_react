@@ -27,7 +27,7 @@ export default function ArmyBox({unit}: ArmyBoxProps) {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../../assets/img/Group21.png')}
+        source={require('../../assets/img/avatar.png')}
       />
       <Text style={styles.name}>{unit.name}</Text>
       <View style={styles.dataRow}>

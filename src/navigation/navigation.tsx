@@ -5,9 +5,12 @@ import GameScreen from '../../src/screens/gameScreen'
 import ProfileModal from '../../src/screens/profileModal'
 import HighscoreModal from '../../src/screens/highscoreModal'
 import BuildingsModal from '../screens/buildingsModal'
-import {Image, TouchableOpacity, Text, View} from 'react-native'
+import {Image, TouchableOpacity, Text, View, StyleSheet} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native'
-import {createStackNavigator} from '@react-navigation/stack'
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 import {useSelector} from 'react-redux'
@@ -21,6 +24,11 @@ import CityScreen from '../screens/cityScreen'
 import {attackSaga} from '../store/attack/attack.saga'
 import {LinearGradient} from 'expo'
 import GameFooter from '../components/gameFooter'
+import {Colors} from '../constants/colors'
+import {Fonts} from '../constants/fonts'
+import {RFValue} from 'react-native-responsive-fontsize'
+import {Spaces} from '../constants/spaces'
+import {Strings} from '../constants/strings'
 
 export default function Navi() {
   const LoginStack = createStackNavigator()
@@ -28,10 +36,17 @@ export default function Navi() {
   const BottomTabStack = createBottomTabNavigator()
   const AttackStack = createStackNavigator()
   const CityStack = createStackNavigator()
+  const FightStack = createStackNavigator()
 
   const loggedIn = useSelector(
     (state: IApplicationState) => state.app.user.loggedIn,
   )
+
+  const headerOptions: StackNavigationOptions = {
+    headerStyle: styles.header,
+    headerTitleStyle: styles.headerText,
+    headerTintColor: Colors.white,
+  }
 
   const AttackStackScreen = () => {
     return (
@@ -39,10 +54,12 @@ export default function Navi() {
         <AttackStack.Screen
           name="AttackTargetScreen"
           component={AttackTargetScreen}
+          options={{...headerOptions, title: Strings.attack}}
         />
         <AttackStack.Screen
           name="AttackUnitsScreen"
           component={AttackUnitsScreen}
+          options={{...headerOptions, title: Strings.attack}}
         />
       </AttackStack.Navigator>
     )
@@ -54,9 +71,21 @@ export default function Navi() {
         <CityStack.Screen
           name="CityScreen"
           component={CityScreen}
-          options={{title: 'Városom'}}
+          options={{...headerOptions, title: Strings.city}}
         />
       </CityStack.Navigator>
+    )
+  }
+
+  const FightStackScreen = () => {
+    return (
+      <FightStack.Navigator>
+        <FightStack.Screen
+          name="FightScreen"
+          component={FightScreen}
+          options={{...headerOptions, title: Strings.myUnits}}
+        />
+      </FightStack.Navigator>
     )
   }
 
@@ -70,7 +99,7 @@ export default function Navi() {
             tabBarIcon: () => (
               <Image source={require('../../assets/img/footer/tab_home.png')} />
             ),
-            title: 'Kezdőlap',
+            title: Strings.home,
           }}
         />
         <BottomTabStack.Screen
@@ -80,7 +109,7 @@ export default function Navi() {
             tabBarIcon: () => (
               <Image source={require('../../assets/img/footer/tab_city.png')} />
             ),
-            title: 'Városom',
+            title: Strings.city,
           }}
         />
         <BottomTabStack.Screen
@@ -92,12 +121,12 @@ export default function Navi() {
                 source={require('../../assets/img/footer/tab_attack.png')}
               />
             ),
-            title: 'Támadás',
+            title: Strings.attack,
           }}
         />
         <BottomTabStack.Screen
-          name="FightScreen"
-          component={FightScreen}
+          name="FightStackScreen"
+          component={FightStackScreen}
           options={{
             tabBarIcon: () => (
               <Image
@@ -119,8 +148,16 @@ export default function Navi() {
           component={BottomTabStackScreen}
           options={{headerShown: false}}
         />
-        <ModalStack.Screen name="HighscoreModal" component={HighscoreModal} />
-        <ModalStack.Screen name="ProfileModal" component={ProfileModal} />
+        <ModalStack.Screen
+          name="HighscoreModal"
+          component={HighscoreModal}
+          options={{...headerOptions, title: Strings.scoreboard}}
+        />
+        <ModalStack.Screen
+          name="ProfileModal"
+          component={ProfileModal}
+          options={{...headerOptions, title: Strings.profile}}
+        />
       </ModalStack.Navigator>
     )
   }
@@ -148,3 +185,14 @@ export default function Navi() {
     </NavigationContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: Colors.mediumDarkBlue,
+  },
+  headerText: {
+    fontFamily: Fonts.openSansBold,
+    fontSize: RFValue(15, 568),
+    marginLeft: Spaces.normal,
+  },
+})

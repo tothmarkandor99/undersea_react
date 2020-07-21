@@ -37,4 +37,5 @@ export const Strings = {
     'A jelszónak legalább 4 karakter hosszúnak kell lennie',
   thePasswordsShouldMatch: 'A jelszavaknak meg kell egyezniük',
   myCityName: 'Városom neve',
+  youAreNotFightingAtTheMoment: 'Jelenleg egy csapatod sem harcol',
 }

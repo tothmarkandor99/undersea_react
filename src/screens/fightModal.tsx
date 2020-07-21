@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, View, FlatList} from 'react-native'
+import {StyleSheet, View, FlatList, Text} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import HeaderWithArrow from '../components/headerWithArrow'
@@ -11,6 +11,8 @@ import {Strings} from '../constants/strings'
 import Loading from '../components/loading'
 import {showMessage} from 'react-native-flash-message'
 import GameFooter from '../components/gameFooter'
+import {Colors} from '../constants/colors'
+import {Fonts} from '../constants/fonts'
 
 interface FightModalProps {
   navigation: StackNavigationProp<any>
@@ -36,10 +38,21 @@ function FightModal({navigation}: FightModalProps) {
     }
   }, [error])
 
+  const emptyList = () => {
+    return (
+      <View style={styles.emptyList}>
+        <Text style={styles.emptyListText}>
+          {Strings.youAreNotFightingAtTheMoment}
+        </Text>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <HeaderWithArrow title={Strings.fight} backAction={navigation.goBack} />
       <FlatList
+        ListEmptyComponent={emptyList}
         style={styles.listBody}
         data={fights}
         renderItem={({item, index}) => (
@@ -64,5 +77,14 @@ const styles = StyleSheet.create({
   },
   listBody: {
     paddingHorizontal: Spaces.big,
+  },
+  emptyList: {
+    alignContent: 'center',
+    marginTop: Spaces.medium,
+  },
+  emptyListText: {
+    textAlign: 'center',
+    color: Colors.white,
+    fontFamily: Fonts.openSansBold,
   },
 })

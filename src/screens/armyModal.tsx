@@ -21,6 +21,7 @@ import {
   PurchaseUnitRequest,
   PurchaseUnitRequestItem,
 } from '../model/army/purchaseUnit.request'
+import {Colors} from '../constants/colors'
 
 interface ArmyModalProps {
   navigation: StackNavigationProp<any>

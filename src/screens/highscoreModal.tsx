@@ -37,10 +37,6 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow
-        title={Strings.scoreboard}
-        backAction={navigation.goBack}
-      />
       <View style={styles.contentContainer}>
         <View style={styles.highscoreRow}>
           <SearchField />

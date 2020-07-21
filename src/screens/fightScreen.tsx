@@ -14,12 +14,12 @@ import GameFooter from '../components/gameFooter'
 import {Colors} from '../constants/colors'
 import {Fonts} from '../constants/fonts'
 
-interface FightModalProps {
+interface FightScreenProps {
   navigation: StackNavigationProp<any>
 }
 
-export default FightModal
-function FightModal({navigation}: FightModalProps) {
+export default FightScreen
+function FightScreen({navigation}: FightScreenProps) {
   const {fights, error, isLoading} = useSelector(
     (state: IApplicationState) => state.app.fight,
   )
@@ -50,7 +50,6 @@ function FightModal({navigation}: FightModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow title={Strings.fight} backAction={navigation.goBack} />
       <FlatList
         ListEmptyComponent={renderEmptyList}
         style={styles.listBody}
@@ -62,7 +61,6 @@ function FightModal({navigation}: FightModalProps) {
           return index.toString()
         }}
       />
-      <GameFooter navigation={navigation} activeIcon="units" />
       <Loading animating={isLoading} />
     </View>
   )

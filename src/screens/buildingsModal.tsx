@@ -59,10 +59,6 @@ function BuildingsModal({navigation}: BuildingsModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow
-        title={Strings.buildings}
-        backAction={navigation.goBack}
-      />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}

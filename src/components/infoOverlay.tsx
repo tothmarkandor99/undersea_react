@@ -15,6 +15,7 @@ import {Colors} from '../constants/colors'
 import {useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import {statsReducer} from '../store/stats/stats.reducer'
+import {Fonts} from '../constants/fonts'
 
 interface InfoOverlayProps {
   zIndex?: number
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     height: 45,
   },
   infoOverlayText: {
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     color: Colors.mediumDarkBlue,
   },
 })

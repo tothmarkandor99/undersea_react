@@ -10,7 +10,7 @@ interface CityModalProps {
   navigation: StackNavigationProp<any>
 }
 
-export default function CityModal({navigation}: CityModalProps) {
+export default function CityScreen({navigation}: CityModalProps) {
   const [index, setIndex] = useState(0)
   const [routes] = useState([
     {key: 'first', title: 'First'},

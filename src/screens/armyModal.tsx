@@ -72,10 +72,6 @@ function ArmyModal({navigation}: ArmyModalProps) {
 
   return (
     <View style={styles.container}>
-      <HeaderWithArrow
-        title={Strings.upgrades}
-        backAction={navigation.goBack}
-      />
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}

@@ -13,7 +13,6 @@ import {
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {Spaces} from '../constants/spaces'
-import GameFooter from '../components/gameFooter'
 import InfoOverlay from '../components/infoOverlay'
 import {RFValue} from 'react-native-responsive-fontsize'
 import GameArea from '../components/gameArea'
@@ -47,21 +46,22 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           style={styles.main}
           source={require('../../assets/img/game_bg.png')}>
           <View style={styles.mainTopArea}>
-            <View style={styles.whiteArea}>
-              <Text style={styles.whiteAreaText}>{stats?.round}. kör</Text>
-              <Text style={[styles.whiteAreaText, {marginLeft: Spaces.medium}]}>
-                {stats?.scoreboardPosition}. hely
-              </Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('HighscoreModal')
+              }}>
+              <View style={styles.whiteArea}>
+                <Text style={styles.whiteAreaText}>{stats?.round}. kör</Text>
+                <Text
+                  style={[styles.whiteAreaText, {marginLeft: Spaces.medium}]}>
+                  {stats?.scoreboardPosition}. hely
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <GameArea />
           <InfoOverlay zIndex={9} />
         </ImageBackground>
-        <GameFooter
-          navigation={navigation}
-          style={styles.footer}
-          activeIcon="home"
-        />
       </View>
       <Loading animating={isLoading} />
     </SafeAreaView>

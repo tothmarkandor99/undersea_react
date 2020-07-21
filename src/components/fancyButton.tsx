@@ -10,6 +10,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {Spaces} from '../constants/spaces'
 import {Colors} from '../constants/colors'
 import {RFValue} from 'react-native-responsive-fontsize'
+import {Fonts} from '../constants/fonts'
 
 interface FancyButtonProps {
   onPress?: ((event: GestureResponderEvent) => void) | undefined
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   },
   loginButtonText: {
     textAlign: 'center',
-    fontFamily: 'Baloo',
+    fontFamily: Fonts.baloo,
     color: Colors.darkBlue,
     fontSize: RFValue(16, 568),
   },

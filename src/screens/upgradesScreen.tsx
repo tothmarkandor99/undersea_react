@@ -13,12 +13,12 @@ import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
 import {Colors} from '../constants/colors'
 
-interface UpgradesModalProps {
+interface UpgradesScreenProps {
   navigation: StackNavigationProp<any>
 }
 
-export default UpgradesModal
-function UpgradesModal({navigation}: UpgradesModalProps) {
+export default UpgradesScreen
+function UpgradesScreen({navigation}: UpgradesScreenProps) {
   const {upgrades, error, isLoading} = useSelector(
     (state: IApplicationState) => state.app.upgrade,
   )

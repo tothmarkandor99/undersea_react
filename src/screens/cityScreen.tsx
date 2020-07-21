@@ -1,10 +1,26 @@
 import React, {useState} from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {TabView, SceneMap} from 'react-native-tab-view'
-import BuildingsModal from './buildingsModal'
-import UpgradesModal from './upgradesModal'
-import ArmyModal from './armyModal'
-import {Dimensions} from 'react-native'
+import {
+  TabView,
+  SceneMap,
+  SceneRendererProps,
+  NavigationState,
+} from 'react-native-tab-view'
+import BuildingsScreen from './buildingsScreen'
+import UpgradesScreen from './upgradesScreen'
+import ArmyScreen from './armyScreen'
+import {
+  Dimensions,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from 'react-native'
+import {TabBar} from 'react-native-tab-view'
+import Animated from 'react-native-reanimated'
+import {Colors} from '../constants/colors'
+import {Fonts} from '../constants/fonts'
+import {Spaces} from '../constants/spaces'
 
 interface CityModalProps {
   navigation: StackNavigationProp<any>
@@ -18,17 +34,54 @@ export default function CityScreen({navigation}: CityModalProps) {
     {key: 'army', title: 'Sereg'},
   ])
 
-  const renderScene = ({route}) => {
-    switch (route.key) {
+  const renderScene = (
+    props: SceneRendererProps & {
+      route: {
+        key: string
+        title: string
+      }
+    },
+  ) => {
+    // TODO: típus
+    switch (props.route.key) {
       case 'buildings':
-        return <BuildingsModal navigation={navigation} />
+        return <BuildingsScreen navigation={navigation} />
       case 'upgrades':
-        return <UpgradesModal navigation={navigation} />
+        return <UpgradesScreen navigation={navigation} />
       case 'army':
-        return <ArmyModal navigation={navigation} />
+        return <ArmyScreen navigation={navigation} />
       default:
         return null
     }
+  }
+
+  const renderTabBar = (
+    props: SceneRendererProps & {
+      navigationState: NavigationState<{
+        key: string
+        title: string
+      }>
+    },
+  ) => {
+    return (
+      <View style={styles.tabBar}>
+        {props.navigationState.routes.map((route, index) => {
+          const selected = props.navigationState.index === index
+
+          return (
+            <TouchableOpacity
+              key={route.key}
+              style={styles.tabItem}
+              onPress={() => setIndex(index)}>
+              <Text
+                style={[styles.tabText, selected && {borderBottomWidth: 2}]}>
+                {route.title}
+              </Text>
+            </TouchableOpacity>
+          )
+        })}
+      </View>
+    )
   }
 
   const initialLayout = {width: Dimensions.get('window').width}
@@ -39,6 +92,26 @@ export default function CityScreen({navigation}: CityModalProps) {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={initialLayout}
+      renderTabBar={renderTabBar}
     />
   )
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    flexDirection: 'row',
+    backgroundColor: Colors.backgroundDarkBlue,
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 16,
+  },
+  tabText: {
+    color: Colors.white,
+    fontFamily: Fonts.openSansBold,
+    borderColor: Colors.logoBlue,
+    paddingHorizontal: Spaces.small,
+    paddingVertical: Spaces.small,
+  },
+})

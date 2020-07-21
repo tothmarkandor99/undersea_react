@@ -14,12 +14,12 @@ import Loading from '../components/loading'
 import {BuildRequest} from '../model/building/build.request'
 import {Colors} from '../constants/colors'
 
-interface BuildingsModalProps {
+interface BuildingsScreenProps {
   navigation: StackNavigationProp<any>
 }
 
-export default BuildingsModal
-function BuildingsModal({navigation}: BuildingsModalProps) {
+export default BuildingsScreen
+function BuildingsScreen({navigation}: BuildingsScreenProps) {
   const {buildings, error, isLoading, selectedBuilding} = useSelector(
     (state: IApplicationState) => state.app.building,
   )

@@ -23,12 +23,12 @@ import {
 } from '../model/army/purchaseUnit.request'
 import {Colors} from '../constants/colors'
 
-interface ArmyModalProps {
+interface ArmyScreenProps {
   navigation: StackNavigationProp<any>
 }
 
-export default ArmyModal
-function ArmyModal({navigation}: ArmyModalProps) {
+export default ArmyScreen
+function ArmyScreen({navigation}: ArmyScreenProps) {
   const {purchasableUnits, error, isLoading} = useSelector(
     (state: IApplicationState) => state.app.army,
   )

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   ball: {
     position: 'absolute',
     top: height * 0.45 - CIRCLE_SIZE / 2,
-    left: Spaces.normal,
+    right: Spaces.normal,
     width: 2 * CIRCLE_SIZE,
     height: CIRCLE_SIZE,
     borderRadius: CIRCLE_SIZE / 2,

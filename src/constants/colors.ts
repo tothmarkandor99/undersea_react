@@ -12,4 +12,5 @@ export const Colors = {
   buttonGradient3: '#0FCFDE',
   logoBlue: '#9FFFF0',
   borderBlue: '#3F68AE',
+  inactiveBlue: '#A0D0F6',
 }

@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import {selectBuilding} from '../store/building/building.actions'
 import {Colors} from '../constants/colors'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 interface BuildingBoxProps {
   building: Building
@@ -35,7 +36,13 @@ export default function BuildingBox({building}: BuildingBoxProps) {
             backgroundColor: selected ? Colors.opaquestWhite : undefined,
           },
         ]}>
-        <Image style={styles.image} source={{uri: building.pictureUrl}} />
+        <Image
+          style={styles.image}
+          resizeMode="contain"
+          source={{
+            uri: building.pictureUrl,
+          }}
+        />
         <Text style={styles.name}>{building.name}</Text>
         <Text style={styles.description}>{building.description}</Text>
         <Text style={styles.count}>{building.count} db</Text>
@@ -57,6 +64,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spaces.extraLarge,
   },
   image: {
+    width: RFValue(150, 568),
+    height: RFValue(100, 568),
     marginBottom: Spaces.small,
   },
   name: {

@@ -11,6 +11,7 @@ import {
 } from './upgrade.actions'
 import {Upgrade} from '../../model/upgrade/upgrade'
 import {upgradeSaga} from './upgrade.saga'
+import {Config} from '../../constants/config'
 
 export const upgradeReducer = (
   state = initialUpgradeStore,
@@ -35,7 +36,7 @@ export const upgradeReducer = (
               name: item.name,
               details: item.description,
               isPurchased: item.isPurchased,
-              picture: item.imageUrl,
+              picture: Config.resourceUrl + item.imageUrl,
               remainingRounds: item.remainingRounds,
             },
         ),

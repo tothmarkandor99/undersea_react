@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   loginButton: {
+    backgroundColor: Colors.inactiveBlue,
     paddingVertical: Spaces.normal,
   },
   loginButtonText: {

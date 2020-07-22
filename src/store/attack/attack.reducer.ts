@@ -20,6 +20,7 @@ import {
   AttackResponseItem,
   AttackResponse,
 } from '../../model/attack/attack.response'
+import {Config} from '../../constants/config'
 
 export const attackReducer = (
   state = initialAttackStore,
@@ -70,7 +71,7 @@ export const attackReducer = (
               id: item.id,
               name: item.name,
               maxCount: item.availableCount,
-              imageUrl: item.imageUrl,
+              imageUrl: Config.resourceUrl + item.imageUrl,
               count: 0,
             },
         ),

@@ -8,6 +8,7 @@ import {
   incrementArmyCount,
 } from '../store/army/army.actions'
 import {Colors} from '../constants/colors'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 interface ArmyBoxProps {
   unit: PurchasableUnit
@@ -18,7 +19,13 @@ export default function ArmyBox({unit}: ArmyBoxProps) {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{uri: unit.picture}} />
+      <Image
+        style={styles.image}
+        resizeMode="contain"
+        source={{
+          uri: unit.picture,
+        }}
+      />
       <Text style={styles.name}>{unit.name}</Text>
       <View style={styles.dataRow}>
         <Text style={styles.dataName}>Birtokodban</Text>
@@ -91,7 +98,9 @@ const styles = StyleSheet.create({
     left: Spaces.medium,
   },
   image: {
-    marginTop: Spaces.normal,
+    width: RFValue(150, 568),
+    height: RFValue(100, 568),
+    marginTop: Spaces.large,
     marginBottom: Spaces.small,
   },
   name: {

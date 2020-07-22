@@ -12,6 +12,7 @@ import {configureStore} from './src/config/storeConfig'
 import Navi from './src/navigation/navigation'
 import {Fonts} from './src/constants/fonts'
 import FlashMessage from 'react-native-flash-message'
+import AdminButton from './src/components/adminButton'
 
 // Resources
 let customFonts = {
@@ -32,6 +33,7 @@ export default function App() {
     return (
       <Provider store={store}>
         <Navi />
+        <AdminButton />
         <FlashMessage duration={3000} />
       </Provider>
     )

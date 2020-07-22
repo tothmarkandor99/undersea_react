@@ -12,6 +12,7 @@ import {
 } from './army.actions'
 import {PurchasableUnit} from '../../model/army/purchasableUnit'
 import {PurchaseUnitResponse} from '../../model/army/purchaseUnit.response'
+import {Config} from '../../constants/config'
 
 export const armyReducer = (
   state = initialArmyStore,
@@ -39,7 +40,7 @@ export const armyReducer = (
               defenseScore: item.defenseScore,
               name: item.name,
               pearlCostPerTurn: item.pearlCostPerTurn,
-              picture: item.picture,
+              picture: Config.resourceUrl + item.imageUrl,
               price: item.price,
               viewCount: 0,
             },

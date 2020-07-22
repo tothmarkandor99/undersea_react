@@ -7,7 +7,7 @@ export interface PurchasableUnitResponseItem {
   pearlCostPerTurn: number
   coralCostPerTurn: number
   price: number
-  picture: string
+  imageUrl: string
 }
 
 export interface PurchasableUnitResponse

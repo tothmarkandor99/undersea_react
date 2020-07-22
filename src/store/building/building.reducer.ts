@@ -12,6 +12,7 @@ import {
   POST_BUILD_FAILURE,
 } from './building.actions'
 import {select} from 'redux-saga/effects'
+import {Config} from '../../constants/config'
 
 export const buildingReducer = (
   state = initialBuildingStore,
@@ -37,7 +38,7 @@ export const buildingReducer = (
               description: item.description,
               count: item.count,
               price: item.price,
-              pictureUrl: item.imageUrl,
+              pictureUrl: Config.resourceUrl + item.imageUrl,
               remainingRounds: item.remainingRounds,
             },
         ),

@@ -6,6 +6,7 @@ import {
   GET_STATS_FAILURE,
 } from './stats.actions'
 import {Stats, UnitStat, BuildingStat} from '../../model/stats/stats'
+import {Config} from '../../constants/config'
 
 export const statsReducer = (
   state = initialStatsStore,
@@ -29,6 +30,7 @@ export const statsReducer = (
             item =>
               <UnitStat>{
                 ...item,
+                imageUrl: Config.resourceUrl + item.imageUrl,
               },
           ),
           buildingStats: action.response.statusBar.buildings.map(
@@ -36,11 +38,20 @@ export const statsReducer = (
               <BuildingStat>{
                 ...item,
                 id: item.typeId,
+                imageUrl: Config.resourceUrl + item.imageUrl,
               },
           ),
           round: action.response.statusBar.roundCount,
           scoreboardPosition: action.response.statusBar.scoreboardPosition,
-          resourceStats: {...action.response.statusBar.resources},
+          resourceStats: {
+            ...action.response.statusBar.resources,
+            coralPictureUrl:
+              Config.resourceUrl +
+              action.response.statusBar.resources.coralPictureUrl,
+            pearlPictureUrl:
+              Config.resourceUrl +
+              action.response.statusBar.resources.pearlPictureUrl,
+          },
           countryName: action.response.countryName,
           structureStats: {...action.response.structures},
         },

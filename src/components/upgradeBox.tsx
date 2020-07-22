@@ -13,6 +13,7 @@ import {Colors} from '../constants/colors'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectUpgrade} from '../store/upgrade/upgrade.actions'
 import {IApplicationState} from '../../store'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 interface UpgradeBoxProps {
   upgrade: Upgrade
@@ -52,7 +53,13 @@ export default function UpgradeBox({upgrade}: UpgradeBoxProps) {
             style={styles.ownedSymbol}
           />
         )}
-        <Image style={styles.image} source={{uri: upgrade.picture}} />
+        <Image
+          style={styles.image}
+          resizeMode="contain"
+          source={{
+            uri: upgrade.picture,
+          }}
+        />
         <Text style={styles.name}>{upgrade.name}</Text>
         <Text style={styles.description}>{upgrade.details}</Text>
       </View>
@@ -84,7 +91,9 @@ const styles = StyleSheet.create({
     left: Spaces.medium,
   },
   image: {
-    marginTop: Spaces.normal,
+    width: RFValue(150, 568),
+    height: RFValue(100, 568),
+    marginTop: Spaces.large,
     marginBottom: Spaces.small,
   },
   name: {

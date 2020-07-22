@@ -7,8 +7,10 @@ import {
   POST_BUY_UPGRADE_REQUEST,
   POST_BUY_UPGRADE_SUCCESS,
   POST_BUY_UPGRADE_FAILURE,
+  SELECT_UPGRADE,
 } from './upgrade.actions'
 import {Upgrade} from '../../model/upgrade/upgrade'
+import {upgradeSaga} from './upgrade.saga'
 
 export const upgradeReducer = (
   state = initialUpgradeStore,
@@ -37,6 +39,7 @@ export const upgradeReducer = (
               remainingRounds: item.remainingRounds,
             },
         ),
+        selectedId: undefined,
       }
     case GET_UPGRADES_FAILURE:
       return {
@@ -44,6 +47,7 @@ export const upgradeReducer = (
         error: action.reason,
         isLoading: false,
         upgrades: [],
+        selectedId: undefined,
       }
     case POST_BUY_UPGRADE_REQUEST:
       return {
@@ -64,12 +68,21 @@ export const upgradeReducer = (
               // TODO: ez valószínűleg nem lesz egyből purchased, backenden vissza kéne adni a remainingRounds-t
             },
         ),
+        selectedId: undefined,
       }
     case POST_BUY_UPGRADE_FAILURE:
       return {
         ...state,
         error: action.reason,
         isLoading: false,
+      }
+    case SELECT_UPGRADE:
+      return {
+        ...state,
+        selectedId:
+          state.selectedId === action.upgrade.id
+            ? undefined
+            : action.upgrade.id,
       }
     default:
       return state

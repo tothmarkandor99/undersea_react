@@ -2,6 +2,7 @@ import Network from '../network'
 import {BuyUpgradeRequest} from '../../model/upgrade/buyUpgrade.request'
 
 const ROUTE = 'Upgrades'
+const BUY_ROUTE = 'Upgrades/research'
 
 class UpgradeService {
   getUpgrades = async () => {
@@ -9,7 +10,7 @@ class UpgradeService {
   }
 
   postBuyUpgrade = async (upgrade: BuyUpgradeRequest) => {
-    return await Network.post(ROUTE, upgrade)
+    return await Network.post(BUY_ROUTE, upgrade)
   }
 }
 

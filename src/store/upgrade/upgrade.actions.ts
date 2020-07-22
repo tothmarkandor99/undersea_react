@@ -1,6 +1,7 @@
 import {UpgradeResponse} from '../../model/upgrade/upgrade.response'
 import {BuyUpgradeResponse} from '../../model/upgrade/buyUpgrade.response'
 import {BuyUpgradeRequest} from '../../model/upgrade/buyUpgrade.request'
+import {Upgrade} from '../../model/upgrade/upgrade'
 
 export const GET_UPGRADES_REQUEST = 'GET_UPGRADES_REQUEST'
 export const GET_UPGRADES_SUCCESS = 'GET_UPGRADES_SUCCESS'
@@ -8,6 +9,7 @@ export const GET_UPGRADES_FAILURE = 'GET_UPGRADES_FAILURE'
 export const POST_BUY_UPGRADE_REQUEST = 'POST_BUY_UPGRADE_REQUEST'
 export const POST_BUY_UPGRADE_SUCCESS = 'POST_BUY_UPGRADE_SUCCESS'
 export const POST_BUY_UPGRADE_FAILURE = 'POST_BUY_UPGRADE_FAILURE'
+export const SELECT_UPGRADE = 'SELECT_UPGRADE'
 
 export interface GetUpgradesRequestAction {
   type: typeof GET_UPGRADES_REQUEST
@@ -38,6 +40,11 @@ export interface PostBuyUpgradeFailureAction {
   reason: string | undefined
 }
 
+export interface SelectUpgradeAction {
+  type: typeof SELECT_UPGRADE
+  upgrade: Upgrade
+}
+
 export type UpgradeActions =
   | GetUpgradesRequestAction
   | GetUpgradesSuccessAction
@@ -45,6 +52,7 @@ export type UpgradeActions =
   | PostBuyUpgradeRequestAction
   | PostBuyUpgradeSuccessAction
   | PostBuyUpgradeFailureAction
+  | SelectUpgradeAction
 
 export const getUpgrades = (): GetUpgradesRequestAction => ({
   type: GET_UPGRADES_REQUEST,
@@ -81,4 +89,9 @@ export const postBuyUpgradeFailureActionCreator = (
 ): PostBuyUpgradeFailureAction => ({
   type: POST_BUY_UPGRADE_FAILURE,
   reason,
+})
+
+export const selectUpgrade = (upgrade: Upgrade): SelectUpgradeAction => ({
+  type: SELECT_UPGRADE,
+  upgrade,
 })

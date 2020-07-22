@@ -10,22 +10,30 @@ import {
 import {Spaces} from '../constants/spaces'
 import {Upgrade} from '../model/upgrade/upgrade'
 import {Colors} from '../constants/colors'
+import {useDispatch, useSelector} from 'react-redux'
+import {selectUpgrade} from '../store/upgrade/upgrade.actions'
+import {IApplicationState} from '../../store'
 
 interface UpgradeBoxProps {
-  upgrade: Upgrade // TODO: kivenni a nullable-t
-  selected?: boolean
-  active?: boolean
+  upgrade: Upgrade
   onPress?: ((event: GestureResponderEvent) => void) | undefined
 }
 
-export default function UpgradeBox({
-  onPress,
-  upgrade,
-  active = true,
-  selected = false,
-}: UpgradeBoxProps) {
+export default function UpgradeBox({upgrade}: UpgradeBoxProps) {
+  const {selectedId} = useSelector(
+    (state: IApplicationState) => state.app.upgrade,
+  )
+  const dispatch = useDispatch()
+
+  const selected = upgrade.id == selectedId
+  const active = !upgrade.isPurchased && !(upgrade.remainingRounds > 0)
+
   return (
-    <TouchableOpacity onPress={onPress} disabled={!active}>
+    <TouchableOpacity
+      onPress={() => {
+        dispatch(selectUpgrade(upgrade))
+      }}
+      disabled={!active}>
       <View
         style={[
           styles.container,

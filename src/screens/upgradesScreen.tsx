@@ -8,10 +8,11 @@ import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import UpgradeBox from '../components/upgradeBox'
 import {Strings} from '../constants/strings'
-import {getUpgrades} from '../store/upgrade/upgrade.actions'
+import {getUpgrades, postBuyUpgrade} from '../store/upgrade/upgrade.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
 import {Colors} from '../constants/colors'
+import {BuyUpgradeRequest} from '../model/upgrade/buyUpgrade.request'
 
 interface UpgradesScreenProps {
   navigation: StackNavigationProp<any>
@@ -19,7 +20,7 @@ interface UpgradesScreenProps {
 
 export default UpgradesScreen
 function UpgradesScreen({navigation}: UpgradesScreenProps) {
-  const {upgrades, error, isLoading} = useSelector(
+  const {upgrades, error, isLoading, selectedId} = useSelector(
     (state: IApplicationState) => state.app.upgrade,
   )
   const dispatch = useDispatch()
@@ -59,7 +60,15 @@ function UpgradesScreen({navigation}: UpgradesScreenProps) {
         }}
         keyExtractor={item => item.id.toString()}
       />
-      <ModalButtonBar buttonTitle={Strings.iBuyIt} buttonOnPress={() => {}} />
+      <ModalButtonBar
+        buttonTitle={Strings.iBuyIt}
+        buttonOnPress={() => {
+          if (selectedId) {
+            dispatch(postBuyUpgrade(selectedId))
+          }
+        }}
+        buttonActive={selectedId !== undefined}
+      />
       <Loading animating={isLoading} />
     </View>
   )

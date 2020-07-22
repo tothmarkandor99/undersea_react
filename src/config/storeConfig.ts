@@ -1,7 +1,7 @@
 import createSagaMiddleware from '@redux-saga/core'
 import {combineReducers, createStore, applyMiddleware} from 'redux'
 import {appRootReducer} from '../../store'
-import {createLogger} from 'redux-logger'
+import logger, {createLogger} from 'redux-logger'
 import {rootSaga} from '../../saga'
 import {Config} from '../constants/config'
 
@@ -9,10 +9,13 @@ export function configureStore() {
   const sagaMiddleware = createSagaMiddleware()
   const deepRootReducer = combineReducers({app: appRootReducer})
   let store: any
-  if (Config.loggingRedux) {
-    const logger = createLogger({
-      level: 'info',
-    })
+  if (Config.loggingRedux === 'full') {
+    const logger = createLogger({})
+    store = createStore(
+      deepRootReducer,
+      applyMiddleware(sagaMiddleware, logger),
+    )
+  } else if (Config.loggingRedux === 'names') {
     store = createStore(
       deepRootReducer,
       applyMiddleware(sagaMiddleware, loggerMiddleware),

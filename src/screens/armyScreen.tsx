@@ -22,7 +22,7 @@ interface ArmyScreenProps {
 
 export default ArmyScreen
 function ArmyScreen({navigation}: ArmyScreenProps) {
-  const {purchasableUnits, error, isLoading} = useSelector(
+  const {purchasableUnits, error, isLoading, selectedUnitCount} = useSelector(
     (state: IApplicationState) => state.app.army,
   )
   const dispatch = useDispatch()
@@ -77,7 +77,7 @@ function ArmyScreen({navigation}: ArmyScreenProps) {
       <ModalButtonBar
         buttonTitle={Strings.iBuyIt}
         buttonOnPress={buyUnits}
-        buttonActive={true}
+        buttonActive={selectedUnitCount !== 0}
       />
       <Loading animating={isLoading} />
     </View>

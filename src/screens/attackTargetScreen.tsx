@@ -15,11 +15,13 @@ import {Colors} from '../constants/colors'
 import {Fonts} from '../constants/fonts'
 import {showMessage} from 'react-native-flash-message'
 
-interface AttackTargetProps {
+interface AttackTargetScreenProps {
   navigation: StackNavigationProp<any>
 }
 
-export default function AttackTargetScreen({navigation}: AttackTargetProps) {
+export default function AttackTargetScreen({
+  navigation,
+}: AttackTargetScreenProps) {
   const {attackTargets, error, isLoading, selectedTargetId} = useSelector(
     (state: IApplicationState) => state.app.attack,
   )

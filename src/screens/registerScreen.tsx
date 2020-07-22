@@ -23,12 +23,12 @@ import {IApplicationState} from '../../store'
 import Loading from '../components/loading'
 import {showMessage} from 'react-native-flash-message'
 
-interface LoginScreenProps {
+interface RegisterScreenProps {
   navigation: StackNavigationProp<any>
 }
 
 export default RegisterScreen
-function RegisterScreen({navigation}: LoginScreenProps) {
+function RegisterScreen({navigation}: RegisterScreenProps) {
   const dispatch = useDispatch()
   const {isLoading} = useSelector((state: IApplicationState) => state.app.user)
 

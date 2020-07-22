@@ -19,11 +19,11 @@ import {Colors} from '../constants/colors'
 import {Fonts} from '../constants/fonts'
 import {Spaces} from '../constants/spaces'
 
-interface CityModalProps {
+interface CityScreenProps {
   navigation: StackNavigationProp<any>
 }
 
-export default function CityScreen({navigation}: CityModalProps) {
+export default function CityScreen({navigation}: CityScreenProps) {
   const [index, setIndex] = useState(0)
   const [routes] = useState([
     {key: 'buildings', title: 'Épületek'},

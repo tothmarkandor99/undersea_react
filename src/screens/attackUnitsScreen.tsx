@@ -13,11 +13,13 @@ import {AttackRequestItem} from '../model/attack/attack.request'
 import {Colors} from '../constants/colors'
 import {Fonts} from '../constants/fonts'
 
-interface AttackUnitsProps {
+interface AttackUnitsScreenProps {
   navigation: StackNavigationProp<any>
 }
 
-export default function AttackUnitsScreen({navigation}: AttackUnitsProps) {
+export default function AttackUnitsScreen({
+  navigation,
+}: AttackUnitsScreenProps) {
   const {
     attackUnits,
     error,

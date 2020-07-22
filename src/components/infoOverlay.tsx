@@ -29,7 +29,7 @@ export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
     inputRange: [0, 1],
     outputRange: ['0deg', '180deg'],
   })
-  const [overlayHeight, setOverlayHeight] = useState(90)
+  const [overlayHeight, setOverlayHeight] = useState(200)
   const [overlayControlHeight, setOverlayControlHeight] = useState(25)
   const slideAnim = useRef(new Animated.Value(0))
   const slideValue = slideAnim.current.interpolate({
@@ -116,7 +116,7 @@ export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
           <Image
             style={styles.infoOverlayImage}
             resizeMode="contain"
-            source={{url: stats?.resourceStats.pearlPictureUrl}}
+            source={{uri: stats?.resourceStats.coralPictureUrl}}
           />
           <Text style={styles.infoOverlayText}>
             {stats?.resourceStats.pearlCount}
@@ -129,7 +129,7 @@ export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
           <Image
             style={styles.infoOverlayImage}
             resizeMode="contain"
-            source={{url: stats?.resourceStats.coralPictureUrl}}
+            source={{uri: stats?.resourceStats.coralPictureUrl}}
           />
           <Text style={styles.infoOverlayText}>
             {stats?.resourceStats.coralCount}

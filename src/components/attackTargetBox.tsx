@@ -1,12 +1,12 @@
 import React from 'react'
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {AttackTarget} from '../model/attack/attackTarget'
-import {Ionicons} from '@expo/vector-icons'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectAttackTarget} from '../store/attack/attack.actions'
 import {IApplicationState} from '../../store'
 import {Colors} from '../constants/colors'
+import {Fonts} from '../constants/fonts'
 
 interface AttackTargetBoxProps {
   target: AttackTarget
@@ -32,7 +32,10 @@ export default function AttackTargetBox({
         }}>
         <Text style={styles.name}>{target.name}</Text>
         {target.id === selectedTargetId && (
-          <Ionicons name="ios-checkmark-circle" style={styles.selectedSymbol} />
+          <Image
+            source={require('../../assets/img/done.png')}
+            style={styles.selectedSymbol}
+          />
         )}
       </TouchableOpacity>
     </View>
@@ -63,10 +66,10 @@ const styles = StyleSheet.create({
   },
   name: {
     color: Colors.white,
-    fontWeight: 'bold',
+    fontFamily: Fonts.openSansRegular,
+    fontSize: 17,
   },
   selectedSymbol: {
-    color: Colors.logoBlue,
-    paddingRight: Spaces.large,
+    marginRight: Spaces.large,
   },
 })

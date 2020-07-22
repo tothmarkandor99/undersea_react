@@ -87,7 +87,7 @@ export default function AttackTargetScreen({navigation}: AttackTargetProps) {
         <ModalButtonBar
           buttonTitle={Strings.next}
           buttonOnPress={() => {
-            navigation.navigate('AttackUnitsModal')
+            navigation.navigate('AttackUnitsScreen')
           }}
           buttonActive={!isLoading && selectedTargetId !== undefined}
         />

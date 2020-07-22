@@ -9,7 +9,6 @@ import {
 } from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {Upgrade} from '../model/upgrade/upgrade'
-import {Ionicons} from '@expo/vector-icons'
 import {Colors} from '../constants/colors'
 
 interface UpgradeBoxProps {
@@ -40,7 +39,10 @@ export default function UpgradeBox({
           </Text>
         )}
         {upgrade.isPurchased && (
-          <Ionicons name="ios-checkmark-circle" style={styles.ownedSymbol} />
+          <Image
+            source={require('../../assets/img/done.png')}
+            style={styles.ownedSymbol}
+          />
         )}
         <Image style={styles.image} source={{uri: upgrade.picture}} />
         <Text style={styles.name}>{upgrade.name}</Text>
@@ -69,7 +71,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   ownedSymbol: {
-    color: Colors.logoBlue,
     position: 'absolute',
     top: Spaces.medium,
     left: Spaces.medium,

@@ -2,7 +2,6 @@ import React from 'react'
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {PurchasableUnit} from '../model/army/purchasableUnit'
-import {AntDesign} from '@expo/vector-icons'
 import {useDispatch} from 'react-redux'
 import {
   decrementArmyCount,
@@ -19,10 +18,7 @@ export default function ArmyBox({unit}: ArmyBoxProps) {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../../assets/img/avatar.png')}
-      />
+      <Image style={styles.image} source={{uri: unit.picture}} />
       <Text style={styles.name}>{unit.name}</Text>
       <View style={styles.dataRow}>
         <Text style={styles.dataName}>Birtokodban</Text>
@@ -51,14 +47,20 @@ export default function ArmyBox({unit}: ArmyBoxProps) {
           onPress={() => {
             dispatch(decrementArmyCount(unit))
           }}>
-          <AntDesign name="minuscircle" style={styles.counterControl} />
+          <Image
+            source={require('../../assets/img/minus.png')}
+            style={styles.counterControl}
+          />
         </TouchableOpacity>
         <Text style={styles.counterText}>{unit.viewCount}</Text>
         <TouchableOpacity
           onPress={() => {
             dispatch(incrementArmyCount(unit))
           }}>
-          <AntDesign name="pluscircle" style={styles.counterControl} />
+          <Image
+            source={require('../../assets/img/plus.png')}
+            style={styles.counterControl}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -111,10 +113,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: Spaces.normal,
   },
-  counterControl: {
-    color: Colors.logoBlue,
-  },
+  counterControl: {},
   counterText: {
     color: Colors.white,
     width: 50,

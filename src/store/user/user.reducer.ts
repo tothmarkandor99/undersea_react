@@ -37,7 +37,6 @@ export const userReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        refreshToken: action.response.refreshToken,
         loggedIn: true,
       }
     case POST_LOGIN_FAILURE:
@@ -58,7 +57,6 @@ export const userReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        refreshToken: action.response.refreshToken,
         loggedIn: true,
       }
     case POST_REGISTER_FAILURE:

@@ -26,7 +26,7 @@ export const statsReducer = (
         error: undefined,
         isLoading: false,
         stats: <Stats>{
-          unitStats: action.response.statusBar.availableUnits.map(
+          unitStats: action.response.statusBar.units.map(
             item =>
               <UnitStat>{
                 ...item,

@@ -40,4 +40,5 @@ export const Strings = {
   youAreNotFightingAtTheMoment: 'Jelenleg egy csapatod sem harcol',
   noPlayerWithThisNameExist: 'Nincs ilyen nevű játékos',
   selectWhoYouSendToAttack: 'Állítsd be, kiket küldesz harcba:',
+  newRound: 'Új kör',
 }

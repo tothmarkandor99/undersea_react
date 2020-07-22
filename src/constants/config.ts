@@ -9,7 +9,7 @@ interface ConfigProps {
 export const Config: ConfigProps = {
   baseUrl: 'http://underseat2lasttry.webtest.encosoft.internal/api',
   resourceUrl: 'http://underseat2lasttry.webtest.encosoft.internal',
-  loggingRedux: 'full',
-  loggingRequests: false,
-  loggingResponses: false,
+  loggingRedux: 'none',
+  loggingRequests: true,
+  loggingResponses: true,
 }

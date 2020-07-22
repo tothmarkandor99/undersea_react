@@ -6,7 +6,7 @@ export interface StatsResponse {
     roundCount: number
     scoreboardPosition: number
 
-    availableUnits: UnitStatResponse[]
+    units: UnitStatResponse[]
     buildings: BuildingStatResponse[]
     resources: ResourceStatsResponse
   }
@@ -16,6 +16,7 @@ export interface UnitStatResponse {
   id: number
   name: string
   availableCount: number
+  allCount: number
   imageUrl: string
 }
 

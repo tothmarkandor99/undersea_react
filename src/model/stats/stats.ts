@@ -14,6 +14,7 @@ export interface UnitStat {
   id: number
   name: string
   availableCount: number
+  allCount: number
   imageUrl: string
 }
 

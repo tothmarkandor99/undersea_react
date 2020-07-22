@@ -7,6 +7,7 @@ import {armySaga} from './src/store/army/army.saga'
 import {userSaga} from './src/store/user/user.saga'
 import {statsSaga} from './src/store/stats/stats.saga'
 import {attackSaga} from './src/store/attack/attack.saga'
+import {newRoundSaga} from './src/store/newRound/newRound.saga'
 
 export function* rootSaga() {
   yield all([
@@ -18,5 +19,6 @@ export function* rootSaga() {
     userSaga(),
     statsSaga(),
     attackSaga(),
+    newRoundSaga(),
   ])
 }

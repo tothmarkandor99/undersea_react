@@ -26,7 +26,7 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
 
   useEffect(() => {
     dispatch(getHighscores(search as SearchRequest))
-  }, [dispatch, search.searchPhrase, search.page, search.itemPerPage])
+  }, [dispatch, search])
 
   return (
     <View style={styles.container}>

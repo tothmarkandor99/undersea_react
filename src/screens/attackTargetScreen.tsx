@@ -8,7 +8,7 @@ import ModalButtonBar from '../components/modalButtonBar'
 import AttackTargetBox from '../components/attackTargetBox'
 import SearchField from '../components/searchField'
 import {Strings} from '../constants/strings'
-import {getAttackTargets} from '../store/attack/attack.actions'
+import {getAttackTargets, setSearchPhrase} from '../store/attack/attack.actions'
 import {SearchRequest} from '../model/search/search.request'
 import Loading from '../components/loading'
 import {Colors} from '../constants/colors'
@@ -22,24 +22,18 @@ interface AttackTargetScreenProps {
 export default function AttackTargetScreen({
   navigation,
 }: AttackTargetScreenProps) {
-  const {attackTargets, error, isLoading, selectedTargetId} = useSelector(
-    (state: IApplicationState) => state.app.attack,
-  )
+  const {
+    attackTargets,
+    error,
+    isLoading,
+    selectedTargetId,
+    search,
+  } = useSelector((state: IApplicationState) => state.app.attack)
   const dispatch = useDispatch()
 
-  const [searchPhrase, setSearchPhrase] = useState<string>('')
-  const [page, setPage] = useState<number>(1)
-  const [itemPerPage, setItemPerPage] = useState<number>(10)
-
   useEffect(() => {
-    dispatch(
-      getAttackTargets({
-        searchPhrase,
-        page,
-        itemPerPage,
-      } as SearchRequest),
-    )
-  }, [dispatch, searchPhrase])
+    dispatch(getAttackTargets(search as SearchRequest))
+  }, [dispatch, search])
 
   useEffect(() => {
     if (error !== undefined) {
@@ -68,7 +62,12 @@ export default function AttackTargetScreen({
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
         <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
-        <SearchField onChangeText={setSearchPhrase} value={searchPhrase} />
+        <SearchField
+          onChangeText={text => {
+            dispatch(setSearchPhrase(text))
+          }}
+          value={search.searchPhrase}
+        />
       </View>
     )
   }

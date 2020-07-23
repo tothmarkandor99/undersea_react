@@ -21,6 +21,8 @@ import {
   AttackResponse,
 } from '../../model/attack/attack.response'
 import {Config} from '../../constants/config'
+import {SET_SEARCH_PHRASE} from '../highscore/highscore.actions'
+import {Search} from '../../model/search/search'
 
 export const attackReducer = (
   state = initialAttackStore,
@@ -156,6 +158,15 @@ export const attackReducer = (
         ...state,
         isLoading: false,
         error: action.reason,
+      }
+    case SET_SEARCH_PHRASE:
+      return {
+        ...state,
+        search: <Search>{
+          searchPhrase: action.searchPhrase,
+          itemPerPage: Config.defaultSearchItemsPerPage,
+          page: 1,
+        },
       }
     default:
       return state

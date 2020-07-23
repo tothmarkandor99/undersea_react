@@ -9,14 +9,19 @@ import {AttackResponse} from '../../model/attack/attack.response'
 export const GET_ATTACK_TARGETS_REQUEST = 'GET_ATTACK_TARGETS_REQUEST'
 export const GET_ATTACK_TARGETS_SUCCESS = 'GET_ATTACK_TARGETS_SUCCESS'
 export const GET_ATTACK_TARGETS_FAILURE = 'GET_ATTACK_TARGETS_FAILURE'
+
 export const GET_ATTACK_UNITS_REQUEST = 'GET_ATTACK_UNITS_REQUEST'
 export const GET_ATTACK_UNITS_SUCCESS = 'GET_ATTACK_UNITS_SUCCESS'
 export const GET_ATTACK_UNITS_FAILURE = 'GET_ATTACK_UNITS_FAILURE'
+
 export const SELECT_ATTACK_TARGET = 'SELECT_ATTACK_TARGET'
 export const SET_ATTACK_UNIT_COUNT = 'SET_ATTACK_UNIT_COUNT'
+
 export const POST_ATTACK_REQUEST = 'POST_ATTACK_REQUEST'
 export const POST_ATTACK_SUCCESS = 'POST_ATTACK_SUCCESS'
 export const POST_ATTACK_FAILURE = 'POST_ATTACK_FAILURE'
+
+export const SET_SEARCH_PHRASE = 'SET_SEARCH_PHRASE'
 
 export interface GetAttackTargetsRequestAction {
   type: typeof GET_ATTACK_TARGETS_REQUEST
@@ -73,6 +78,11 @@ export interface PostAttackFailureAction {
   reason: string | undefined
 }
 
+export interface SetSearchPhraseAction {
+  type: typeof SET_SEARCH_PHRASE
+  searchPhrase: string
+}
+
 export type AttackActions =
   | GetAttackTargetsRequestAction
   | GetAttackTargetsSuccessAction
@@ -85,6 +95,7 @@ export type AttackActions =
   | PostAttackRequestAction
   | PostAttackSuccessAction
   | PostAttackFailureAction
+  | SetSearchPhraseAction
 
 export const getAttackTargets = (
   search: SearchRequest,
@@ -158,4 +169,11 @@ export const postAttackFailureActionCreator = (
 ): PostAttackFailureAction => ({
   type: POST_ATTACK_FAILURE,
   reason,
+})
+
+export const setSearchPhrase = (
+  searchPhrase: string,
+): SetSearchPhraseAction => ({
+  type: SET_SEARCH_PHRASE,
+  searchPhrase,
 })

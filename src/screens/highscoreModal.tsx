@@ -42,7 +42,6 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
         <FlatList
           data={scores}
           renderItem={({item}) => {
-            /* TODO: komponensbe kiszervezni */
             return (
               <View style={styles.highscoreRow}>
                 <Text style={[styles.highscoreText, styles.highscorePlace]}>

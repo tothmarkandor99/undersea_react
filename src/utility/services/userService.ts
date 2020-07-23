@@ -1,7 +1,6 @@
 import Network from '../network'
 import {LoginRequest} from '../../model/user/login.request'
 import {RegisterRequest} from '../../model/user/register.request'
-import {LogoutRequest} from '../../model/user/logout.request'
 
 const LOGIN_ROUTE = 'Auth/login'
 const REFRESH_ROUTE = 'Auth/refresh'

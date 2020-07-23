@@ -42,7 +42,8 @@ const GameScreen = ({navigation}: GameScreenProps) => {
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('HighscoreModal')
-            }}>
+            }}
+            style={styles.highscoreButton}>
             <View style={styles.whiteArea}>
               <Text style={styles.whiteAreaText}>{stats?.round}. kör</Text>
               <Text style={[styles.whiteAreaText, {marginLeft: Spaces.medium}]}>
@@ -81,10 +82,20 @@ const styles = StyleSheet.create({
     marginTop: Spaces.normal,
     justifyContent: 'center',
   },
-  whiteArea: {
-    backgroundColor: Colors.white,
-    elevation: 8,
+  highscoreButton: {
+    elevation: 5,
+    shadowColor: Colors.shadowBlue,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     borderRadius: Spaces.medium,
+  },
+  whiteArea: {
+    borderRadius: Spaces.medium,
+    backgroundColor: Colors.white,
     flexDirection: 'row',
     paddingHorizontal: Spaces.medium,
     paddingVertical: Spaces.normal,

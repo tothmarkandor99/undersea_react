@@ -17,8 +17,8 @@ class UserService {
     return await Network.post(REGISTER_ROUTE, user)
   }
 
-  logout = async (user: LogoutRequest) => {
-    return await Network.post(LOGOUT_ROUTE, user)
+  logout = async () => {
+    return await Network.post(LOGOUT_ROUTE)
   }
 
   refresh = async (token: string) => {

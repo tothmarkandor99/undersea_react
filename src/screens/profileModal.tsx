@@ -10,11 +10,11 @@ import {
 } from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {useDispatch, useSelector} from 'react-redux'
-import {BypassLogout} from '../store/user/user.actions'
 import {IApplicationState} from '../../store'
 import {Strings} from '../constants/strings'
 import {Fonts} from '../constants/fonts'
 import {Colors} from '../constants/colors'
+import {logout} from '../store/user/user.actions'
 
 interface ProfileModalProps {
   navigation: StackNavigationProp<any>
@@ -57,7 +57,7 @@ function ProfileModal({navigation}: ProfileModalProps) {
         <TouchableOpacity
           style={styles.menuItemContent}
           onPress={() => {
-            dispatch(BypassLogout())
+            dispatch(logout())
           }}>
           <Text style={[styles.menuItemTextFunky, styles.logoutText]}>
             {Strings.logout}

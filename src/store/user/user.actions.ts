@@ -3,9 +3,6 @@ import {LoginResponse} from '../../model/user/login.response'
 import {RegisterRequest} from '../../model/user/register.request'
 import {RegisterResponse} from '../../model/user/register.response'
 
-export const BYPASS_LOGIN = 'BYPASS_LOGIN'
-export const BYPASS_LOGOUT = 'BYPASS_LOGOUT'
-
 export const POST_LOGIN_REQUEST = 'POST_LOGIN_REQUEST'
 export const POST_LOGIN_SUCCESS = 'POST_LOGIN_SUCCESS'
 export const POST_LOGIN_FAILURE = 'POST_LOGIN_FAILURE'
@@ -17,14 +14,6 @@ export const POST_REGISTER_FAILURE = 'POST_REGISTER_FAILURE'
 export const POST_LOGOUT_REQUEST = 'POST_LOGOUT_REQUEST'
 export const POST_LOGOUT_SUCCESS = 'POST_LOGOUT_SUCCESS'
 export const POST_LOGOUT_FAILURE = 'POST_LOGOUT_FAILURE'
-
-export interface BypassLoginAction {
-  type: typeof BYPASS_LOGIN
-}
-
-export interface BypassLogoutAction {
-  type: typeof BYPASS_LOGOUT
-}
 
 export interface PostLoginRequestAction {
   type: typeof POST_LOGIN_REQUEST
@@ -56,23 +45,29 @@ export interface PostRegisterFailureAction {
   reason: string | undefined
 }
 
+export interface PostLogoutRequestAction {
+  type: typeof POST_LOGOUT_REQUEST
+}
+
+export interface PostLogoutSuccessAction {
+  type: typeof POST_LOGOUT_SUCCESS
+}
+
+export interface PostLogoutFailureAction {
+  type: typeof POST_LOGOUT_FAILURE
+  reason: string | undefined
+}
+
 export type UserActions =
-  | BypassLoginAction
-  | BypassLogoutAction
   | PostLoginRequestAction
   | PostLoginSuccessAction
   | PostLoginFailureAction
   | PostRegisterRequestAction
   | PostRegisterSuccessAction
   | PostRegisterFailureAction
-
-export const BypassLogin = (): BypassLoginAction => ({
-  type: BYPASS_LOGIN,
-})
-
-export const BypassLogout = (): BypassLogoutAction => ({
-  type: BYPASS_LOGOUT,
-})
+  | PostLogoutRequestAction
+  | PostLogoutSuccessAction
+  | PostLogoutFailureAction
 
 export const login = (user: LoginRequest): PostLoginRequestAction => ({
   type: POST_LOGIN_REQUEST,
@@ -109,5 +104,20 @@ export const postRegisterFailureActionCreator = (
   reason: string,
 ): PostRegisterFailureAction => ({
   type: POST_REGISTER_FAILURE,
+  reason,
+})
+
+export const logout = (): PostLogoutRequestAction => ({
+  type: POST_LOGOUT_REQUEST,
+})
+
+export const postLogoutSuccessActionCreator = (): PostLogoutSuccessAction => ({
+  type: POST_LOGOUT_SUCCESS,
+})
+
+export const postLogoutFailureActionCreator = (
+  reason: string,
+): PostLogoutFailureAction => ({
+  type: POST_LOGOUT_FAILURE,
   reason,
 })

@@ -9,6 +9,9 @@ import {
   POST_REGISTER_FAILURE,
   POST_REGISTER_SUCCESS,
   POST_REGISTER_REQUEST,
+  POST_LOGOUT_REQUEST,
+  POST_LOGOUT_SUCCESS,
+  POST_LOGOUT_FAILURE,
 } from './user.actions'
 
 export const userReducer = (
@@ -65,6 +68,25 @@ export const userReducer = (
         error: action.reason,
         isLoading: false,
         loggedIn: false,
+      }
+    case POST_LOGOUT_REQUEST:
+      return {
+        ...state,
+        error: undefined,
+        isLoading: true,
+      }
+    case POST_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        error: undefined,
+        isLoading: false,
+        loggedIn: false,
+      }
+    case POST_LOGOUT_FAILURE:
+      return {
+        ...state,
+        error: action.reason,
+        isLoading: false,
       }
     default:
       return state

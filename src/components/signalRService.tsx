@@ -28,7 +28,7 @@ export default function SignalRService() {
       .build()
 
     connection.on('newround', () => {
-      console.log('SignalR message received')
+      console.log('SignalR message received. Logged in?', loggedIn)
       if (loggedIn) {
         dispatch(getStats())
         dispatch(getArmy())

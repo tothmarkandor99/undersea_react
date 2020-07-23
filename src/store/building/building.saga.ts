@@ -13,6 +13,7 @@ import {
 import buildingService from '../../utility/services/buildingService'
 import {BuildResponse} from '../../model/building/build.response'
 import {BuildingResponse} from '../../model/building/building.response'
+import {getStats} from '../stats/stats.actions'
 
 export function* buildingSaga() {
   yield all([watchGet(), watchPost()])
@@ -43,6 +44,7 @@ function* postBuildActionWatcher(action: PostBuildRequestAction) {
       action.building,
     )
     yield put(postBuildSuccesActionCreator(response.data))
+    yield put(getStats())
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a betöltés közben'

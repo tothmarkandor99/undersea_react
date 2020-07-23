@@ -19,6 +19,8 @@ import {AxiosResponse} from 'axios'
 import attackService from '../../utility/services/attackService'
 import {AttackUnitsResponse} from '../../model/attack/attackUnits.response'
 import {AttackResponse} from '../../model/attack/attack.response'
+import {useDispatch} from 'react-redux'
+import {getFights} from '../fight/fight.actions'
 
 export function* attackSaga() {
   yield all([watchGetTargets(), watchGetUnits(), watchPost()])
@@ -70,6 +72,7 @@ function* postAttackActionWatcher(action: PostAttackRequestAction) {
       action.attack,
     )
     yield put(postAttackSuccessActionCreator(response.data))
+    yield put(getFights())
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a támadás közben'

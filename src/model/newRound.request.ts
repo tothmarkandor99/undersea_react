@@ -1,3 +1,3 @@
 export interface NewRoundRequest {
-  nubmer: number
+  number: number
 }

@@ -9,7 +9,7 @@ export default function GameArea() {
 
   return (
     <View style={styles.gameArea}>
-      {stats?.structureStats.sonarCannon && ( // TODO: összepárosítani a megfelelőket
+      {stats?.structureStats.coralWall && (
         <GameBuilding
           source={require('../../assets/img/buildings/undersea_game-02.png')}
           buildingWidth={76}
@@ -19,7 +19,7 @@ export default function GameArea() {
           offsetY={-65}
         />
       )}
-      {stats?.structureStats.reefCastle && (
+      {stats?.structureStats.sonarCannon && (
         <GameBuilding
           source={require('../../assets/img/buildings/undersea_game-03.png')}
           buildingWidth={108}
@@ -39,7 +39,7 @@ export default function GameArea() {
           offsetY={40}
         />
       )}
-      {stats?.structureStats.underwaterMartialArts && (
+      {stats?.structureStats.reefCastle && (
         <GameBuilding
           source={require('../../assets/img/buildings/undersea_game-07.png')}
           buildingWidth={120}

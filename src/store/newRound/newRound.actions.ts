@@ -16,7 +16,7 @@ export type NewRoundActions = NewRoundRequestAction | NewRoundSuccessAction
 
 export const newRound = (count: number): NewRoundRequestAction => ({
   type: NEW_ROUND_REQUEST,
-  request: {nubmer: count} as NewRoundRequest,
+  request: {number: count} as NewRoundRequest,
 })
 
 export const newRoundSuccessActionCreator = (): NewRoundSuccessAction => ({

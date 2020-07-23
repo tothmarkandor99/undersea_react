@@ -14,6 +14,7 @@ import {PurchasableUnitResponse} from '../../model/army/purchasableUnit.response
 import armyService from '../../utility/services/armyService'
 import {PurchaseUnitResponse} from '../../model/army/purchaseUnit.response'
 import {getAttackUnits} from '../attack/attack.actions'
+import {getStats} from '../stats/stats.actions'
 
 export function* armySaga() {
   yield all([watchGet(), watchPost()])
@@ -45,6 +46,7 @@ function* postBuyArmyActionWatcher(action: PostBuyArmyRequestAction) {
     )
     yield put(postBuyArmySuccessActionCreator(response.data))
     yield put(getAttackUnits())
+    yield put(getStats())
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a vásárlás közben'

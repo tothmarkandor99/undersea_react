@@ -63,14 +63,6 @@ export const upgradeReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        upgrades: state.upgrades.map(
-          item =>
-            <Upgrade>{
-              ...item,
-              isPurchased: item.isPurchased || action.response.id == item.id,
-              // TODO: ez valószínűleg nem lesz egyből purchased, backenden vissza kéne adni a remainingRounds-t
-            },
-        ),
         selectedId: undefined,
       }
     case POST_BUY_UPGRADE_FAILURE:

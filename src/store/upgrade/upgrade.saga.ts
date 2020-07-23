@@ -8,6 +8,7 @@ import {
   PostBuyUpgradeRequestAction,
   postBuyUpgradeFailureActionCreator,
   postBuyUpgradeSuccessActionCreator,
+  getUpgrades,
 } from './upgrade.actions'
 import {AxiosResponse} from 'axios'
 import {UpgradeResponse} from '../../model/upgrade/upgrade.response'
@@ -43,6 +44,7 @@ function* postBuyUpgradeActionWatcher(action: PostBuyUpgradeRequestAction) {
       action.upgrade,
     )
     yield put(postBuyUpgradeSuccessActionCreator(response.data))
+    yield put(getUpgrades())
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a vásárlás közben'

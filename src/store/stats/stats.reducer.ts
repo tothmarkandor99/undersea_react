@@ -18,7 +18,6 @@ export const statsReducer = (
         ...state,
         isLoading: true,
         error: undefined,
-        stats: undefined,
       }
     case GET_STATS_SUCCESS:
       return {

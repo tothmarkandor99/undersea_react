@@ -33,6 +33,11 @@ export default function BuildingBox({building}: BuildingBoxProps) {
             backgroundColor: selected ? Colors.opaquestWhite : undefined,
           },
         ]}>
+        {building.remainingRounds !== 0 && (
+          <Text style={styles.remainingTime}>
+            még {building.remainingRounds} kör
+          </Text>
+        )}
         <Image
           style={styles.image}
           resizeMode="contain"
@@ -80,5 +85,12 @@ const styles = StyleSheet.create({
   },
   price: {
     color: Colors.white,
+  },
+  remainingTime: {
+    color: Colors.logoBlue,
+    position: 'absolute',
+    top: Spaces.medium,
+    left: Spaces.medium,
+    fontWeight: 'bold',
   },
 })

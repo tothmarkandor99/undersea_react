@@ -5,7 +5,7 @@ export interface BuildingResponseItem {
   count: number
   price: number
   imageUrl: string
-  remainingRounds: 0
+  remainingRounds: number
 }
 
 export interface BuildingResponse extends Array<BuildingResponseItem> {}

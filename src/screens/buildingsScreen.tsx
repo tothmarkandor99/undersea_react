@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {StyleSheet, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
@@ -37,6 +37,8 @@ function BuildingsScreen({navigation}: BuildingsScreenProps) {
     }
   }, [error])
 
+  const [buttonBarHeight, setButtonBarHeight] = useState<number>(0)
+
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
@@ -61,13 +63,22 @@ function BuildingsScreen({navigation}: BuildingsScreenProps) {
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
-        data={buildings}
+        data={[...buildings, null]}
         renderItem={({item}) => {
-          return <BuildingBox building={item} />
+          if (item !== null) {
+            return <BuildingBox building={item} />
+          } else {
+            return <View style={{height: buttonBarHeight}}></View>
+          }
         }}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item =>
+          item === null ? 'placeholder' : item.id.toString()
+        }
       />
       <ModalButtonBar
+        onLayout={event => {
+          setButtonBarHeight(event.nativeEvent.layout.height)
+        }}
         buttonTitle={Strings.iBuyIt}
         buttonOnPress={build}
         buttonActive={selectedBuildingId !== undefined}

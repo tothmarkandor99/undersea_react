@@ -1,6 +1,6 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, TextInput, View, Text, FlatList} from 'react-native'
+import {StyleSheet, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import {Spaces} from '../constants/spaces'
@@ -40,6 +40,8 @@ function ArmyScreen({navigation}: ArmyScreenProps) {
     }
   }, [error])
 
+  const [buttonBarHeight, setButtonBarHeight] = useState<number>(0)
+
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
@@ -68,13 +70,22 @@ function ArmyScreen({navigation}: ArmyScreenProps) {
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
-        data={purchasableUnits}
+        data={[...purchasableUnits, null]}
         renderItem={({item}) => {
-          return <ArmyBox unit={item} />
+          if (item !== null) {
+            return <ArmyBox unit={item} />
+          } else {
+            return <View style={{height: buttonBarHeight}}></View>
+          }
         }}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item =>
+          item === null ? 'placeholder' : item.id.toString()
+        }
       />
       <ModalButtonBar
+        onLayout={event => {
+          setButtonBarHeight(event.nativeEvent.layout.height)
+        }}
         buttonTitle={Strings.iBuyIt}
         buttonOnPress={buyUnits}
         buttonActive={selectedUnitCount !== 0}

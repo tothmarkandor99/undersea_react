@@ -10,6 +10,7 @@ import {getArmy} from '../store/army/army.actions'
 import {getBuildings} from '../store/building/building.actions'
 import {getFights} from '../store/fight/fight.actions'
 import {getUpgrades} from '../store/upgrade/upgrade.actions'
+import {getAttackUnits} from '../store/attack/attack.actions'
 
 const connection = new signalR.HubConnectionBuilder()
   .configureLogging(Config.signalRLogLevel)
@@ -65,6 +66,7 @@ function setupSignalRReceiver(store: any) {
       store.dispatch(getBuildings())
       store.dispatch(getFights())
       store.dispatch(getUpgrades())
+      store.dispatch(getAttackUnits())
     })
 
     connection.onclose(() =>

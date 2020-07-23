@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react'
 import {StyleSheet, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
-import HeaderWithArrow from '../components/headerWithArrow'
 import {Spaces} from '../constants/spaces'
 import ModalButtonBar from '../components/modalButtonBar'
 import UpgradeBox from '../components/upgradeBox'
@@ -12,7 +11,6 @@ import {getUpgrades, postBuyUpgrade} from '../store/upgrade/upgrade.actions'
 import {showMessage} from 'react-native-flash-message'
 import Loading from '../components/loading'
 import {Colors} from '../constants/colors'
-import {BuyUpgradeRequest} from '../model/upgrade/buyUpgrade.request'
 
 interface UpgradesScreenProps {
   navigation: StackNavigationProp<any>
@@ -38,6 +36,8 @@ function UpgradesScreen({navigation}: UpgradesScreenProps) {
     }
   }, [error])
 
+  const [buttonBarHeight, setButtonBarHeight] = useState<number>(0)
+
   const listHeader = () => {
     return (
       <View style={styles.listHeader}>
@@ -54,13 +54,22 @@ function UpgradesScreen({navigation}: UpgradesScreenProps) {
       <FlatList
         style={styles.listBody}
         ListHeaderComponent={listHeader}
-        data={upgrades}
+        data={[...upgrades, null]}
         renderItem={({item}) => {
-          return <UpgradeBox upgrade={item} />
+          if (item !== null) {
+            return <UpgradeBox upgrade={item} />
+          } else {
+            return <View style={{height: buttonBarHeight}}></View>
+          }
         }}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item =>
+          item === null ? 'placeholder' : item.id.toString()
+        }
       />
       <ModalButtonBar
+        onLayout={event => {
+          setButtonBarHeight(event.nativeEvent.layout.height)
+        }}
         buttonTitle={Strings.iBuyIt}
         buttonOnPress={() => {
           if (selectedId) {

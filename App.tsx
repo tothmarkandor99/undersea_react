@@ -16,6 +16,8 @@ import AdminButton from './src/components/adminButton'
 
 //import signalR from '@microsoft/signalr'
 
+/* TODO: spash screen */
+
 // Resources
 let customFonts = {
   [Fonts.baloo]: require('./assets/fonts/Baloo-Regular.ttf'),

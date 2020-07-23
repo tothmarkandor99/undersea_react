@@ -19,7 +19,7 @@ interface BuildingsScreenProps {
 
 export default BuildingsScreen
 function BuildingsScreen({navigation}: BuildingsScreenProps) {
-  const {buildings, error, isLoading, selectedBuilding} = useSelector(
+  const {buildings, error, isLoading, selectedBuildingId} = useSelector(
     (state: IApplicationState) => state.app.building,
   )
   const dispatch = useDispatch()
@@ -51,8 +51,8 @@ function BuildingsScreen({navigation}: BuildingsScreenProps) {
   }
 
   const build = () => {
-    if (selectedBuilding) {
-      dispatch(postBuild({id: selectedBuilding.id} as BuildRequest))
+    if (selectedBuildingId) {
+      dispatch(postBuild({id: selectedBuildingId} as BuildRequest))
     }
   }
 
@@ -70,7 +70,7 @@ function BuildingsScreen({navigation}: BuildingsScreenProps) {
       <ModalButtonBar
         buttonTitle={Strings.iBuyIt}
         buttonOnPress={build}
-        buttonActive={selectedBuilding !== undefined}
+        buttonActive={selectedBuildingId !== undefined}
       />
       <Loading animating={isLoading} />
     </View>

@@ -1,13 +1,6 @@
 import React, {useEffect} from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  AsyncStorage,
-} from 'react-native'
+import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
@@ -15,6 +8,7 @@ import {Strings} from '../constants/strings'
 import {Fonts} from '../constants/fonts'
 import {Colors} from '../constants/colors'
 import {logout} from '../store/user/user.actions'
+import * as SecureStore from 'expo-secure-store'
 
 interface ProfileModalProps {
   navigation: StackNavigationProp<any>
@@ -33,8 +27,8 @@ function ProfileModal({navigation}: ProfileModalProps) {
 
   useEffect(() => {
     if (!loggedIn) {
-      AsyncStorage.removeItem('access_token')
-      AsyncStorage.removeItem('refresh_token')
+      SecureStore.deleteItemAsync('access_token')
+      SecureStore.deleteItemAsync('refresh_token')
       console.log('Tokens removed')
     }
   }, [loggedIn])

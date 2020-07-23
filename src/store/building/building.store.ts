@@ -4,12 +4,12 @@ export interface BuildingStore {
   isLoading: boolean
   error: string | undefined
   buildings: Building[]
-  selectedBuilding: Building | undefined
+  selectedBuildingId: number | undefined
 }
 
 export const initialBuildingStore: BuildingStore = {
   isLoading: false,
   error: undefined,
   buildings: [],
-  selectedBuilding: undefined,
+  selectedBuildingId: undefined,
 }

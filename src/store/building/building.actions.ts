@@ -6,8 +6,10 @@ import {BuildRequest} from '../../model/building/build.request'
 export const GET_BUILDINGS_REQUEST = 'GET_BUILDINGS_REQUEST'
 export const GET_BUILDINGS_SUCCESS = 'GET_BUILDINGS_SUCCESS'
 export const GET_BUILDINGS_FAILURE = 'GET_BUILDINGS_FAILURE'
+
 export const SELECT_BUILDING = 'SELECT_BUILDING'
 export const RESET_SELECTION = 'RESET_SELECTION'
+
 export const POST_BUILD_REQUEST = 'POST_BUILD_REQUEST'
 export const POST_BUILD_SUCCESS = 'POST_BUILD_SUCCESS'
 export const POST_BUILD_FAILURE = 'POST_BUILD_FAILURE'
@@ -28,11 +30,7 @@ export interface GetBuildingsFailureAction {
 
 export interface SelectBuildingAction {
   type: typeof SELECT_BUILDING
-  building: Building
-}
-
-export interface ResetSelectionAction {
-  type: typeof RESET_SELECTION
+  building: Building | undefined
 }
 
 export interface PostBuildRequestAction {
@@ -55,7 +53,6 @@ export type BuildingActions =
   | GetBuildingsSuccessAction
   | GetBuildingsFailureAction
   | SelectBuildingAction
-  | ResetSelectionAction
   | PostBuildRequestAction
   | PostBuildSuccessAction
   | PostBuildFailureAction
@@ -78,13 +75,11 @@ export const getBuildingsFailureActionCreator = (
   reason,
 })
 
-export const selectBuilding = (building: Building): SelectBuildingAction => ({
+export const selectBuilding = (
+  building: Building | undefined,
+): SelectBuildingAction => ({
   type: SELECT_BUILDING,
   building,
-})
-
-export const resetSelection = (): ResetSelectionAction => ({
-  type: RESET_SELECTION,
 })
 
 export const postBuild = (building: BuildRequest): PostBuildRequestAction => ({

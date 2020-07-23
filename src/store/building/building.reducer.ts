@@ -25,7 +25,7 @@ export const buildingReducer = (
         error: undefined,
         isLoading: true,
         buildings: [],
-        selectedBuilding: undefined,
+        selectedBuildingId: undefined,
       }
     case GET_BUILDINGS_SUCCESS:
       return {
@@ -44,7 +44,7 @@ export const buildingReducer = (
               remainingRounds: item.remainingRounds,
             },
         ),
-        selectedBuilding: undefined,
+        selectedBuildingId: undefined,
       }
     case GET_BUILDINGS_FAILURE:
       return {
@@ -52,21 +52,15 @@ export const buildingReducer = (
         error: action.reason,
         isLoading: false,
         buildings: [],
-        selectedBuilding: undefined,
+        selectedBuildingId: undefined,
       }
     case SELECT_BUILDING:
-      let sel: Building | undefined = action.building
-      if (state.selectedBuilding) {
-        sel = undefined
-      }
       return {
         ...state,
-        selectedBuilding: sel,
-      }
-    case RESET_SELECTION:
-      return {
-        ...state,
-        selectedBuilding: undefined,
+        selectedBuildingId:
+          action.building?.id === state.selectedBuildingId
+            ? undefined
+            : action.building?.id,
       }
     case POST_BUILD_REQUEST:
       return {
@@ -79,14 +73,14 @@ export const buildingReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        selectedBuilding: undefined,
+        selectedBuildingId: undefined,
       }
     case POST_BUILD_FAILURE:
       return {
         ...state,
         error: action.reason,
         isLoading: false,
-        selectedBuilding: undefined,
+        selectedBuildingId: undefined,
       }
     default:
       return state

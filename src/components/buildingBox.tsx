@@ -13,22 +13,19 @@ interface BuildingBoxProps {
 }
 
 export default function BuildingBox({building}: BuildingBoxProps) {
-  const {selectedBuilding} = useSelector(
+  const {selectedBuildingId} = useSelector(
     (state: IApplicationState) => state.app.building,
   )
   const dispatch = useDispatch()
 
-  const selected = selectedBuilding && selectedBuilding.id === building.id
-  const active =
-    (selectedBuilding && selectedBuilding.id === building.id) ||
-    selectedBuilding === undefined
+  const selected = selectedBuildingId && selectedBuildingId === building.id
 
   const select = () => {
     dispatch(selectBuilding(building))
   }
 
   return (
-    <TouchableOpacity onPress={select} disabled={!active}>
+    <TouchableOpacity onPress={select}>
       <View
         style={[
           styles.container,

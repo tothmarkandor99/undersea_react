@@ -24,6 +24,8 @@ export const armyReducer = (
         ...state,
         error: undefined,
         isLoading: true,
+        purchasableUnits: [],
+        selectedUnitCount: 0,
       }
     case GET_ARMY_SUCCESS:
       return {

@@ -24,6 +24,8 @@ export const buildingReducer = (
         ...state,
         error: undefined,
         isLoading: true,
+        buildings: [],
+        selectedBuilding: undefined,
       }
     case GET_BUILDINGS_SUCCESS:
       return {

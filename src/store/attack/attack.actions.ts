@@ -1,4 +1,4 @@
-import {SearchRequest} from '../../model/search.request'
+import {SearchRequest} from '../../model/search/search.request'
 import {AttackTargetsResponse} from '../../model/attack/attackTargets.response'
 import {AttackUnitsResponse} from '../../model/attack/attackUnits.response'
 import {AttackTarget} from '../../model/attack/attackTarget'

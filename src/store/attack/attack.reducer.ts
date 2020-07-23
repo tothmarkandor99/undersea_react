@@ -32,6 +32,8 @@ export const attackReducer = (
         ...state,
         error: undefined,
         isLoading: true,
+        attackTargets: [],
+        selectedTargetId: undefined,
       }
     case GET_ATTACK_TARGETS_SUCCESS:
       return {
@@ -53,12 +55,16 @@ export const attackReducer = (
         ...state,
         error: action.reason,
         isLoading: false,
+        attackTargets: [],
+        selectedTargetId: undefined,
       }
     case GET_ATTACK_UNITS_REQUEST:
       return {
         ...state,
         isLoading: true,
         error: undefined,
+        attackUnits: [],
+        selectedUnits: [],
       }
     case GET_ATTACK_UNITS_SUCCESS:
       return {
@@ -81,6 +87,8 @@ export const attackReducer = (
         ...state,
         isLoading: false,
         error: action.reason,
+        attackUnits: [],
+        selectedUnits: [],
       }
     case SELECT_ATTACK_TARGET:
       return {

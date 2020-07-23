@@ -4,10 +4,14 @@ import {StyleSheet, View, Text, FlatList} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {IApplicationState} from '../../store'
 import {Spaces} from '../constants/spaces'
-import {getHighscores} from '../store/highscore/highscore.actions'
+import {
+  getHighscores,
+  setSearchPhrase,
+} from '../store/highscore/highscore.actions'
 import SearchField from '../components/searchField'
 import {Colors} from '../constants/colors'
 import Loading from '../components/loading'
+import {SearchRequest} from '../model/search/search.request'
 
 interface HighscoreModalProps {
   navigation: StackNavigationProp<any>
@@ -15,30 +19,25 @@ interface HighscoreModalProps {
 
 export default HighscoreModal
 function HighscoreModal({navigation}: HighscoreModalProps) {
-  const {scores, error, isLoading} = useSelector(
+  const {scores, error, isLoading, search} = useSelector(
     (state: IApplicationState) => state.app.highscore,
   )
   const dispatch = useDispatch()
 
-  const [searchPhrase, setSearchPhrase] = useState<string>('')
-  const [page, setPage] = useState<number>(1)
-  const [itemPerPage, setItemPerPage] = useState<number>(10)
-
   useEffect(() => {
-    dispatch(
-      getHighscores({
-        searchPhrase: searchPhrase,
-        page: page,
-        itemPerPage: itemPerPage,
-      }),
-    )
-  }, [searchPhrase, page, itemPerPage, dispatch])
+    dispatch(getHighscores(search as SearchRequest))
+  }, [dispatch, search.searchPhrase, search.page, search.itemPerPage])
 
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         <View style={styles.highscoreRow}>
-          <SearchField value={searchPhrase} onChangeText={setSearchPhrase} />
+          <SearchField
+            value={search.searchPhrase}
+            onChangeText={text => {
+              dispatch(setSearchPhrase(text))
+            }}
+          />
         </View>
         <FlatList
           data={scores}

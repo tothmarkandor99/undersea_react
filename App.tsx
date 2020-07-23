@@ -13,6 +13,9 @@ import Navi from './src/navigation/navigation'
 import {Fonts} from './src/constants/fonts'
 import FlashMessage from 'react-native-flash-message'
 import AdminButton from './src/components/adminButton'
+import SignalRService from './src/components/signalRService'
+
+//import signalR from '@microsoft/signalr'
 
 // Resources
 let customFonts = {
@@ -34,6 +37,7 @@ export default function App() {
       <Provider store={store}>
         <Navi />
         <AdminButton />
+        <SignalRService />
         <FlashMessage duration={3000} />
       </Provider>
     )

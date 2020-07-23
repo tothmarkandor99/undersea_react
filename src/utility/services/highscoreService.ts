@@ -1,5 +1,5 @@
 import Network from '../network'
-import {SearchRequest} from '../../model/search.request'
+import {SearchRequest} from '../../model/search/search.request'
 
 const SEARCH_ROUTE = 'Scoreboard'
 

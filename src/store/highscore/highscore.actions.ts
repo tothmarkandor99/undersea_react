@@ -1,9 +1,11 @@
 import {HighscoreResponse} from '../../model/score/highscore.response'
-import {SearchRequest} from '../../model/search.request'
+import {SearchRequest} from '../../model/search/search.request'
 
 export const GET_HIGHSCORES_REQUEST = 'GET_HIGHSCORES_REQUEST'
 export const GET_HIGHSCORES_SUCCESS = 'GET_HIGHSCORES_SUCCESS'
 export const GET_HIGHSCORES_FAILURE = 'GET_HIGHSCORES_FAILURE'
+
+export const SET_SEARCH_PHRASE = 'SET_SEARCH_PHRASE'
 
 export interface GetHighscoresRequestAction {
   type: typeof GET_HIGHSCORES_REQUEST
@@ -20,10 +22,16 @@ export interface GetHighscoresFailureAction {
   reason: string | undefined
 }
 
+export interface SetSearchPhraseAction {
+  type: typeof SET_SEARCH_PHRASE
+  searchPhrase: string
+}
+
 export type HighscoreActions =
   | GetHighscoresRequestAction
   | GetHighscoresSuccessAction
   | GetHighscoresFailureAction
+  | SetSearchPhraseAction
 
 export const getHighscores = (
   search: SearchRequest,
@@ -44,4 +52,11 @@ export const getHighscoresFailureActionCreator = (
 ): GetHighscoresFailureAction => ({
   type: GET_HIGHSCORES_FAILURE,
   reason,
+})
+
+export const setSearchPhrase = (
+  searchPhrase: string,
+): SetSearchPhraseAction => ({
+  type: SET_SEARCH_PHRASE,
+  searchPhrase,
 })

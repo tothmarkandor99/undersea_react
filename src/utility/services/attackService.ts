@@ -1,4 +1,4 @@
-import {SearchRequest} from '../../model/search.request'
+import {SearchRequest} from '../../model/search/search.request'
 import Network from '../network'
 import {AttackRequest} from '../../model/attack/attack.request'
 

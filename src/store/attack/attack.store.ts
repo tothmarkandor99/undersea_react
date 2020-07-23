@@ -1,6 +1,8 @@
 import {AttackTarget} from '../../model/attack/attackTarget'
 import {AttackUnit} from '../../model/attack/attackUnit'
 import {AttackIdCount} from '../../model/attack/attackIdCount'
+import {Search} from '../../model/search/search'
+import {Config} from '../../constants/config'
 
 export interface AttackStore {
   isLoading: boolean
@@ -9,6 +11,7 @@ export interface AttackStore {
   attackUnits: AttackUnit[]
   selectedUnits: AttackIdCount[] // TODO: remove redundancy
   selectedTargetId: number | undefined
+  search: Search
 }
 
 export const initialAttackStore: AttackStore = {
@@ -18,4 +21,9 @@ export const initialAttackStore: AttackStore = {
   attackUnits: [],
   selectedUnits: [],
   selectedTargetId: undefined,
+  search: {
+    searchPhrase: '',
+    page: 1,
+    itemPerPage: Config.defaultSearchItemsPerPage,
+  },
 }

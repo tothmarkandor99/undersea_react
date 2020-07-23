@@ -17,6 +17,7 @@ export const fightReducer = (
         ...state,
         error: undefined,
         isLoading: true,
+        fights: [],
       }
     case GET_FIGHTS_SUCCESS:
       return {

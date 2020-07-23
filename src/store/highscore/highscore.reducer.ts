@@ -5,7 +5,10 @@ import {
   GET_HIGHSCORES_REQUEST,
   GET_HIGHSCORES_SUCCESS,
   GET_HIGHSCORES_FAILURE,
+  SET_SEARCH_PHRASE,
 } from './highscore.actions'
+import {Search} from '../../model/search/search'
+import {Config} from '../../constants/config'
 
 export const highscoreReducer = (
   state = initialHighscoreStore,
@@ -17,6 +20,7 @@ export const highscoreReducer = (
         ...state,
         error: undefined,
         isLoading: true,
+        scores: [],
       }
     case GET_HIGHSCORES_SUCCESS:
       return {
@@ -37,6 +41,15 @@ export const highscoreReducer = (
         error: action.reason,
         isLoading: false,
         scores: [],
+      }
+    case SET_SEARCH_PHRASE:
+      return {
+        ...state,
+        search: <Search>{
+          searchPhrase: action.searchPhrase,
+          itemPerPage: Config.defaultSearchItemsPerPage,
+          page: 1,
+        },
       }
     default:
       return state

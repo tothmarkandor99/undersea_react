@@ -21,6 +21,7 @@ function* getStatsActionWatcher(action: GetStatsRequestAction) {
   try {
     const response: AxiosResponse<StatsResponse> = yield statsService.getStats()
     yield put(getStatsSuccessActionCreator(response.data))
+    //yield put()
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a betöltés közben'

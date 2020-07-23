@@ -34,7 +34,6 @@ const GameScreen = ({navigation}: GameScreenProps) => {
 
   return (
     <View style={styles.container}>
-      {/* TODO: status bar */}
       <GameHeader navigation={navigation} />
       <ImageBackground
         style={styles.main}

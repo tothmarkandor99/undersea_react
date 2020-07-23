@@ -16,7 +16,7 @@ export default function SignalRService() {
   const {search} = useSelector(
     (state: IApplicationState) => state.app.highscore,
   )
-  const {loggedIn} = useSelector((state: IApplicationState) => state.app.user)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -28,15 +28,16 @@ export default function SignalRService() {
       .build()
 
     connection.on('newround', () => {
-      console.log('SignalR message received. Logged in?', loggedIn)
-      if (loggedIn) {
+      console.log('SignalR message received. Setting timeout')
+      setTimeout(() => {
+        console.log('Updating models')
         dispatch(getStats())
         dispatch(getArmy())
         dispatch(getBuildings())
         dispatch(getFights())
         dispatch(getHighscores(search as SearchRequest))
         dispatch(getUpgrades())
-      }
+      }, 15000)
     })
 
     connection.start().then(() => {

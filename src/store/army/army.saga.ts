@@ -13,6 +13,7 @@ import {AxiosResponse} from 'axios'
 import {PurchasableUnitResponse} from '../../model/army/purchasableUnit.response'
 import armyService from '../../utility/services/armyService'
 import {PurchaseUnitResponse} from '../../model/army/purchaseUnit.response'
+import {getAttackUnits} from '../attack/attack.actions'
 
 export function* armySaga() {
   yield all([watchGet(), watchPost()])
@@ -43,6 +44,7 @@ function* postBuyArmyActionWatcher(action: PostBuyArmyRequestAction) {
       action.army,
     )
     yield put(postBuyArmySuccessActionCreator(response.data))
+    yield put(getAttackUnits())
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a vásárlás közben'

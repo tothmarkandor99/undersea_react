@@ -5,6 +5,7 @@ import {Spaces} from '../constants/spaces'
 import {StackNavigationProp} from '@react-navigation/stack'
 import LogoSvg from '../../assets/img/logo'
 import {Colors} from '../constants/colors'
+import Constants from 'expo-constants'
 
 interface GameHeaderProps {
   navigation: StackNavigationProp<any>
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingTop: Constants.statusBarHeight,
   },
   avatar: {
     width: RFValue(31, 568),

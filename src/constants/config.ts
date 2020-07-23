@@ -6,6 +6,7 @@ interface ConfigProps {
   loggingRedux: 'none' | 'names' | 'full'
   loggingRequests: boolean
   loggingResponses: boolean
+  loggingSignalR: boolean
   defaultSearchItemsPerPage: number
   signalRLogLevel: signalR.LogLevel
 }
@@ -16,6 +17,7 @@ export const Config: ConfigProps = {
   loggingRedux: 'names',
   loggingRequests: false,
   loggingResponses: false,
+  loggingSignalR: false,
   defaultSearchItemsPerPage: 10,
   signalRLogLevel: signalR.LogLevel.None,
 }

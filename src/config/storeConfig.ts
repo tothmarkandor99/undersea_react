@@ -53,14 +53,26 @@ function loggerMiddleware(store: any) {
 const startSignalRConnection = (connection: signalR.HubConnection) =>
   connection
     .start()
-    .then(() => console.info('SignalR Connected'))
-    .catch(err => console.error('SignalR Connection Error: ', err))
+    .then(() => {
+      if (Config.loggingSignalR) {
+        console.info('SignalR Connected')
+      }
+    })
+    .catch(err => {
+      if (Config.loggingSignalR) {
+        console.error('SignalR Connection Error: ', err)
+      }
+    })
 
 function setupSignalRReceiver(store: any) {
-  console.log('Connection state:', connection.state)
+  if (Config.loggingSignalR) {
+    console.log('Connection state:', connection.state)
+  }
   if (connection.state === signalR.HubConnectionState.Disconnected) {
     connection.on('newround', () => {
-      console.log('SignalR message received')
+      if (Config.loggingSignalR) {
+        console.log('SignalR message received')
+      }
       store.dispatch(getStats())
       store.dispatch(getArmy())
       store.dispatch(getBuildings())

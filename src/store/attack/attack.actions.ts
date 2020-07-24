@@ -21,7 +21,7 @@ export const POST_ATTACK_REQUEST = 'POST_ATTACK_REQUEST'
 export const POST_ATTACK_SUCCESS = 'POST_ATTACK_SUCCESS'
 export const POST_ATTACK_FAILURE = 'POST_ATTACK_FAILURE'
 
-export const SET_SEARCH_PHRASE = 'SET_SEARCH_PHRASE'
+export const SET_ATTACK_TARGET_SEARCH_PHRASE = 'SET_ATTACK_TARGET_SEARCH_PHRASE'
 
 export interface GetAttackTargetsRequestAction {
   type: typeof GET_ATTACK_TARGETS_REQUEST
@@ -79,7 +79,7 @@ export interface PostAttackFailureAction {
 }
 
 export interface SetSearchPhraseAction {
-  type: typeof SET_SEARCH_PHRASE
+  type: typeof SET_ATTACK_TARGET_SEARCH_PHRASE
   searchPhrase: string
 }
 
@@ -174,6 +174,6 @@ export const postAttackFailureActionCreator = (
 export const setSearchPhrase = (
   searchPhrase: string,
 ): SetSearchPhraseAction => ({
-  type: SET_SEARCH_PHRASE,
+  type: SET_ATTACK_TARGET_SEARCH_PHRASE,
   searchPhrase,
 })

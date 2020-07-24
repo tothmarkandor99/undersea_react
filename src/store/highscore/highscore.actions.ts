@@ -5,7 +5,7 @@ export const GET_HIGHSCORES_REQUEST = 'GET_HIGHSCORES_REQUEST'
 export const GET_HIGHSCORES_SUCCESS = 'GET_HIGHSCORES_SUCCESS'
 export const GET_HIGHSCORES_FAILURE = 'GET_HIGHSCORES_FAILURE'
 
-export const SET_SEARCH_PHRASE = 'SET_SEARCH_PHRASE'
+export const SET_HIGHSCORE_SEARCH_PHRASE = 'SET_HIGHSCORE_SEARCH_PHRASE'
 
 export interface GetHighscoresRequestAction {
   type: typeof GET_HIGHSCORES_REQUEST
@@ -23,7 +23,7 @@ export interface GetHighscoresFailureAction {
 }
 
 export interface SetSearchPhraseAction {
-  type: typeof SET_SEARCH_PHRASE
+  type: typeof SET_HIGHSCORE_SEARCH_PHRASE
   searchPhrase: string
 }
 
@@ -57,6 +57,6 @@ export const getHighscoresFailureActionCreator = (
 export const setSearchPhrase = (
   searchPhrase: string,
 ): SetSearchPhraseAction => ({
-  type: SET_SEARCH_PHRASE,
+  type: SET_HIGHSCORE_SEARCH_PHRASE,
   searchPhrase,
 })

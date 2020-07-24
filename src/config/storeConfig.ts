@@ -14,7 +14,9 @@ import {getAttackUnits} from '../store/attack/attack.actions'
 
 const connection = new signalR.HubConnectionBuilder()
   .configureLogging(Config.signalRLogLevel)
-  .withUrl('http://underseat2lasttry.webtest.encosoft.internal/api/newround')
+  .withUrl(
+    'http://underseat2lasttry.webtest.encosoft.internal/api/newround',
+  ) /* TODO: kiszervezni configba */
   .build()
 
 export function configureStore() {

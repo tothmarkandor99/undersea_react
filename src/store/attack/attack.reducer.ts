@@ -17,7 +17,7 @@ import {AttackTarget} from '../../model/attack/attackTarget'
 import {AttackUnit} from '../../model/attack/attackUnit'
 import {AttackResponse} from '../../model/attack/attack.response'
 import {Config} from '../../constants/config'
-import {SET_SEARCH_PHRASE} from '../highscore/highscore.actions'
+import {SET_HIGHSCORE_SEARCH_PHRASE} from '../highscore/highscore.actions'
 import {Search} from '../../model/search/search'
 
 export const attackReducer = (
@@ -140,7 +140,7 @@ export const attackReducer = (
         isLoading: false,
         error: action.reason,
       }
-    case SET_SEARCH_PHRASE:
+    case SET_HIGHSCORE_SEARCH_PHRASE:
       return {
         ...state,
         search: <Search>{

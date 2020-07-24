@@ -5,7 +5,7 @@ import {
   GET_HIGHSCORES_REQUEST,
   GET_HIGHSCORES_SUCCESS,
   GET_HIGHSCORES_FAILURE,
-  SET_SEARCH_PHRASE,
+  SET_HIGHSCORE_SEARCH_PHRASE,
 } from './highscore.actions'
 import {Search} from '../../model/search/search'
 import {Config} from '../../constants/config'
@@ -43,7 +43,7 @@ export const highscoreReducer = (
         isLoading: false,
         scores: [],
       }
-    case SET_SEARCH_PHRASE:
+    case SET_HIGHSCORE_SEARCH_PHRASE:
       return {
         ...state,
         search: <Search>{

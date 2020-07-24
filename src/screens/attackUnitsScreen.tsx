@@ -9,7 +9,7 @@ import AttackUnitBox from '../components/attackUnitBox'
 import {Strings} from '../constants/strings'
 import {getAttackUnits, attack} from '../store/attack/attack.actions'
 import Loading from '../components/loading'
-import {AttackRequestItem} from '../model/attack/attack.request'
+import {AttackRequestItem, AttackRequest} from '../model/attack/attack.request'
 import {Colors} from '../constants/colors'
 import {Fonts} from '../constants/fonts'
 
@@ -24,8 +24,8 @@ export default function AttackUnitsScreen({
     attackUnits,
     error,
     isLoading,
-    selectedUnits,
     selectedTargetId,
+    selectedUnitsCount,
   } = useSelector((state: IApplicationState) => state.app.attack)
   const dispatch = useDispatch()
 
@@ -44,13 +44,21 @@ export default function AttackUnitsScreen({
 
   const tryAttack = () => {
     if (selectedTargetId) {
+      let selectedUnits: AttackRequestItem[] = []
+      attackUnits.forEach(item => {
+        if (item.count > 0) {
+          selectedUnits.push({
+            id: item.id,
+            sendCount: item.count,
+          } as AttackRequestItem)
+        }
+      })
+
       dispatch(
         attack({
           defenderUserId: selectedTargetId,
-          attackingUnits: selectedUnits.map(item => {
-            return {id: item.id, sendCount: item.count} as AttackRequestItem
-          }),
-        }),
+          attackingUnits: selectedUnits,
+        } as AttackRequest),
       )
     }
   }
@@ -84,7 +92,7 @@ export default function AttackUnitsScreen({
         <ModalButtonBar
           buttonTitle={Strings.attack}
           buttonOnPress={tryAttack}
-          buttonActive={!isLoading && selectedUnits.length !== 0}
+          buttonActive={!isLoading && selectedUnitsCount !== 0}
         />
       </View>
       <Loading animating={isLoading} />

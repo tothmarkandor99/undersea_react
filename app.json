@@ -10,7 +10,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "platforms": ["ios", "android"],
+    "platforms": ["ios", "android", "web"],
     "updates": {
       "fallbackToCacheTimeout": 0
     },

@@ -17,7 +17,7 @@ export const Config: ConfigProps = {
   loggingRedux: 'names',
   loggingRequests: false,
   loggingResponses: false,
-  loggingSignalR: false,
+  loggingSignalR: true,
   defaultSearchItemsPerPage: 10,
   signalRLogLevel: signalR.LogLevel.None,
 }

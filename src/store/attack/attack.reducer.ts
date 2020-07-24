@@ -15,11 +15,7 @@ import {
 } from './attack.actions'
 import {AttackTarget} from '../../model/attack/attackTarget'
 import {AttackUnit} from '../../model/attack/attackUnit'
-import {AttackIdCount} from '../../model/attack/attackIdCount'
-import {
-  AttackResponseItem,
-  AttackResponse,
-} from '../../model/attack/attack.response'
+import {AttackResponse} from '../../model/attack/attack.response'
 import {Config} from '../../constants/config'
 import {SET_SEARCH_PHRASE} from '../highscore/highscore.actions'
 import {Search} from '../../model/search/search'
@@ -66,7 +62,7 @@ export const attackReducer = (
         isLoading: true,
         error: undefined,
         attackUnits: [],
-        selectedUnits: [],
+        selectedUnitsCount: 0,
       }
     case GET_ATTACK_UNITS_SUCCESS:
       return {
@@ -83,6 +79,7 @@ export const attackReducer = (
               count: 0,
             },
         ),
+        selectedUnitsCount: 0,
       }
     case GET_ATTACK_UNITS_FAILURE:
       return {
@@ -90,7 +87,7 @@ export const attackReducer = (
         isLoading: false,
         error: action.reason,
         attackUnits: [],
-        selectedUnits: [],
+        selectedUnitsCount: 0,
       }
     case SELECT_ATTACK_TARGET:
       return {
@@ -101,36 +98,19 @@ export const attackReducer = (
             : action.target.id,
       }
     case SET_ATTACK_UNIT_COUNT:
-      let newSelectedUnits: AttackIdCount[] = []
-      let containsNew = false
-      state.selectedUnits.forEach(item => {
-        if (item.id === action.unit.id) {
-          containsNew = true
-          if (action.count > 0) {
-            newSelectedUnits.push({count: action.count, id: item.id})
-          }
-        } else {
-          newSelectedUnits.push(item)
-        }
-      })
-      if (!containsNew) {
-        newSelectedUnits.push({id: action.unit.id, count: action.count})
-      }
       return {
         ...state,
         attackUnits: state.attackUnits.map(
           item =>
             <AttackUnit>{
               ...item,
-              count:
-                item.id === action.unit.id &&
-                action.count <= item.maxCount &&
-                action.count >= 0
-                  ? action.count
-                  : item.count,
+              count: item.id === action.unit.id ? action.count : item.count,
             },
         ),
-        selectedUnits: newSelectedUnits,
+        selectedUnitsCount:
+          state.selectedUnitsCount -
+          countFromAttackUnitId(state.attackUnits, action.unit.id) +
+          action.count,
       }
     case POST_ATTACK_REQUEST:
       return {
@@ -143,12 +123,13 @@ export const attackReducer = (
         ...state,
         error: undefined,
         isLoading: false,
-        selectedUnits: [],
         attackUnits: state.attackUnits.map(
           item =>
             <AttackUnit>{
               ...item,
-              maxCount: item.maxCount - countFromId(action.response, item.id),
+              maxCount:
+                item.maxCount -
+                countFromAttackResponseId(action.response, item.id),
               count: 0,
             },
         ),
@@ -173,10 +154,25 @@ export const attackReducer = (
   }
 }
 
-const countFromId = (response: AttackResponse, id: number): number => {
+const countFromAttackResponseId = (
+  response: AttackResponse,
+  id: number,
+): number => {
   for (let i: number = 0; i < response.length; i++) {
     if (response[i].typeId === id) {
       return response[i].count
+    }
+  }
+  return 0
+}
+
+const countFromAttackUnitId = (
+  attackUnits: AttackUnit[],
+  id: number,
+): number => {
+  for (let i: number = 0; i < attackUnits.length; i++) {
+    if (attackUnits[i].id === id) {
+      return attackUnits[i].count
     }
   }
   return 0

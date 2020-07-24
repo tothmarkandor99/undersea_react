@@ -73,12 +73,14 @@ function setupSignalRReceiver(store: any) {
       if (Config.loggingSignalR) {
         console.log('SignalR message received')
       }
-      store.dispatch(getStats())
-      store.dispatch(getArmy())
-      store.dispatch(getBuildings())
-      store.dispatch(getFights())
-      store.dispatch(getUpgrades())
-      store.dispatch(getAttackUnits())
+      setTimeout(() => {
+        store.dispatch(getStats())
+        store.dispatch(getArmy())
+        store.dispatch(getBuildings())
+        store.dispatch(getFights())
+        store.dispatch(getUpgrades())
+        store.dispatch(getAttackUnits())
+      }, 5000)
     })
 
     connection.onclose(() =>

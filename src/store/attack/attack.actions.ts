@@ -22,6 +22,8 @@ export const POST_ATTACK_SUCCESS = 'POST_ATTACK_SUCCESS'
 export const POST_ATTACK_FAILURE = 'POST_ATTACK_FAILURE'
 
 export const SET_ATTACK_TARGET_SEARCH_PHRASE = 'SET_ATTACK_TARGET_SEARCH_PHRASE'
+export const INCREMENT_ATTACK_TARGETS_PAGE = 'INCREMENT_ATTACK_TARGETS_PAGE'
+export const APPEND_NEW_ATTACK_TARGETS = 'APPEND_NEW_ATTACK_TARGETS'
 
 export interface GetAttackTargetsRequestAction {
   type: typeof GET_ATTACK_TARGETS_REQUEST
@@ -83,6 +85,15 @@ export interface SetSearchPhraseAction {
   searchPhrase: string
 }
 
+export interface IncrementAttackTargetsPageAction {
+  type: typeof INCREMENT_ATTACK_TARGETS_PAGE
+}
+
+export interface AppendNewAttackTargetsSuccessAction {
+  type: typeof APPEND_NEW_ATTACK_TARGETS
+  response: AttackTargetsResponse
+}
+
 export type AttackActions =
   | GetAttackTargetsRequestAction
   | GetAttackTargetsSuccessAction
@@ -96,6 +107,8 @@ export type AttackActions =
   | PostAttackSuccessAction
   | PostAttackFailureAction
   | SetSearchPhraseAction
+  | IncrementAttackTargetsPageAction
+  | AppendNewAttackTargetsSuccessAction
 
 export const getAttackTargets = (
   search: SearchRequest,
@@ -176,4 +189,15 @@ export const setSearchPhrase = (
 ): SetSearchPhraseAction => ({
   type: SET_ATTACK_TARGET_SEARCH_PHRASE,
   searchPhrase,
+})
+
+export const incrementAttackTargetsPage = (): IncrementAttackTargetsPageAction => ({
+  type: INCREMENT_ATTACK_TARGETS_PAGE,
+})
+
+export const appendNewAttackTargetsSuccessActionCreator = (
+  scores: AttackTargetsResponse,
+): AppendNewAttackTargetsSuccessAction => ({
+  type: APPEND_NEW_ATTACK_TARGETS,
+  response: scores,
 })

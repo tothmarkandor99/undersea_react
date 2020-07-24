@@ -11,6 +11,7 @@ export interface AttackStore {
   selectedTargetId: number | undefined
   selectedUnitsCount: number
   search: Search
+  endReached: boolean
 }
 
 export const initialAttackStore: AttackStore = {
@@ -25,4 +26,5 @@ export const initialAttackStore: AttackStore = {
     page: 1,
     itemPerPage: Config.defaultSearchItemsPerPage,
   },
+  endReached: false,
 }

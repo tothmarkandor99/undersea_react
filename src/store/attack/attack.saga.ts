@@ -12,6 +12,7 @@ import {
   PostAttackRequestAction,
   getAttackUnitsSuccessActionCreator,
   postAttackSuccessActionCreator,
+  appendNewAttackTargetsSuccessActionCreator,
 } from './attack.actions'
 import {debounce, all, takeEvery, put} from 'redux-saga/effects'
 import {AttackTargetsResponse} from '../../model/attack/attackTargets.response'
@@ -20,6 +21,7 @@ import attackService from '../../utility/services/attackService'
 import {AttackUnitsResponse} from '../../model/attack/attackUnits.response'
 import {AttackResponse} from '../../model/attack/attack.response'
 import {getFights} from '../fight/fight.actions'
+import {reset} from '../../../store'
 
 export function* attackSaga() {
   yield all([watchGetTargets(), watchGetUnits(), watchPost()])
@@ -46,7 +48,11 @@ function* getAttackTargetsActionWatcher(action: GetAttackTargetsRequestAction) {
     const response: AxiosResponse<AttackTargetsResponse> = yield attackService.getAttackTargets(
       action.search,
     )
-    yield put(getAttackTargetsSuccessActionCreator(response.data))
+    if (action.search.page === 1) {
+      yield put(getAttackTargetsSuccessActionCreator(response.data))
+    } else {
+      yield put(appendNewAttackTargetsSuccessActionCreator(response.data))
+    }
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a betöltés közben'

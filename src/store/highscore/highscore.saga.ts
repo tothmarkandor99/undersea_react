@@ -5,6 +5,7 @@ import {
   GetHighscoresRequestAction,
   getHighscoresSuccessActionCreator,
   getHighscoresFailureActionCreator,
+  appendNewHighscoresSuccessActionCreator,
 } from './highscore.actions'
 import highscoreService from '../../utility/services/highscoreService'
 import {HighscoreResponse} from '../../model/score/highscore.response'
@@ -22,7 +23,11 @@ function* getHighscoresActionWatcher(action: GetHighscoresRequestAction) {
     const response: AxiosResponse<HighscoreResponse> = yield highscoreService.searchHighscores(
       action.search,
     )
-    yield put(getHighscoresSuccessActionCreator(response.data))
+    if (action.search.page === 1) {
+      yield put(getHighscoresSuccessActionCreator(response.data))
+    } else {
+      yield put(appendNewHighscoresSuccessActionCreator(response.data))
+    }
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a betöltés közben'

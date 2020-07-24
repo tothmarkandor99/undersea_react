@@ -12,12 +12,12 @@ interface ConfigProps {
 }
 
 export const Config: ConfigProps = {
-  baseUrl: 'http://underseat2.webtest.encosoft.internal/api',
-  resourceUrl: 'http://underseat2.webtest.encosoft.internal',
-  loggingRedux: 'none',
+  baseUrl: 'http://underseat2lasttry.webtest.encosoft.internal/api',
+  resourceUrl: 'http://underseat2lasttry.webtest.encosoft.internal',
+  loggingRedux: 'names',
   loggingRequests: false,
   loggingResponses: false,
-  loggingSignalR: false,
-  defaultSearchItemsPerPage: 10,
+  loggingSignalR: true,
+  defaultSearchItemsPerPage: 15,
   signalRLogLevel: signalR.LogLevel.None,
 }

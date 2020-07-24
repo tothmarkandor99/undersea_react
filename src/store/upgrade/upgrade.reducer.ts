@@ -23,8 +23,6 @@ export const upgradeReducer = (
         ...state,
         error: undefined,
         isLoading: true,
-        upgrades: [],
-        selectedId: undefined,
       }
     case GET_UPGRADES_SUCCESS:
       return {

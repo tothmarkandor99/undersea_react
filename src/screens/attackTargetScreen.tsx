@@ -8,7 +8,11 @@ import ModalButtonBar from '../components/modalButtonBar'
 import AttackTargetBox from '../components/attackTargetBox'
 import SearchField from '../components/searchField'
 import {Strings} from '../constants/strings'
-import {getAttackTargets, setSearchPhrase} from '../store/attack/attack.actions'
+import {
+  getAttackTargets,
+  setSearchPhrase,
+  incrementAttackTargetsPage,
+} from '../store/attack/attack.actions'
 import {SearchRequest} from '../model/search/search.request'
 import Loading from '../components/loading'
 import {Colors} from '../constants/colors'
@@ -76,6 +80,9 @@ export default function AttackTargetScreen({
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         <FlatList
+          onEndReached={() => {
+            dispatch(incrementAttackTargetsPage())
+          }}
           ListEmptyComponent={renderEmptyList}
           style={styles.listBody}
           ListHeaderComponent={renderListHeader}

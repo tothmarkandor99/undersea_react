@@ -7,6 +7,7 @@ export interface HighscoreStore {
   error: string | undefined
   scores: ScoreboardItem[]
   search: Search
+  endReached: boolean
 }
 
 export const initialHighscoreStore: HighscoreStore = {
@@ -18,4 +19,5 @@ export const initialHighscoreStore: HighscoreStore = {
     page: 1,
     itemPerPage: Config.defaultSearchItemsPerPage,
   },
+  endReached: false,
 }

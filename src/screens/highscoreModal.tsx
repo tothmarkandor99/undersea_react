@@ -7,6 +7,7 @@ import {Spaces} from '../constants/spaces'
 import {
   getHighscores,
   setSearchPhrase,
+  incrementHighscorePage,
 } from '../store/highscore/highscore.actions'
 import SearchField from '../components/searchField'
 import {Colors} from '../constants/colors'
@@ -50,6 +51,9 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
           />
         </View>
         <FlatList
+          onEndReached={() => {
+            dispatch(incrementHighscorePage())
+          }}
           data={scores}
           renderItem={({item, index}) => {
             return (

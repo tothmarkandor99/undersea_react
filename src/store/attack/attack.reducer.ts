@@ -12,6 +12,9 @@ import {
   POST_ATTACK_REQUEST,
   POST_ATTACK_SUCCESS,
   POST_ATTACK_FAILURE,
+  SET_ATTACK_TARGET_SEARCH_PHRASE,
+  INCREMENT_ATTACK_TARGETS_PAGE,
+  APPEND_NEW_ATTACK_TARGETS,
 } from './attack.actions'
 import {AttackTarget} from '../../model/attack/attackTarget'
 import {AttackUnit} from '../../model/attack/attackUnit'
@@ -30,8 +33,6 @@ export const attackReducer = (
         ...state,
         error: undefined,
         isLoading: true,
-        attackTargets: [],
-        selectedTargetId: undefined,
       }
     case GET_ATTACK_TARGETS_SUCCESS:
       return {
@@ -140,7 +141,7 @@ export const attackReducer = (
         isLoading: false,
         error: action.reason,
       }
-    case SET_HIGHSCORE_SEARCH_PHRASE:
+    case SET_ATTACK_TARGET_SEARCH_PHRASE:
       return {
         ...state,
         search: <Search>{
@@ -148,6 +149,43 @@ export const attackReducer = (
           itemPerPage: Config.defaultSearchItemsPerPage,
           page: 1,
         },
+      }
+    case INCREMENT_ATTACK_TARGETS_PAGE:
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          page: state.endReached ? state.search.page : state.search.page + 1,
+        },
+      }
+    case APPEND_NEW_ATTACK_TARGETS:
+      if (
+        !state.endReached &&
+        action.response.length < Config.defaultSearchItemsPerPage
+      ) {
+        return {
+          ...state,
+          endReached: true,
+          isLoading: false,
+          error: undefined,
+        }
+      } else {
+        return {
+          ...state,
+          error: undefined,
+          isLoading: false,
+          endReached: false,
+          attackTargets: state.attackTargets.concat(
+            action.response.map(
+              item =>
+                <AttackTarget>{
+                  id: item.id,
+                  name: item.userName,
+                  selected: false,
+                },
+            ),
+          ),
+        }
       }
     default:
       return state

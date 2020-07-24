@@ -23,6 +23,8 @@ interface CityScreenProps {
   navigation: StackNavigationProp<any>
 }
 
+const width = Dimensions.get('window').width
+
 export default function CityScreen({navigation}: CityScreenProps) {
   const [index, setIndex] = useState(0)
   const [routes] = useState([
@@ -69,10 +71,13 @@ export default function CityScreen({navigation}: CityScreenProps) {
               key={route.key}
               style={styles.tabItem}
               onPress={() => setIndex(index)}>
-              <Text
-                style={[styles.tabText, selected && {borderBottomWidth: 2}]}>
-                {route.title}
-              </Text>
+              <View
+                style={[
+                  styles.tabTextContainer,
+                  selected && {borderBottomWidth: 2},
+                ]}>
+                <Text style={styles.tabText}>{route.title}</Text>
+              </View>
             </TouchableOpacity>
           )
         })}
@@ -101,13 +106,16 @@ const styles = StyleSheet.create({
   tabItem: {
     flex: 1,
     alignItems: 'center',
-    padding: 16,
+  },
+  tabTextContainer: {
+    borderColor: Colors.logoBlue,
+    textAlign: 'center',
   },
   tabText: {
     color: Colors.white,
     fontFamily: Fonts.openSansBold,
-    borderColor: Colors.logoBlue,
     paddingHorizontal: Spaces.small,
-    paddingVertical: Spaces.small,
+    paddingVertical: Spaces.normal,
+    textAlign: 'center',
   },
 })

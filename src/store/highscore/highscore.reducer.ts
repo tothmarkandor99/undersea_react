@@ -32,6 +32,7 @@ export const highscoreReducer = (
             <ScoreboardItem>{
               place: item.place,
               name: item.userName,
+              score: item.score,
             },
         ),
       }

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "undersea",
+    "name": "Undersea",
     "slug": "undersea",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -10,19 +10,19 @@
       "resizeMode": "cover",
       "backgroundColor": "#1C3E76"
     },
-    "platforms": ["ios", "android", "web"],
+    "platforms": ["ios", "android"],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "0.1.0",
+      "buildNumber": "1.0.0",
       "bundleIdentifier": "com.enco.undersea",
       "supportsTablet": false
     },
     "android": {
       "package": "com.enco.undersea",
-      "versionCode": 10
+      "versionCode": 100
     }
   }
 }

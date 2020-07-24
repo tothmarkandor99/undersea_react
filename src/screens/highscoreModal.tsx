@@ -12,6 +12,7 @@ import SearchField from '../components/searchField'
 import {Colors} from '../constants/colors'
 import Loading from '../components/loading'
 import {SearchRequest} from '../model/search/search.request'
+import {showMessage} from 'react-native-flash-message'
 
 interface HighscoreModalProps {
   navigation: StackNavigationProp<any>
@@ -28,10 +29,19 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
     dispatch(getHighscores(search as SearchRequest))
   }, [dispatch, search])
 
+  useEffect(() => {
+    if (error !== undefined) {
+      showMessage({
+        message: error,
+        type: 'danger',
+      })
+    }
+  }, [error])
+
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <View style={styles.highscoreRow}>
+        <View style={styles.searchRow}>
           <SearchField
             value={search.searchPhrase}
             onChangeText={text => {
@@ -47,8 +57,12 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
                 <Text style={[styles.highscoreText, styles.highscorePlace]}>
                   {item.place}
                 </Text>
-                <Text style={[styles.highscoreText, styles.highscoreText]}>
-                  {item.name}
+                <Text style={[styles.highscoreText, styles.highscoreName]}>
+                  {item.name.substring(0, 20) +
+                    (item.name.substring(0, 20) !== item.name ? '...' : '')}
+                </Text>
+                <Text style={[styles.highscoreText, styles.highscoreScore]}>
+                  {item.score}
                 </Text>
               </View>
             )
@@ -73,18 +87,38 @@ const styles = StyleSheet.create({
   contentContainer: {
     marginHorizontal: Spaces.medium,
   },
+  searchRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingVertical: Spaces.medium,
+    borderBottomColor: Colors.borderBlue,
+    borderBottomWidth: 1,
+  },
   highscoreRow: {
     flexDirection: 'row',
     paddingVertical: Spaces.medium,
     borderBottomColor: Colors.borderBlue,
     borderBottomWidth: 1,
+    flex: 1,
+    paddingHorizontal: Spaces.small,
   },
   highscoreText: {
     color: Colors.white,
   },
   highscorePlace: {
-    paddingLeft: Spaces.medium,
-    flex: 0.2,
+    flexBasis: 30,
+    flexShrink: 0,
+    flexGrow: 0,
+    textAlign: 'right',
   },
-  highscoreName: {},
+  highscoreName: {
+    flexGrow: 1,
+    flexShrink: 1,
+    paddingLeft: Spaces.normal,
+  },
+  highscoreScore: {
+    flexShrink: 1,
+    flexGrow: 0,
+    textAlign: 'right',
+  },
 })

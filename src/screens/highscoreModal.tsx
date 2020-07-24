@@ -51,9 +51,13 @@ function HighscoreModal({navigation}: HighscoreModalProps) {
         </View>
         <FlatList
           data={scores}
-          renderItem={({item}) => {
+          renderItem={({item, index}) => {
             return (
-              <View style={styles.highscoreRow}>
+              <View
+                style={[
+                  styles.highscoreRow,
+                  index === 0 ? styles.firstHighscoreRow : null,
+                ]}>
                 <Text style={[styles.highscoreText, styles.highscorePlace]}>
                   {item.place}
                 </Text>
@@ -85,21 +89,22 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   contentContainer: {
+    flex: 1,
     marginHorizontal: Spaces.medium,
   },
   searchRow: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     paddingVertical: Spaces.medium,
-    borderBottomColor: Colors.borderBlue,
-    borderBottomWidth: 1,
+  },
+  firstHighscoreRow: {
+    borderTopWidth: 1,
   },
   highscoreRow: {
     flexDirection: 'row',
     paddingVertical: Spaces.medium,
-    borderBottomColor: Colors.borderBlue,
+    borderColor: Colors.borderBlue,
     borderBottomWidth: 1,
-    flex: 1,
     paddingHorizontal: Spaces.small,
   },
   highscoreText: {

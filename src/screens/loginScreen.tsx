@@ -33,8 +33,8 @@ function LoginScreen({navigation}: LoginScreenProps) {
   )
 
   const dispatch = useDispatch()
-  const [userName, setUserName] = useState<string>('first')
-  const [password, setPassword] = useState<string>('undersea') // TODO: kivenni
+  const [userName, setUserName] = useState<string>('')
+  const [password, setPassword] = useState<string>('') // TODO: kivenni
 
   useEffect(() => {
     if (error !== undefined) {

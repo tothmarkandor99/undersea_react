@@ -116,7 +116,7 @@ export default function InfoOverlay({zIndex = 0}: InfoOverlayProps) {
           <Image
             style={styles.infoOverlayImage}
             resizeMode="contain"
-            source={{uri: stats?.resourceStats.coralPictureUrl}}
+            source={{uri: stats?.resourceStats.pearlPictureUrl}}
           />
           <Text style={styles.infoOverlayText}>
             {stats?.resourceStats.pearlCount}

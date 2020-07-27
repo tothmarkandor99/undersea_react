@@ -59,6 +59,9 @@ const createSignalRMiddleware = () => {
       .build()
 
     connection.on('newround', message => {
+      if (Config.loggingSignalR) {
+        console.log('SignalR message received')
+      }
       store.dispatch(getStats())
       store.dispatch(getArmy())
       store.dispatch(getBuildings())
@@ -67,9 +70,12 @@ const createSignalRMiddleware = () => {
       store.dispatch(getAttackUnits())
     })
 
-    connection.onclose(() =>
-      setTimeout(startSignalRConnection(connection), 5000),
-    )
+    connection.onclose(() => {
+      if (Config.loggingSignalR) {
+        console.log('SignalR connection closed. Reconnecting ...')
+      }
+      return setTimeout(startSignalRConnection(connection), 5000)
+    })
 
     startSignalRConnection(connection)
 

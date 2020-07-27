@@ -68,6 +68,8 @@ function* postLogoutActionWatcher(action: PostLogoutRequestAction) {
   try {
     yield userService.logout()
     yield put(postLogoutSuccessActionCreator())
+    SecureStore.deleteItemAsync('access_token')
+    SecureStore.deleteItemAsync('refresh_token')
     yield put(reset())
   } catch (error) {
     console.log(error)

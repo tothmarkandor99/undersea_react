@@ -25,13 +25,6 @@ function ProfileModal({navigation}: ProfileModalProps) {
     (state: IApplicationState) => state.app.user.loggedIn,
   )
 
-  useEffect(() => {
-    if (!loggedIn) {
-      SecureStore.deleteItemAsync('access_token')
-      SecureStore.deleteItemAsync('refresh_token')
-    }
-  }, [loggedIn])
-
   return (
     <View style={styles.container}>
       <View style={[styles.menuItem, styles.profileInfo]}>

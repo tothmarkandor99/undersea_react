@@ -56,10 +56,15 @@ function LoginScreen({navigation}: LoginScreenProps) {
           <LoginTextInput
             placeholder={Strings.username}
             onChangeText={setUserName}
+            autoCompleteType="username"
+            textContentType="username"
           />
           <LoginTextInput
             placeholder={Strings.password}
             onChangeText={setPassword}
+            secureTextEntry={true}
+            autoCompleteType="password"
+            textContentType="password"
           />
         </View>
         <View style={styles.row}>

@@ -9,6 +9,7 @@ import {
   PostBuildRequestAction,
   postBuildSuccesActionCreator,
   postBuildFailureActionCreator,
+  getBuildings,
 } from './building.actions'
 import buildingService from '../../utility/services/buildingService'
 import {BuildResponse} from '../../model/building/build.response'
@@ -45,6 +46,7 @@ function* postBuildActionWatcher(action: PostBuildRequestAction) {
     )
     yield put(postBuildSuccesActionCreator(response.data))
     yield put(getStats())
+    yield put(getBuildings())
   } catch (error) {
     console.log(error)
     const errorMessage = 'Hiba a betöltés közben'

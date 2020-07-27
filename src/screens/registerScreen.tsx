@@ -70,14 +70,22 @@ function RegisterScreen({navigation}: RegisterScreenProps) {
           <LoginTextInput
             placeholder={Strings.username}
             onChangeText={setUserName}
+            textContentType="username"
+            autoCompleteType="username"
           />
           <LoginTextInput
             placeholder={Strings.password}
             onChangeText={setPassword}
+            secureTextEntry={true}
+            autoCompleteType="password"
+            textContentType="password"
           />
           <LoginTextInput
             placeholder={Strings.confirmPassword}
             onChangeText={setConfirmPassword}
+            secureTextEntry={true}
+            autoCompleteType="password"
+            textContentType="password"
           />
           <LoginTextInput
             placeholder={Strings.yourCityName}

@@ -8,9 +8,9 @@ import {RFValue} from 'react-native-responsive-fontsize'
 export default function LoginTextInput(props: TextInputProps) {
   return (
     <TextInput
-      {...props}
       style={[styles.loginField, props.style]}
       placeholderTextColor={props.placeholderTextColor ?? Colors.mediumDarkBlue}
+      {...props}
     />
   )
 }

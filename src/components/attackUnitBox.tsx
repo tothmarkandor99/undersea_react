@@ -18,7 +18,7 @@ export default function AttackUnitBox({unit}: AttackUnitBoxProps) {
       <Image style={styles.image} source={{uri: unit.imageUrl}} />
       <View style={styles.rightSection}>
         <Text style={styles.name}>
-          {unit.name}: {unit.count} db
+          {unit.name}: {unit.count}/{unit.maxCount}
         </Text>
         <Slider
           disabled={unit.maxCount === 0}

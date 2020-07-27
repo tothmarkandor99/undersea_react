@@ -61,8 +61,8 @@ export default function AttackTargetScreen({
     )
   }
 
-  const renderListHeader = () => {
-    return (
+  return (
+    <View style={styles.container}>
       <View style={styles.listHeader}>
         <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
         <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
@@ -73,11 +73,6 @@ export default function AttackTargetScreen({
           value={search.searchPhrase}
         />
       </View>
-    )
-  }
-
-  return (
-    <View style={styles.container}>
       <View style={styles.contentContainer}>
         <FlatList
           onEndReached={() => {
@@ -85,7 +80,7 @@ export default function AttackTargetScreen({
           }}
           ListEmptyComponent={renderEmptyList}
           style={styles.listBody}
-          ListHeaderComponent={renderListHeader}
+          //ListHeaderComponent={renderListHeader}
           data={attackTargets}
           renderItem={({item}) => {
             return <AttackTargetBox target={item} />

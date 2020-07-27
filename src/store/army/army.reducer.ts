@@ -85,30 +85,35 @@ export const armyReducer = (
         isLoading: false,
       }
     case INCREMENT_ARMY_COUNT:
-      let incrementedUnits = state.purchasableUnits
-      for (let i: number = 0; i < incrementedUnits.length; i++) {
-        if (incrementedUnits[i].id === action.unit.id) {
-          incrementedUnits[i].viewCount += 1
-        }
-      }
       return {
         ...state,
-        purchasableUnits: incrementedUnits,
+        purchasableUnits: state.purchasableUnits.map(
+          item =>
+            <PurchasableUnit>{
+              ...item,
+              viewCount:
+                item.id === action.unit.id
+                  ? item.viewCount + 1
+                  : item.viewCount,
+            },
+        ),
         selectedUnitCount: state.selectedUnitCount + 1,
       }
     case DECREMENT_ARMY_COUNT:
-      let decrementedUnits = state.purchasableUnits
-      for (let i: number = 0; i < decrementedUnits.length; i++) {
-        if (
-          decrementedUnits[i].id === action.unit.id &&
-          decrementedUnits[i].viewCount > 0
-        ) {
-          decrementedUnits[i].viewCount -= 1
-        }
-      }
       return {
         ...state,
-        purchasableUnits: decrementedUnits,
+        purchasableUnits: state.purchasableUnits.map(
+          item =>
+            <PurchasableUnit>{
+              ...item,
+              viewCount: Math.max(
+                item.id === action.unit.id
+                  ? item.viewCount - 1
+                  : item.viewCount,
+                0,
+              ),
+            },
+        ),
         selectedUnitCount: state.selectedUnitCount - 1,
       }
     default:

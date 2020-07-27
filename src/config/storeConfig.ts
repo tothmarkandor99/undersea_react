@@ -11,13 +11,7 @@ import {getBuildings} from '../store/building/building.actions'
 import {getFights} from '../store/fight/fight.actions'
 import {getUpgrades} from '../store/upgrade/upgrade.actions'
 import {getAttackUnits} from '../store/attack/attack.actions'
-
-const connection = new signalR.HubConnectionBuilder()
-  .configureLogging(Config.signalRLogLevel)
-  .withUrl(
-    'http://underseat2lasttry.webtest.encosoft.internal/api/newround',
-  ) /* TODO: kiszervezni configba */
-  .build()
+import {showMessage} from 'react-native-flash-message'
 
 export function configureStore() {
   const sagaMiddleware = createSagaMiddleware()
@@ -27,18 +21,24 @@ export function configureStore() {
     const logger = createLogger({})
     store = createStore(
       deepRootReducer,
-      applyMiddleware(sagaMiddleware, logger),
+      applyMiddleware(sagaMiddleware, createSignalRMiddleware(), logger),
     )
   } else if (Config.loggingRedux === 'names') {
     store = createStore(
       deepRootReducer,
-      applyMiddleware(sagaMiddleware, loggerMiddleware),
+      applyMiddleware(
+        sagaMiddleware,
+        createSignalRMiddleware(),
+        loggerMiddleware,
+      ),
     )
   } else {
-    store = createStore(deepRootReducer, applyMiddleware(sagaMiddleware))
+    store = createStore(
+      deepRootReducer,
+      applyMiddleware(sagaMiddleware, createSignalRMiddleware()),
+    )
   }
   sagaMiddleware.run(rootSaga)
-  setupSignalRReceiver(store)
 
   return store
 }
@@ -47,6 +47,34 @@ function loggerMiddleware(store: any) {
   return function (next: (arg0: {type: any}) => any) {
     return function (action: {type: any}) {
       console.log(action.type)
+      return next(action)
+    }
+  }
+}
+
+const createSignalRMiddleware = () => {
+  return store => {
+    let connection = new signalR.HubConnectionBuilder()
+      .configureLogging(Config.signalRLogLevel)
+      .withUrl(Config.signalRUrl)
+      .build()
+
+    connection.on('newround', message => {
+      store.dispatch(getStats())
+      store.dispatch(getArmy())
+      store.dispatch(getBuildings())
+      store.dispatch(getFights())
+      store.dispatch(getUpgrades())
+      store.dispatch(getAttackUnits())
+    })
+
+    connection.onclose(() =>
+      setTimeout(startSignalRConnection(connection), 5000),
+    )
+
+    startSignalRConnection(connection)
+
+    return next => action => {
       return next(action)
     }
   }
@@ -62,31 +90,6 @@ const startSignalRConnection = (connection: signalR.HubConnection) =>
     })
     .catch(err => {
       if (Config.loggingSignalR) {
-        console.error('SignalR Connection Error: ', err)
+        console.error('SignalR Connection Error: ', JSON.stringify(err))
       }
     })
-
-function setupSignalRReceiver(store: any) {
-  if (Config.loggingSignalR) {
-    console.log('Connection state:', connection.state)
-  }
-  if (connection.state === signalR.HubConnectionState.Disconnected) {
-    connection.on('newround', () => {
-      if (Config.loggingSignalR) {
-        console.log('SignalR message received')
-      }
-      store.dispatch(getStats())
-      store.dispatch(getArmy())
-      store.dispatch(getBuildings())
-      store.dispatch(getFights())
-      store.dispatch(getUpgrades())
-      store.dispatch(getAttackUnits())
-    })
-
-    connection.onclose(() =>
-      setTimeout(startSignalRConnection(connection), 5000),
-    )
-
-    startSignalRConnection(connection)
-  }
-}

@@ -37,7 +37,6 @@ function* watchLogout() {
 }
 
 function* postLoginActionWatcher(action: PostLoginRequestAction) {
-  // TODO: ez lehet async? Ádám
   try {
     const response: AxiosResponse<LoginResponse> = yield userService.logIn(
       action.user,

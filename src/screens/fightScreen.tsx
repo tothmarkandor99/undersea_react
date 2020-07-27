@@ -9,7 +9,6 @@ import FightItem from '../components/fightItem'
 import {Strings} from '../constants/strings'
 import Loading from '../components/loading'
 import {showMessage} from 'react-native-flash-message'
-import GameFooter from '../components/gameFooter'
 import {Colors} from '../constants/colors'
 import {Fonts} from '../constants/fonts'
 

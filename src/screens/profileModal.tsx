@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native'
 import {Spaces} from '../constants/spaces'
@@ -8,7 +8,6 @@ import {Strings} from '../constants/strings'
 import {Fonts} from '../constants/fonts'
 import {Colors} from '../constants/colors'
 import {logout} from '../store/user/user.actions'
-import * as SecureStore from 'expo-secure-store'
 
 interface ProfileModalProps {
   navigation: StackNavigationProp<any>
@@ -20,9 +19,6 @@ function ProfileModal({navigation}: ProfileModalProps) {
 
   const userName = useSelector(
     (state: IApplicationState) => state.app.stats.stats?.countryName,
-  )
-  const loggedIn = useSelector(
-    (state: IApplicationState) => state.app.user.loggedIn,
   )
 
   return (

@@ -3,7 +3,7 @@ import 'react-native-gesture-handler'
 // Keep this top ^
 
 // Package imports
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {StyleSheet} from 'react-native'
 import * as Font from 'expo-font'
 import {AppLoading} from 'expo'
@@ -13,8 +13,6 @@ import Navi from './src/navigation/navigation'
 import {Fonts} from './src/constants/fonts'
 import FlashMessage from 'react-native-flash-message'
 import AdminButton from './src/components/adminButton'
-
-//import signalR from '@microsoft/signalr'
 
 // Resources
 let customFonts = {

@@ -29,7 +29,6 @@ function ProfileModal({navigation}: ProfileModalProps) {
     if (!loggedIn) {
       SecureStore.deleteItemAsync('access_token')
       SecureStore.deleteItemAsync('refresh_token')
-      console.log('Tokens removed')
     }
   }, [loggedIn])
 

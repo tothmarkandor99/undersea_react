@@ -44,7 +44,7 @@ Network.interceptors.request.use(request => {
 
 Network.interceptors.response.use(response => {
   if (Config.loggingResponses) {
-    console.log(response.status, response.statusText)
+    console.log(response.status, response.statusText ?? '')
     console.log(response.data)
   }
   return response

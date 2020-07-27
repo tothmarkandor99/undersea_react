@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: Constants.statusBarHeight,
+    paddingHorizontal: Spaces.medium,
   },
   avatar: {
     width: RFValue(31, 568),
     height: RFValue(31, 568),
-    margin: Spaces.medium,
+    marginVertical: Spaces.medium,
   },
 })

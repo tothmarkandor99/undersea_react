@@ -67,10 +67,12 @@ export default function AttackTargetScreen({
         <Text style={[styles.text, styles.upperText]}>{Strings._1stStep}</Text>
         <Text style={styles.text}>{Strings.selectWhoYouWantToAttack}</Text>
         <SearchField
+          placeholder={Strings.username}
           onChangeText={text => {
             dispatch(setSearchPhrase(text))
           }}
           value={search.searchPhrase}
+          style={styles.searchField}
         />
       </View>
       <View style={styles.contentContainer}>
@@ -80,7 +82,6 @@ export default function AttackTargetScreen({
           }}
           ListEmptyComponent={renderEmptyList}
           style={styles.listBody}
-          //ListHeaderComponent={renderListHeader}
           data={attackTargets}
           renderItem={({item}) => {
             return <AttackTargetBox target={item} />
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.white,
+    marginHorizontal: Spaces.medium,
   },
   upperText: {
     fontWeight: 'bold',
@@ -132,5 +134,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: Colors.white,
     fontFamily: Fonts.openSansBold,
+  },
+  searchField: {
+    marginTop: Spaces.large,
+    marginHorizontal: Spaces.medium,
   },
 })

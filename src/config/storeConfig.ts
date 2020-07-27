@@ -11,7 +11,6 @@ import {getBuildings} from '../store/building/building.actions'
 import {getFights} from '../store/fight/fight.actions'
 import {getUpgrades} from '../store/upgrade/upgrade.actions'
 import {getAttackUnits} from '../store/attack/attack.actions'
-import {showMessage} from 'react-native-flash-message'
 
 export function configureStore() {
   const sagaMiddleware = createSagaMiddleware()

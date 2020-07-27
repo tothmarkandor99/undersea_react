@@ -97,8 +97,6 @@ const styles = StyleSheet.create({
     marginHorizontal: Spaces.medium,
   },
   searchRow: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
     paddingVertical: Spaces.medium,
   },
   firstHighscoreRow: {

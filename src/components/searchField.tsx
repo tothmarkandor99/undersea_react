@@ -2,6 +2,7 @@ import React from 'react'
 import {StyleSheet, TextInput, TextInputProps} from 'react-native'
 import {Spaces} from '../constants/spaces'
 import {Colors} from '../constants/colors'
+import {Fonts} from '../constants/fonts'
 
 export default function SearchField(props: TextInputProps) {
   return (
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
     borderRadius: 1000,
     paddingVertical: Spaces.normal,
     paddingHorizontal: Spaces.medium,
-    flex: 1,
     color: Colors.darkBlue,
+    fontFamily: Fonts.openSansRegular,
   },
 })
